@@ -10,6 +10,11 @@
       "StackName": "amplify-peoplehouse-main-94348",
       "StackId": "arn:aws:cloudformation:eu-west-1:263387626733:stack/amplify-peoplehouse-main-94348/44c12ad0-5b77-11ee-b433-0afea78a4fcf",
       "AmplifyAppId": "d19nd0vf67hcn2"
+    },
+    "categories": {
+      "api": {
+        "peoplehouse": {}
+      }
     }
   }
 }
