@@ -19,7 +19,7 @@ jobs:
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: "16"
       # This step runs `npm ci` to install any dependencies listed in your `package.json` file.
       - run: npm ci
       # This step runs the `build` script if there is one specified under the `scripts` key in your `package.json` file.
@@ -30,6 +30,8 @@ jobs:
         run: |
           ! grep -PRn --include '*.ts' --include '*.tsx' '^.*\/\/.*TODO[ :]*(?:(?!DIGIWORK-[0-9]+).)*$' src
       #we need to do eslint check for the project
-      # - name: Check for eslint errors
-      #   run: npm run lint
+      - name: Fix auto fixable eslint errors
+        run: npm run lint:fix
 
+      - name: Double check for eslint errors
+        run: npm run lint

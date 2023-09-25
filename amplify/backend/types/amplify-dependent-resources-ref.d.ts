@@ -1,9 +1,9 @@
-export type AmplifyDependentResourcesAttributes = {
-  "api": {
-    "peoplehouse": {
-      "GraphQLAPIEndpointOutput": "string",
-      "GraphQLAPIIdOutput": "string",
-      "GraphQLAPIKeyOutput": "string"
+export interface AmplifyDependentResourcesAttributes {
+  api: {
+    peoplehouse: {
+      GraphQLAPIEndpointOutput: 'string'
+      GraphQLAPIIdOutput: 'string'
+      GraphQLAPIKeyOutput: 'string'
     }
   }
 }
