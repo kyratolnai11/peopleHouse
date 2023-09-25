@@ -1,0 +1,35 @@
+# The name of the workflow. GitHub displays the names of your workflows under your repository's "Actions" tab. If you omit `name`, GitHub displays the workflow file path relative to the root of the repository.
+name: merge-to-main
+
+# This example workflow assumes that the default branch for your repository is `main`. If the default branch has a different name, edit this example and add your repository's default branch.
+on:
+  push:
+    branches: [main]
+
+#
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+
+    #
+    steps:
+      # This step uses the `actions/checkout` action to download a copy of your repository on the runner.
+      - uses: actions/checkout@v3
+      # This step uses the `actions/setup-node` action to set up Node.js for each version indicated by the `matrix.node-version` key above.
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      # This step runs `npm ci` to install any dependencies listed in your `package.json` file.
+      - run: npm ci
+      # This step runs the `build` script if there is one specified under the `scripts` key in your `package.json` file.
+      - run: npm run build --if-present
+      # This step runs the `test` script that is specified under the `scripts` key in your `package.json` file.
+
+      - name: Run grep to catch wild TODOs
+        run: |
+          ! grep -PRn --include '*.ts' --include '*.tsx' '^.*\/\/.*TODO[ :]*(?:(?!DIGIWORK-[0-9]+).)*$' src
+      #we need to do eslint check for the project
+      # - name: Check for eslint errors
+      #   run: npm run lint
+
