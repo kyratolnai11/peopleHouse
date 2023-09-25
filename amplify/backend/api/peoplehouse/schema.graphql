@@ -1,49 +1,50 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+} # FOR TESTING ONLY!
 type User @model {
+  id: ID!
   firstname: String!
   lastname: String!
   userType: UserType!
   email: String!
   password: String!
-  crews: [Crew]
-  events: [Event]
-  venues: [Venue] # Venues associated with the user
+  crews: [Crew] @hasMany
+  events: [Event] @hasMany
 }
 
 type Venue @model {
+  id: ID!
   name: String!
   description: String!
   capacity: Int!
   openingHours: String!
-  events: [Event] 
-  users: [User] 
-}
-
-type Event @model {
-  title: String!
-  brief: String!
-  description: String!
-  agenda: String!
-  datetime: DateTime!
-  numOfTickets: Int!
-  host: String!
-  attendees: [Attendee] 
-}
-
-union Attendee = User | Crew
-
-
-enum UserType {
-  NORMAL
-  COMMUNITY_BUILDER
+  events: [Event] @hasMany
 }
 
 type Crew @model {
+  id: ID!
   firstname: String!
   lastname: String!
   familyRole: String!
 }
 
+type Event @model {
+  id: ID!
+  title: String!
+  brief: String!
+  description: String!
+  agenda: String!
+  datetime: AWSDateTime!
+  numOfTickets: Int!
+  host: String!
+  userAttendees: [User] @hasMany
+  crewAttendees: [Crew] @hasMany
+  venue: Venue @belongsTo
+}
+
+enum UserType {
+  NORMAL
+  COMMUNITY_BUILDER
+}
