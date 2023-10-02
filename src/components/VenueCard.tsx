@@ -10,7 +10,12 @@ const VenueCard = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <Card>
-            <Text style={styles.paragraph}>{title}</Text>
+            <Image 
+                source={require('../../assets/venue-images/LEGO-arena.png')}
+                style={styles.image}
+            />
+            <Text style={styles.shortDescription}>{shortDescription}</Text>
+            <Text style={styles.description}>{title}</Text>
         </Card>
       </View>
     </SafeAreaView>
@@ -24,12 +29,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: "center",
     padding: 20,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#ecf0f1'
   },
-  paragraph: {
-    fontSize: 18,
+  shortDescription: {
+    fontSize: 14,
     fontWeight: 'bold',
-    textAlign: 'center',
-    padding: 20
+    textAlign: 'left',
+    paddingBottom: 0,
+    padding: 10,
   },
+  description: {
+    fontSize: 10,
+    textAlign: 'left',
+    padding: 10
+  },
+  image: {
+    width: 200, 
+    height: 100,
+    borderRadius: 12.5,
+    overflow: 'hidden'
+  }
 });
