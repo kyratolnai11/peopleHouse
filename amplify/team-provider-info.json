@@ -12,9 +12,6 @@
       "AmplifyAppId": "d19nd0vf67hcn2"
     },
     "categories": {
-      "api": {
-        "peoplehouse": {}
-      },
       "auth": {
         "peoplehouse8eb5bca3": {}
       }

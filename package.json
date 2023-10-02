@@ -11,15 +11,15 @@
     "lint:fix": "npx eslint src/**/*.ts amplify/**/*.ts --fix"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "1.19.3",
-    "@react-native-community/netinfo": "9.4.1",
+    "@react-native-async-storage/async-storage": "1.18.2",
+    "@react-native-community/netinfo": "9.3.10",
     "@typescript-eslint/parser": "6.7.2",
     "amazon-cognito-identity-js": "6.3.6",
     "aws-amplify": "5.3.11",
-    "expo": "~49.0.11",
+    "expo": "^49.0.13",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
-    "react-native": "0.72.4"
+    "react-native": "0.72.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
