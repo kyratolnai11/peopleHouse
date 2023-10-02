@@ -17,6 +17,7 @@ type User @model {
 type Venue @model {
   id: ID!
   name: String!
+  shortDescription: String!
   description: String!
   capacity: Int!
   openingHours: String!
