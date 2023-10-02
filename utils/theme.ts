@@ -15,9 +15,14 @@ const sharedColors = {
   white: "#FFFFFF",
 };
 
-type SharedColors = typeof sharedColors;
+const extraColors = {
+  infoSectionRed: "#730012",
+};
 
-export type TColors = ColorTheme & SharedColors;
+type SharedColors = typeof sharedColors;
+type ExtraColors = typeof extraColors;
+
+export type TColors = ColorTheme & SharedColors & ExtraColors;
 
 type ColorPalettes = {
   light: TColors;
@@ -36,6 +41,7 @@ const Colors: ColorPalettes = {
     secondaryBackground: "#663D78DF", //darker transparent lavender for sections
     tertiaryBackground: "#708299", //dark grey for Homestay
     ...sharedColors,
+    ...extraColors,
   },
   light: {
     primary: "#FFD400", //Peoplehouse yellow
@@ -48,6 +54,7 @@ const Colors: ColorPalettes = {
     secondaryBackground: "#CCA3DE33", //transparent lavender for sections
     tertiaryBackground: "#F1F1F1", //light grey for Homestay
     ...sharedColors,
+    ...extraColors,
   },
 };
 
