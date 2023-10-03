@@ -5,6 +5,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import AccordionWithInfo from "../components/hamburger-menu/AccordionWithInfo";
 import CrewSection from "../components/hamburger-menu/CrewSection";
 import QuestionSection from "../components/hamburger-menu/QuestionSection";
+import OpeningHoursSection from "../components/hamburger-menu/OpeningHoursSection";
 
 const InfoScreen: React.FC = () => {
   return (
@@ -12,8 +13,8 @@ const InfoScreen: React.FC = () => {
       <ScrollView style={{ width: "100%" }}>
         <QuestionSection />
         <CrewSection />
-
         <AccordionWithInfo />
+        <OpeningHoursSection />
       </ScrollView>
     </SafeAreaView>
   );
