@@ -1,15 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Accordion from "./Accordion";
-
-// interface AccordionProps {
-//   title: string;
-//   content: ReactNode;
-// }
+import Colors from "../../../utils/theme";
 
 const AccordionWithInfo: React.FC = () => {
   return (
-    <View>
+    <View style={styles.sectionOne}>
+      <Text style={styles.sectionTitle}>About the venues</Text>
       <Accordion
         title="LEGO Gym"
         content={
@@ -183,18 +180,19 @@ const AccordionWithInfo: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  sectionOne: {
     alignItems: "center",
+    backgroundColor: Colors.light.primaryBackground,
     width: "100%",
+    paddingHorizontal: 20,
+    paddingVertical: 35,
   },
-  title: {
-    fontSize: 18,
+  sectionTitle: {
+    fontSize: 25,
     fontWeight: "bold",
-  },
-  content: {
-    marginTop: 10,
+    paddingBottom: 8,
+    color: "#730012",
+    textAlign: "center",
   },
   questionText: {
     fontWeight: "bold",
