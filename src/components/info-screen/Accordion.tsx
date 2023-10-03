@@ -1,5 +1,6 @@
 import React, { ReactNode, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { infoStyles } from "./StyleSheet";
 
 interface AccordionProps {
   title: string;
@@ -13,40 +14,15 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
     setIsExpanded(!isExpanded);
   };
 
-  const styles = StyleSheet.create({
-    container: {
-      borderWidth: 1,
-      borderColor: "#ccc",
-      margin: 10,
-      padding: 10,
-      borderRadius: 5,
-    },
-    header: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      width: 350,
-      paddingBottom: isExpanded ? 15 : 0,
-    },
-    title: {
-      fontSize: 18,
-      fontWeight: "bold",
-    },
-    content: {
-      marginTop: 10,
-
-    },
-  });
-
   return (
-    <View style={styles.container}>
+    <View style={infoStyles.container}>
       <TouchableOpacity onPress={toggleAccordion}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{title}</Text>
+        <View style={infoStyles.header}>
+          <Text style={infoStyles.title}>{title}</Text>
           <Text>{isExpanded ? "-" : "+"}</Text>
         </View>
       </TouchableOpacity>
-      {isExpanded && <View style={styles.content}>{content}</View>}
+      {isExpanded && <View style={infoStyles.content}>{content}</View>}
     </View>
   );
 };
