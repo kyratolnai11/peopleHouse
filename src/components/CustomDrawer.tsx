@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Appearance } from "react-native";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -12,6 +12,7 @@ const CustomDrawer: React.FC<{
   navigation: any;
   descriptors: any;
 }> = ({ state, navigation, descriptors }) => {
+  const colorScheme = Appearance.getColorScheme();
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -19,7 +20,7 @@ const CustomDrawer: React.FC<{
       >
         <View style={{ padding: 20 }}>
           <Image
-            source={require("../../assets/logo192.png")}
+            source={require("../../assets/lego-figure.png")}
             style={{
               height: 80,
               width: 80,
@@ -38,7 +39,16 @@ const CustomDrawer: React.FC<{
             John Doe
           </Text>
         </View>
-        <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor:
+              colorScheme === "dark"
+                ? Colors.dark.primaryBackground
+                : Colors.light.primaryBackground,
+            paddingTop: 10,
+          }}
+        >
           <DrawerItemList
             state={state}
             navigation={navigation}
