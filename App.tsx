@@ -6,10 +6,10 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./src/screens/HomeScreen.tsx";
 import InfoScreen from "./src/screens/InfoScreen.tsx";
-import CustomDrawer from "./src/components/CustomDrawer.tsx";
+import CustomDrawer from "./src/components/hamburger-menu/CustomDrawer.tsx";
 import Colors from "./utils/theme.ts";
 import { Appearance } from "react-native";
-import { ActionBarImage } from "./src/components/ActionBarImage.tsx";
+import { ActionBarImage } from "./src/components/hamburger-menu/ActionBarImage.tsx";
 
 //Important: Remember to import Auth when we get to the authentication part
 

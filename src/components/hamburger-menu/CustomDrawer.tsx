@@ -5,7 +5,7 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import Colors from "../../utils/theme";
+import Colors from "../../../utils/theme";
 
 const CustomDrawer: React.FC<{
   state: any;
@@ -20,7 +20,7 @@ const CustomDrawer: React.FC<{
       >
         <View style={{ padding: 20 }}>
           <Image
-            source={require("../../assets/lego-figure.png")}
+            source={require("../../../assets/lego-figure.png")}
             style={{
               height: 80,
               width: 80,
