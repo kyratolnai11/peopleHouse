@@ -1,13 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { DrawerContentScrollView } from "@react-navigation/drawer";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
 import Colors from "../../utils/theme";
 
-const CustomDrawer: React.FC = (props) => {
+const CustomDrawer: React.FC<{
+  state: any;
+  navigation: any;
+  descriptors: any;
+}> = ({ state, navigation, descriptors }) => {
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
-        {...props}
         contentContainerStyle={{ backgroundColor: Colors.dark.secondary }}
       >
         <View style={{ padding: 20 }}>
@@ -32,7 +39,11 @@ const CustomDrawer: React.FC = (props) => {
           </Text>
         </View>
         <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
-          {/* <DrawerItemList state={undefined} navigation={undefined} descriptors={} {...props} /> */}
+          <DrawerItemList
+            state={state}
+            navigation={navigation}
+            descriptors={descriptors}
+          />
         </View>
       </DrawerContentScrollView>
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
