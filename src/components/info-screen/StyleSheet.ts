@@ -81,6 +81,37 @@ export const infoStyles = StyleSheet.create({
   },
   content: {
     marginTop: 10,
+  },
+  openingHPicture: {
+    resizeMode: "contain",
+    alignSelf: "center",
+    width: 350,
+    marginTop: -20,
+  },
 
+  openingHPictureTwo: {
+    resizeMode: "contain",
+    alignSelf: "center",
+    width: 250,
+  },
+  hourPicOneCont: {
+    transform: "rotate(-5deg)",
+  },
+
+  hourPicTwoCont: {
+    transform: "rotate(7deg)",
+    position: "absolute",
+    top: 200,
+    right: 50,
+  },
+
+  titleSection: {
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingBottom: 20,
+  },
+  descriptionWithPadding: {
+    fontSize: 16,
+    paddingBottom: 10,
   },
 });
