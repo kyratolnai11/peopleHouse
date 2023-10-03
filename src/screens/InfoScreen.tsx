@@ -2,10 +2,10 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import AccordionWithInfo from "../components/hamburger-menu/AccordionWithInfo";
-import CrewSection from "../components/hamburger-menu/CrewSection";
-import QuestionSection from "../components/hamburger-menu/QuestionSection";
-import OpeningHoursSection from "../components/hamburger-menu/OpeningHoursSection";
+import AccordionWithInfo from "../components/info-screen/AccordionWithInfo";
+import CrewSection from "../components/info-screen/CrewSection";
+import QuestionSection from "../components/info-screen/QuestionSection";
+import OpeningHoursSection from "../components/info-screen/OpeningHoursSection";
 
 const InfoScreen: React.FC = () => {
   return (
