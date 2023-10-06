@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import Accordion from "./Accordion";
 import { infoStyles } from "./StyleSheet";
 
-const AccordionWithInfo: React.FC = () => {
+const AccordionWithInfoSection: React.FC = () => {
   return (
     <View style={infoStyles.sectionOne}>
       <Text style={infoStyles.sectionTitle}>About the venues</Text>
@@ -181,4 +181,4 @@ const AccordionWithInfo: React.FC = () => {
   );
 };
 
-export default AccordionWithInfo;
+export default AccordionWithInfoSection;
