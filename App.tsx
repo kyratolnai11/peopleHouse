@@ -25,7 +25,7 @@ export default function App() {
         initialRouteName="Home"
         drawerContent={CustomDrawer}
         screenOptions={{
-          headerStyle: { backgroundColor: Colors.dark.primary, height:120 },
+          headerStyle: { backgroundColor: Colors.dark.primary, height: 120 },
           headerTintColor: Colors.dark.primaryBackground,
           drawerActiveBackgroundColor:
             colorScheme === "dark"
@@ -39,11 +39,11 @@ export default function App() {
           drawerLabelStyle: {
             fontSize: 15,
           },
-          headerRight: () => <ActionBarImage />
+          headerRight: () => <ActionBarImage />,
         }}
       >
-        <Drawer.Screen name="Home" component={InfoScreen} />
-        <Drawer.Screen name="Info" component={HomeScreen} />
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Info" component={InfoScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

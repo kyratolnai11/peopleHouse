@@ -114,4 +114,14 @@ export const infoStyles = StyleSheet.create({
     fontSize: 16,
     paddingBottom: 10,
   },
+  imageSection4: {
+    width: 200,
+    height: 200,
+    resizeMode: "contain",
+  },
+  link: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+  },
 });
