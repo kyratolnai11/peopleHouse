@@ -2,13 +2,6 @@ import { StyleSheet } from "react-native";
 import Colors from "../../../utils/theme";
 
 export const infoStyles = StyleSheet.create({
-  sectionOne: {
-    alignItems: "center",
-    backgroundColor: Colors.light.primaryBackground,
-    width: "100%",
-    paddingHorizontal: 20,
-    paddingVertical: 35,
-  },
   bgColor: {
     backgroundColor: Colors.light.primaryBackground,
   },
@@ -33,9 +26,6 @@ export const infoStyles = StyleSheet.create({
     height: 150,
     resizeMode: "cover",
     alignSelf: "center",
-  },
-  text: {
-    fontSize: 16,
   },
   questionText: {
     color: Colors.dark.secondary,

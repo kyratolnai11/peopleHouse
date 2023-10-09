@@ -2,11 +2,12 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 import { infoStyles } from "./StyleSheet";
 import Colors from "../../../utils/theme";
+import { sharedStyles } from "../../../utils/SharedStyles";
 
 const OpeningHoursSection: React.FC = () => {
   return (
     <View
-      style={[infoStyles.sectionOne, { backgroundColor: Colors.dark.primary }]}
+      style={[sharedStyles.mainContainer, { backgroundColor: Colors.dark.primary }]}
     >
       <Text style={infoStyles.sectionTitle}>Opening hours</Text>
       <View style={{ position: "relative", height: 470 }}>
