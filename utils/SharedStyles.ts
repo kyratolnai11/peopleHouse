@@ -30,6 +30,11 @@ export const sharedStyles = StyleSheet.create({
     paddingBottom: 10,
     lineHeight: 25,
   },
+  link: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+  },
 });
 
 //Practices:

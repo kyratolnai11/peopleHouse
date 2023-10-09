@@ -2,10 +2,11 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 import { infoStyles } from "./StyleSheet";
 import EmailLink from "./EmailLink";
+import { sharedStyles } from "../../../utils/SharedStyles";
 
 const StillHaveQuestionSection: React.FC = () => {
   return (
-    <View style={[infoStyles.sectionOne]}>
+    <View style={[sharedStyles.mainContainer, infoStyles.bgColor]}>
       <Text style={infoStyles.sectionTitle}>Do you still have a question?</Text>
 
       <Image

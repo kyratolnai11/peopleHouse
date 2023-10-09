@@ -13,6 +13,9 @@ export const infoStyles = StyleSheet.create({
     backgroundColor: Colors.light.primaryBackground,
   },
   bgColorCrew: { backgroundColor: Colors.dark.secondary },
+  bgColorStillQuestions: {
+    backgroundColor: Colors.light.primary,
+  },
   sectionTitle: {
     fontSize: 25,
     fontWeight: "bold",
@@ -111,10 +114,5 @@ export const infoStyles = StyleSheet.create({
     width: 200,
     height: 200,
     resizeMode: "contain",
-  },
-  link: {
-    fontSize: 16,
-    fontWeight: "bold",
-    textDecorationLine: "underline",
   },
 });

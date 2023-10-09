@@ -1,7 +1,7 @@
 import React from "react";
 import { Linking, Text } from "react-native";
-import { infoStyles } from "./StyleSheet";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { sharedStyles } from "../../../utils/SharedStyles";
 
 type EmailLinkProp = {
   name: string;
@@ -10,7 +10,7 @@ type EmailLinkProp = {
 const EmailLink: React.FC<EmailLinkProp> = ({ name }) => {
   return (
     <TouchableOpacity onPress={() => Linking.openURL("mailto:" + name)}>
-      <Text style={infoStyles.link}>{name}</Text>
+      <Text style={sharedStyles.link}>{name}</Text>
     </TouchableOpacity>
   );
 };
