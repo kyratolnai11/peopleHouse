@@ -9,6 +9,9 @@ export const infoStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 35,
   },
+  bgColor: {
+    backgroundColor: Colors.light.primaryBackground,
+  },
   sectionTitle: {
     fontSize: 25,
     fontWeight: "bold",

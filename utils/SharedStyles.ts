@@ -25,6 +25,11 @@ export const sharedStyles = StyleSheet.create({
     paddingBottom: 10,
     lineHeight: 28,
   },
+  text: {
+    fontSize: 18,
+    paddingBottom: 10,
+    lineHeight: 25,
+  },
 });
 
 //Practices:
