@@ -12,6 +12,7 @@ export const infoStyles = StyleSheet.create({
   bgColor: {
     backgroundColor: Colors.light.primaryBackground,
   },
+  bgColorCrew: { backgroundColor: Colors.dark.secondary },
   sectionTitle: {
     fontSize: 25,
     fontWeight: "bold",
@@ -39,20 +40,9 @@ export const infoStyles = StyleSheet.create({
     fontSize: 20,
     paddingBottom: 10,
     paddingTop: 20,
+    lineHeight: 25,
   },
-  sectionTwo: {
-    backgroundColor: Colors.dark.secondary,
-    width: "100%",
-    paddingHorizontal: 20,
-    paddingVertical: 35,
-    alignItems: "center",
-  },
-  descriptionSTwo: {
-    fontSize: 16,
-    color: Colors.dark.textPrimary,
-    paddingBottom: 10,
-    textAlign: "justify",
-  },
+  textCrew: { color: "white", textAlign: "justify" },
   imageSTwo: {
     resizeMode: "contain",
     alignSelf: "center",
