@@ -9,6 +9,19 @@ const styles = StyleSheet.create({
       alignItems: "flex-start",
       justifyContent: "center",
     },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingBottom: 0,
+        padding: 10,
+      },
+      description: {
+        fontSize: 14,
+        textAlign: 'left',
+        paddingBottom: 0,
+        padding: 10,
+      },
   });
 
 const Venues = () => {
@@ -17,9 +30,8 @@ const Venues = () => {
 
   return (
     <View style={styles.container}>
-      <Text>{title}</Text>
-      <Text>{description}</Text>
-      <VenueCard/>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.description}>{description}</Text>
     </View>
   );
 };

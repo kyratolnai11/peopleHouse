@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, Text, View, StyleSheet, Image } from 'react-native';
 import { Card } from 'react-native-paper';
 
-const VenueCard = () => {
+const VenueCard = (props: Venue) => {
     const title = 'LEGO Arena'
     const shortDescription = 'Ready'
     const description = 'Ready Set GO'
