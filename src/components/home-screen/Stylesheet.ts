@@ -9,17 +9,8 @@ export const homeStyles = StyleSheet.create({
     backgroundColor: Colors.light.secondaryBackground,
     paddingHorizontal: 20,
   },
-  title: {
-    fontSize: 31,
-    fontWeight: "bold",
-    marginVertical: 40,
-    textAlign: "center",
-  },
-  content: {
-    fontSize: 18,
-    textAlign: "center",
-    paddingBottom: 10,
-    lineHeight: 28,
+  bgColor: {
+    backgroundColor: Colors.light.secondaryBackground,
   },
   divider: {
     borderBottomWidth: 2,
@@ -30,5 +21,5 @@ export const homeStyles = StyleSheet.create({
   image: { resizeMode: "contain", width: 450, height: 300 },
   openingHours: {
     fontSize: 20,
-  }
+  },
 });
