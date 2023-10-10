@@ -1,18 +1,33 @@
 import "react-native-gesture-handler";
 import { Amplify } from "aws-amplify";
 import awsconfig from "./src/aws-exports.js";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Auth } from 'aws-amplify';
 import { NavigationContainer } from "@react-navigation/native";
 import DrawerNavigation from "./src/components/navigation/DrawerNavigation";
-import SignUpScreen from "./src/screens/SignUpScreen";
-
-//Important: Remember to import Auth when we get to the authentication part
+import SignInScreen from "./src/screens/SignInScreen";
 
 Amplify.configure(awsconfig);
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    try {
+      await Auth.currentAuthenticatedUser();
+      setIsAuthenticated(true);
+    } catch (error) {
+      setIsAuthenticated(false);
+    }
+  };
+
   return (
-    <SignUpScreen/>
+    <NavigationContainer>
+      {isAuthenticated ? <DrawerNavigation /> : <SignInScreen />}
+    </NavigationContainer>
   );
 }

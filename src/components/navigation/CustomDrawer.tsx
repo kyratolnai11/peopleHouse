@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
+import { CommonActions } from '@react-navigation/native';
 import { View, Text, Image, TouchableOpacity, Appearance } from "react-native";
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import Colors from "../../../utils/theme";
+import { Auth } from "aws-amplify";
+import SignInScreen from "../../screens/SignInScreen"
+
 
 const CustomDrawer: React.FC<{
   state: any;
@@ -13,6 +17,20 @@ const CustomDrawer: React.FC<{
   descriptors: any;
 }> = ({ state, navigation, descriptors }) => {
   const colorScheme = Appearance.getColorScheme();
+
+
+  const handleSignOut = async () => {
+    try {
+      await Auth.signOut();
+      console.log('Sign out successful.');
+  
+      // Navigate to SignInScreen using AuthStackNavigator
+      navigation.navigate('SignInScreen');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -57,7 +75,7 @@ const CustomDrawer: React.FC<{
         </View>
       </DrawerContentScrollView>
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
-        <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity onPress={handleSignOut} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{

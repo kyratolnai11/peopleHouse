@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, Alert,} from 'react-native';
 
 const SignUpScreen = () => {
   const [firstName, setFirstName] = useState('');
@@ -8,12 +8,22 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const clearFields = () => {
+    // Clear input fields
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+  };
+
   const handleSignUp = async () => {
         try{
             await Auth.signUp({username: email, password, attributes: {
                 'custom:firstName': firstName, 'custom:lastName': lastName, email: email}});
                 console.log('Sign-up pressed:', { firstName, lastName, email, password });
                 console.log('User signed up, verification needed!')
+
+                Alert.alert('Success', 'Sign-up successful, please verify account in Amplify', [{ text: 'OK', onPress: clearFields }]);
         } catch (error){
                 console.error('Error signing up: ', error);
         }
@@ -38,6 +48,7 @@ const SignUpScreen = () => {
         style={styles.input}
         placeholder="Email"
         keyboardType='email-address'
+        autoCapitalize='none'
         value={email}
         onChangeText={setEmail}
       />
