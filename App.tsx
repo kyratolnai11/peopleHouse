@@ -6,6 +6,7 @@ import { Auth } from 'aws-amplify';
 import { NavigationContainer } from "@react-navigation/native";
 import DrawerNavigation from "./src/components/navigation/DrawerNavigation";
 import SignInScreen from "./src/screens/SignInScreen";
+import AuthNavigator from './src/components/navigation/AuthNavigator'; // Import AuthStackNavigator
 
 Amplify.configure(awsconfig);
 
@@ -26,7 +27,7 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={AuthNavigator}>
       {isAuthenticated ? <DrawerNavigation /> : <SignInScreen />}
     </NavigationContainer>
   );

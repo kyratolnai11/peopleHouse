@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Auth } from 'aws-amplify';
-import { useNavigation } from '@react-navigation/native';
+import { createNavigationContainerRef, useNavigation } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack'
+import HomeScreen from '../../screens/HomeScreen';
+import AuthStackNavigator from '../navigation/AuthNavigator';
+import InfoScreen from '../../screens/InfoScreen';
+
+
 
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigation = useNavigation<any>();
+  const navigationRef = createNavigationContainerRef();
+  
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const navigation = useNavigation();
 
 
   async function currentAuthenticatedUser(){
@@ -27,12 +35,17 @@ const LoginScreen = () => {
         console.log(error);
     }
   }
+ 
+  
 
   const handleLogin = async() => {
     try{
         await Auth.signIn(email, password);
         console.log('Login pressed:', { email, password });
         currentAuthenticatedUser();
+        
+          navigation.navigate('InfoScreen');
+
     } catch(error){
         console.error('Error signing in:', error);
     }

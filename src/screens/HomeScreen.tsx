@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, SafeAreaView } from "react-native";
 import { homeStyles } from "../components/home-screen/Stylesheet";
+import AuthStackNavigator from '../components/navigation/AuthNavigator';
 
 const HomeScreen: React.FC = () => {
   return (

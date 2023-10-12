@@ -7,6 +7,7 @@ import CrewSection from "../components/info-screen/CrewSection";
 import QuestionSection from "../components/info-screen/QuestionSection";
 import OpeningHoursSection from "../components/info-screen/OpeningHoursSection";
 import StillHaveQuestionSection from "../components/info-screen/StillHaveQuestionsSection";
+import AuthNavigator from '../components/navigation/AuthNavigator';
 
 const InfoScreen: React.FC = () => {
   return (
