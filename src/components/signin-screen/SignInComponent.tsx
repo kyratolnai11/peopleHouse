@@ -7,6 +7,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import HomeScreen from '../../screens/HomeScreen';
 import AuthStackNavigator from '../navigation/AuthNavigator';
 import InfoScreen from '../../screens/InfoScreen';
+import SignInStyles from './SignInStyles';
 
 
 
@@ -53,22 +54,23 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Who are you?</Text>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>Email</Text>
+    
+    <View style={SignInStyles.container}>
+      <Text style={SignInStyles.headerText}>Who are you?</Text>
+      <View style={SignInStyles.inputContainer}>
+        <Text style={SignInStyles.inputTitle}>Email</Text>
         <TextInput
-          style={styles.input}
+          style={SignInStyles.input}
           placeholder="Please enter your email address"
           value={email}
           onChangeText={(text) => setEmail(text.toLowerCase())}
         />
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>Password</Text>
-        <View style={styles.passwordInput}>
+      <View style={SignInStyles.inputContainer}>
+        <Text style={SignInStyles.inputTitle}>Password</Text>
+        <View style={SignInStyles.passwordInput}>
           <TextInput
-            style={styles.passwordTextInput}
+            style={SignInStyles.passwordTextInput}
             placeholder="Please enter your password"
             secureTextEntry={!passwordVisible}
             value={password}
@@ -79,47 +81,12 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <Button title="Login" onPress={handleLogin} />
+      <TouchableOpacity onPress={handleLogin} style={SignInStyles.loginButton}>
+        <Text style={SignInStyles.loginButtonText}>Log in</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    justifyContent: 'center',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  inputContainer: {
-    marginBottom: 12,
-  },
-  inputTitle: {
-    fontSize: 16,
-    marginBottom: 4,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 8,
-  },
-  passwordInput: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 8,
-  },
-  passwordTextInput: {
-    flex: 1,
-    height: 40,
-  },
-});
 
 export default LoginScreen;
