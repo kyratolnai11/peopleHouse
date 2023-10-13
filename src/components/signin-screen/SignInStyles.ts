@@ -74,6 +74,9 @@ container: {
     fontWeight: 'bold',
     fontSize: 16,
   },
+  eye:{
+    paddingRight: 10,
+  },
 });
 
 export default SignInStyles;

@@ -6,6 +6,7 @@ import { ActionBarImage } from "./ActionBarImage";
 import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
 import SignInScreen from "../../screens/SignInScreen"
+import AuthNavigator from "./AuthNavigator";
 import Colors from "../../../utils/theme";
 
 
@@ -37,11 +38,7 @@ const DrawerNavigation: React.FC = () => {
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
-      <Drawer.Screen name="SignInScreen" component={SignInScreen} options={{
-          // Hide the label for Settings screen
-          drawerLabel: () => null, // or drawerLabel: '',
-          drawerItemStyle: { display: "none" }, // or other styling as needed
-        }}/>
+      
     </Drawer.Navigator>
   );
 };

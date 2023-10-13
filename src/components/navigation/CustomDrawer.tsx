@@ -8,7 +8,8 @@ import {
 } from "@react-navigation/drawer";
 import Colors from "../../../utils/theme";
 import { Auth } from "aws-amplify";
-import SignInScreen from "../../screens/SignInScreen"
+import SignIn from "../../screens/SignInScreen"
+import AuthNavigator from "./AuthNavigator";
 
 
 const CustomDrawer: React.FC<{
@@ -25,7 +26,7 @@ const CustomDrawer: React.FC<{
       console.log('Sign out successful.');
   
       // Navigate to SignInScreen using AuthStackNavigator
-      navigation.navigate('SignInScreen');
+      navigation.navigate('SignIn');
     } catch (error) {
       console.error('Error signing out:', error);
     }

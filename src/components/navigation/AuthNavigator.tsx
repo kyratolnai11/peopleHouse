@@ -5,19 +5,21 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignInScreen from '../../screens/SignInScreen';
 import HomeScreen from '../../screens/HomeScreen';
 import InfoScreen from '../../screens/InfoScreen';
-const Stack = createStackNavigator();
+import DrawerNavigation from './DrawerNavigation';
 
-const AuthStackNavigator = () => {
+const AuthStackNavigator: React.FC = () => {
+  const Stack = createStackNavigator();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="SignInScreen"
+        name="SignIn"
         component={SignInScreen}
         options={{ headerShown: false }} // Optional: Hide header for SignInScreen
       />
             <Stack.Screen
             name="HomeScreen"
-            component={HomeScreen}
+            component={DrawerNavigation}
             options={{ headerShown: false }}/>
 
 <Stack.Screen

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Auth } from 'aws-amplify';
-import { createNavigationContainerRef, useNavigation } from '@react-navigation/native';
+import { createNavigationContainerRef, useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack'
 import HomeScreen from '../../screens/HomeScreen';
 import AuthStackNavigator from '../navigation/AuthNavigator';
@@ -17,7 +17,6 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigation = useNavigation<any>();
-  const navigationRef = createNavigationContainerRef();
   
 
   const togglePasswordVisibility = () => {
@@ -45,7 +44,7 @@ const LoginScreen = () => {
         console.log('Login pressed:', { email, password });
         currentAuthenticatedUser();
         
-          navigation.navigate('InfoScreen');
+          navigation.navigate('HomeScreen');
 
     } catch(error){
         console.error('Error signing in:', error);
@@ -77,7 +76,7 @@ const LoginScreen = () => {
             onChangeText={(text) => setPassword(text)}
           />
           <TouchableOpacity onPress={togglePasswordVisibility}>
-            <Ionicons name={passwordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+            <Ionicons name={passwordVisible ? 'eye' : 'eye-off'} size={24} color="gray" style={SignInStyles.eye}/>
           </TouchableOpacity>
         </View>
       </View>

@@ -13,9 +13,7 @@ Amplify.configure(awsconfig);
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
+ 
 
   const checkAuth = async () => {
     try {
@@ -25,10 +23,14 @@ export default function App() {
       setIsAuthenticated(false);
     }
   };
+  
+  useEffect(() => {
+    checkAuth();
+  }, [isAuthenticated]);
 
   return (
-    <NavigationContainer ref={AuthNavigator}>
-      {isAuthenticated ? <DrawerNavigation /> : <SignInScreen />}
+    <NavigationContainer>
+      {isAuthenticated ? <DrawerNavigation /> : <AuthNavigator />}
     </NavigationContainer>
   );
 }
