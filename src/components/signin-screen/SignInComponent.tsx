@@ -70,6 +70,7 @@ const LoginScreen = () => {
         <Text style={SignInStyles.inputTitle}>Email</Text>
         <TextInput
           style={SignInStyles.input}
+          keyboardType='email-address'
           placeholder="Please enter your email address"
           value={email}
           onChangeText={(text) => setEmail(text.toLowerCase())}
