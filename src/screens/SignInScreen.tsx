@@ -1,11 +1,8 @@
 import React from "react";
-import { Auth } from 'aws-amplify';
-import {View, Image, Text, Linking} from 'react-native';
+import {View, Image, Text} from 'react-native';
 import SignInComponent from '../components/signin-screen/SignInComponent'
-import HomeScreen from '../screens/HomeScreen';
-import InfoScreen from "./InfoScreen";
 import SignInStyles from '../components/signin-screen/SignInStyles'
-import AuthStackNavigator from '../components/navigation/AuthNavigator';
+import EmailLink from "../components/info-screen/EmailLink";
 
 
 const HeaderComponent = () => (
@@ -17,19 +14,13 @@ const HeaderComponent = () => (
 );
 
 const FooterComponent = () => {
-    const emailAddress = 'support@peoplehouse.lego.com';
   
-    const handleEmailLinkPress = () => {
-      Linking.openURL(`mailto:${emailAddress}`);
-    };
   
     return (
       <View style={SignInStyles.footer}>
         <Text style={SignInStyles.footerParagraphText}>
           In case of questions or issues, please contact{' '}
-          <Text style={{ textDecorationLine: 'underline', color: 'white' }} onPress={handleEmailLinkPress}>
-            {emailAddress}
-          </Text>
+          <EmailLink name ="support@peoplehouse.lego.com"/>
           .
         </Text>
       </View>

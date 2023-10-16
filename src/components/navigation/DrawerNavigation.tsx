@@ -1,13 +1,10 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import React, { useState } from "react";
 import CustomDrawer from "./CustomDrawer";
 import { Appearance } from "react-native";
 import { ActionBarImage } from "./ActionBarImage";
 import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
 import SignUpScreen from "../signup-screen/SignUpComponent";
-import SignInScreen from "../../screens/SignInScreen"
-import AuthNavigator from "./AuthNavigator";
 import Colors from "../../../utils/theme";
 
 

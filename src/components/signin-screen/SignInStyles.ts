@@ -78,7 +78,6 @@ container: {
     paddingRight: 10,
   },
   footerParagraphText:{
-    color: 'white',
     textAlign: 'center',
     fontSize: 14,
   },
