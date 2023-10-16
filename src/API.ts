@@ -8,7 +8,6 @@ export type CreateUserInput = {
   lastname: string,
   userType: UserType,
   email: string,
-  password: string,
   eventUserAttendeesId?: string | null,
 };
 
@@ -23,7 +22,6 @@ export type ModelUserConditionInput = {
   lastname?: ModelStringInput | null,
   userType?: ModelUserTypeInput | null,
   email?: ModelStringInput | null,
-  password?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
@@ -98,7 +96,6 @@ export type User = {
   lastname: string,
   userType: UserType,
   email: string,
-  password: string,
   crews?: ModelCrewConnection | null,
   events?: ModelEventConnection | null,
   createdAt: string,
@@ -174,7 +171,6 @@ export type UpdateUserInput = {
   lastname?: string | null,
   userType?: UserType | null,
   email?: string | null,
-  password?: string | null,
   eventUserAttendeesId?: string | null,
 };
 
@@ -311,7 +307,6 @@ export type ModelUserFilterInput = {
   lastname?: ModelStringInput | null,
   userType?: ModelUserTypeInput | null,
   email?: ModelStringInput | null,
-  password?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -370,7 +365,6 @@ export type ModelSubscriptionUserFilterInput = {
   lastname?: ModelSubscriptionStringInput | null,
   userType?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
-  password?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
@@ -463,7 +457,6 @@ export type CreateUserMutation = {
     lastname: string,
     userType: UserType,
     email: string,
-    password: string,
     crews?:  {
       __typename: "ModelCrewConnection",
       nextToken?: string | null,
@@ -491,7 +484,6 @@ export type UpdateUserMutation = {
     lastname: string,
     userType: UserType,
     email: string,
-    password: string,
     crews?:  {
       __typename: "ModelCrewConnection",
       nextToken?: string | null,
@@ -519,7 +511,6 @@ export type DeleteUserMutation = {
     lastname: string,
     userType: UserType,
     email: string,
-    password: string,
     crews?:  {
       __typename: "ModelCrewConnection",
       nextToken?: string | null,
@@ -798,7 +789,6 @@ export type GetUserQuery = {
     lastname: string,
     userType: UserType,
     email: string,
-    password: string,
     crews?:  {
       __typename: "ModelCrewConnection",
       nextToken?: string | null,
@@ -829,7 +819,6 @@ export type ListUsersQuery = {
       lastname: string,
       userType: UserType,
       email: string,
-      password: string,
       createdAt: string,
       updatedAt: string,
       eventUserAttendeesId?: string | null,
@@ -1007,7 +996,6 @@ export type OnCreateUserSubscription = {
     lastname: string,
     userType: UserType,
     email: string,
-    password: string,
     crews?:  {
       __typename: "ModelCrewConnection",
       nextToken?: string | null,
@@ -1034,7 +1022,6 @@ export type OnUpdateUserSubscription = {
     lastname: string,
     userType: UserType,
     email: string,
-    password: string,
     crews?:  {
       __typename: "ModelCrewConnection",
       nextToken?: string | null,
@@ -1061,7 +1048,6 @@ export type OnDeleteUserSubscription = {
     lastname: string,
     userType: UserType,
     email: string,
-    password: string,
     crews?:  {
       __typename: "ModelCrewConnection",
       nextToken?: string | null,

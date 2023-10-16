@@ -15,7 +15,6 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     lastname
     userType
     email
-    password
     crews {
       nextToken
       __typename
@@ -43,7 +42,6 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       lastname
       userType
       email
-      password
       createdAt
       updatedAt
       eventUserAttendeesId

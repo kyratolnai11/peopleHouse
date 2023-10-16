@@ -15,7 +15,6 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     lastname
     userType
     email
-    password
     crews {
       nextToken
       __typename
@@ -41,7 +40,6 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     lastname
     userType
     email
-    password
     crews {
       nextToken
       __typename
@@ -67,7 +65,6 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     lastname
     userType
     email
-    password
     crews {
       nextToken
       __typename

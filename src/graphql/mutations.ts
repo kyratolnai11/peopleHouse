@@ -18,7 +18,6 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     lastname
     userType
     email
-    password
     crews {
       nextToken
       __typename
@@ -47,7 +46,6 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     lastname
     userType
     email
-    password
     crews {
       nextToken
       __typename
@@ -76,7 +74,6 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     lastname
     userType
     email
-    password
     crews {
       nextToken
       __typename
