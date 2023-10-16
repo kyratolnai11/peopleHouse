@@ -6,7 +6,7 @@ import { ActionBarImage } from "./ActionBarImage";
 import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
 import Colors from "../../../utils/theme";
-import Venues from "../../screens/Venues";
+import VenuesScreen from "../../screens/Venues";
 
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();
@@ -35,7 +35,7 @@ const DrawerNavigation: React.FC = () => {
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
-      <Drawer.Screen name="Venues" component={Venues} />
+      <Drawer.Screen name="Venues" component={VenuesScreen} />
     </Drawer.Navigator>
   );
 };
