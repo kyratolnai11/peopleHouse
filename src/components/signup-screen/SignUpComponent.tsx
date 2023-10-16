@@ -1,12 +1,17 @@
+import { useNavigation } from '@react-navigation/core';
 import { Auth } from 'aws-amplify';
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, Alert,} from 'react-native';
+import { addUser } from '../navigation/User';
+import { UserType } from '../../API';
+
 
 const SignUpScreen = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
 
   const clearFields = () => {
     // Clear input fields
@@ -18,10 +23,22 @@ const SignUpScreen = () => {
 
   const handleSignUp = async () => {
         try{
-            await Auth.signUp({username: email, password, attributes: {
+          const signUpResponse = await Auth.signUp({username: email, password, attributes: {
                 'custom:firstName': firstName, 'custom:lastName': lastName, email: email}});
+
                 console.log('Sign-up pressed:', { firstName, lastName, email, password });
-                console.log('User signed up, verification needed!')
+                console.log('User signed up, verification needed!');
+
+                const userId = signUpResponse.userSub;
+
+
+                await addUser({
+                  userId,
+                  firstName,
+                  lastName,
+                  userType: UserType.NORMAL, // Assuming UserType is an enum
+                  email,
+                });
 
                 Alert.alert('Success', 'Sign-up successful, please verify account in Amplify', [{ text: 'OK', onPress: clearFields }]);
         } catch (error){

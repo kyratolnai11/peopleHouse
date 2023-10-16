@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CommonActions } from '@react-navigation/native';
 import { View, Text, Image, TouchableOpacity, Appearance } from "react-native";
 import {
@@ -11,14 +11,30 @@ import { Auth } from "aws-amplify";
 import SignIn from "../../screens/SignInScreen"
 import AuthNavigator from "./AuthNavigator";
 
-
 const CustomDrawer: React.FC<{
   state: any;
   navigation: any;
   descriptors: any;
 }> = ({ state, navigation, descriptors }) => {
   const colorScheme = Appearance.getColorScheme();
+  const [userName, setUserName] = useState(''); // State to hold the user's name
 
+  useEffect(() => {
+    // Function to fetch the logged-in user's attributes
+    const fetchUserData = async () => {
+      try {
+        const userInfo = await Auth.currentAuthenticatedUser();
+        const { attributes } = userInfo;
+        const firstName = attributes['custom:firstName'] || '';
+        const lastName = attributes['custom:lastName'] || '';
+        setUserName(`${firstName} ${lastName}`);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData(); // Fetch user data when the component mounts
+  }, []);
 
   const handleSignOut = async () => {
     try {
@@ -54,8 +70,7 @@ const CustomDrawer: React.FC<{
               marginBottom: 5,
             }}
           >
-            {/* Reminder: Add the name of the logged in user instead */}
-            John Doe
+            {userName} {/* Display the user's name */}
           </Text>
         </View>
         <View

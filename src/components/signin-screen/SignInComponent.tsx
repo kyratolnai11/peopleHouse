@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Auth } from 'aws-amplify';
-import { createNavigationContainerRef, useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
+import { createNavigationContainerRef, useNavigation, NavigationProp, ParamListBase, CommonActions } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack'
 import HomeScreen from '../../screens/HomeScreen';
-import AuthStackNavigator from '../navigation/AuthNavigator';
+import AuthNavigator from '../navigation/AuthNavigator';
 import InfoScreen from '../../screens/InfoScreen';
 import SignInStyles from './SignInStyles';
 
@@ -23,6 +23,11 @@ const LoginScreen = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+  const clearFields = () => {
+    // Clear input fields
+    setEmail('');
+    setPassword('');
+  };
 
 
   async function currentAuthenticatedUser(){
@@ -43,9 +48,14 @@ const LoginScreen = () => {
         await Auth.signIn(email, password);
         console.log('Login pressed:', { email, password });
         currentAuthenticatedUser();
-        
-          navigation.navigate('HomeScreen');
-
+  
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: 'HomeScreen' }],
+            })
+          );
+          clearFields();
     } catch(error){
         console.error('Error signing in:', error);
     }

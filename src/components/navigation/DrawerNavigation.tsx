@@ -5,6 +5,7 @@ import { Appearance } from "react-native";
 import { ActionBarImage } from "./ActionBarImage";
 import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
+import SignUpScreen from "../signup-screen/SignUpComponent";
 import SignInScreen from "../../screens/SignInScreen"
 import AuthNavigator from "./AuthNavigator";
 import Colors from "../../../utils/theme";
@@ -38,6 +39,7 @@ const DrawerNavigation: React.FC = () => {
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
+      <Drawer.Screen name="SignUp" component={SignUpScreen} />
       
     </Drawer.Navigator>
   );

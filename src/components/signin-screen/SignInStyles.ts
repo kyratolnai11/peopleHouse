@@ -54,7 +54,7 @@ container: {
     height: 40,
   },
   footer: {
-    height: 50,
+    height: 75,
     backgroundColor: Colors.dark.secondary,
     justifyContent: 'center',
     alignItems: 'center',
@@ -69,13 +69,18 @@ container: {
     // Adjust as needed to provide separation from other elements
   },
   loginButtonText: {
-    color: 'white', // Set the text color for the button
+    color: 'black', // Set the text color for the button
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 16,
   },
   eye:{
     paddingRight: 10,
+  },
+  footerParagraphText:{
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 14,
   },
 });
 
