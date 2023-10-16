@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, View, ScrollView } from "react-native";
-import { fetchVenues } from "../database/Venue";
+import { fetchVenues } from "../database/VenueDBConnection";
 import { ModelVenueConnection } from "../API";
 import VenueCard from "../components/venue-screens/VenueCard";
 import { sharedStyles } from "../../utils/SharedStyles";
@@ -34,7 +34,7 @@ const VenuesScreen = () => {
           <Text style={sharedStyles.screenTitle}>
             We provide the place – you bring the fun!
           </Text>
-          <Text style={sharedStyles.text}>
+          <Text style={[sharedStyles.text, { marginBottom: 20 }]}>
             Here at the LEGO People House you have your pick of fun venues to
             visit. Get crafty in the Creative Studio, hang with your Crew in the
             Heart, feel the burn in the LEGO Gym, or have a cozy time in the

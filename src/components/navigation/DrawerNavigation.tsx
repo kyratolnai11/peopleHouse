@@ -6,7 +6,7 @@ import { ActionBarImage } from "./ActionBarImage";
 import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
 import Colors from "../../../utils/theme";
-import VenuesScreen from "../../screens/Venues";
+import VenuesScreen from "../../screens/VenuesScreen";
 
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();

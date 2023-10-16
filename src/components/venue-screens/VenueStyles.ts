@@ -5,7 +5,7 @@ export const venueStyles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    marginBottom: 10,
     backgroundColor: Colors.light.primaryBackground,
   },
   image: {

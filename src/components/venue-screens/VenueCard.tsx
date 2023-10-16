@@ -12,11 +12,11 @@ import { getVenueImages } from "../../constants";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import { venueStyles } from "./VenueStyles";
 
-type IVenueCardProps = {
+type VenueCardProps = {
   venue: Venue;
 };
 
-const VenueCard: React.FC<IVenueCardProps> = ({ venue }) => {
+const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   const id = venue.id;
   const description = venue.description;
   const shortDescription = venue.shortDescription;
