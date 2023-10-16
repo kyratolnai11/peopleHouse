@@ -2,27 +2,25 @@ import React from "react";
 import { SafeAreaView, Text, View, StyleSheet, Image } from "react-native";
 import { Card } from "react-native-paper";
 import { Venue } from "../API";
+import { getVenueImages } from "../constants";
 
 type IVenueCardProps = {
   venue: Venue;
 };
 
 const VenueCard: React.FC<IVenueCardProps> = ({ venue }) => {
-  // const id = venue.id;
-  const name = venue.name;
+  const id = venue.id;
+  const description = venue.description;
   const shortDescription = venue.shortDescription;
-  
+  const imageFile = getVenueImages(id);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <Card>
-          <Image
-            source={require(`../../assets/venue-images/1.png`)}
-            style={styles.image}
-          />
+          <Image source={imageFile} style={styles.image} />
           <Text style={styles.shortDescription}>{shortDescription}</Text>
-          <Text style={styles.description}>{name}</Text>
+          <Text style={styles.description}>{description}</Text>
         </Card>
       </View>
     </SafeAreaView>
@@ -51,9 +49,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   image: {
-    width: 200,
-    height: 100,
+    width: 390,
     borderRadius: 12.5,
     overflow: "hidden",
+    resizeMode: "contain"
   },
 });
