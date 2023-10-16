@@ -8,8 +8,8 @@ export async function fetchVenues(): Promise<ModelVenueConnection | undefined> {
     console.log("Getting venues...");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const venueData: any = await API.graphql(graphqlOperation(listVenues));
-    const venues: ModelVenueConnection = venueData.data.listVenues.items;
-    console.log("In the method:", venues);
+    const venues: ModelVenueConnection = venueData.data.listVenues;
+    console.log("Got venues");
     return venues;
   } catch (err) {
     console.log("Error fetching venues:", err);

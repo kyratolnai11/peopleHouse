@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, ScrollView } from "react-native";
 import { fetchVenues } from "../database/Venue";
 import { ModelVenueConnection } from "../API";
+import VenueCard from "../components/VenueCard";
 
 const styles = StyleSheet.create({
   container: {
@@ -27,12 +28,14 @@ const styles = StyleSheet.create({
 
 const Venues = () => {
   const [venues, setVenues] = useState<ModelVenueConnection>();
+  const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
     fetchVenues()
       .then((venuesdata) => {
+        console.log("I set the venues");
         setVenues(venuesdata);
-        console.log(venues);
+        setDataFetched(true);
       })
       .catch((error) => {
         console.error("Error fetching venues:", error);
@@ -40,21 +43,27 @@ const Venues = () => {
   }, []);
 
   const title = "We provide the place – you bring the fun!";
+
   const description =
     "Here at the LEGO People House you have your pick of fun venues to visit. Get crafty in the Creative Studio, hang with your Crew in the Heart, feel the burn in the LEGO Gym, or have a cozy time in the Fireplace Lounge. Come, explore, and enjoy. We can’t wait to see you in People House.";
 
-  // if(venues)
-  // {
-  //   venues.items.map((i) => {
-  //     if(i){
-  //     <VenueCard props={i} />}
-  //   })}
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.description}>{description}</Text>
+          {venues &&
+            venues.items &&
+            dataFetched &&
+            venues.items.map((item) => {
+              if (item) {
+                return <VenueCard key={item.id} venue={item} />;
+              }
+            })}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
