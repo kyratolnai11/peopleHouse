@@ -819,15 +819,6 @@ export type ListUsersQuery = {
       lastname: string,
       userType: UserType,
       email: string,
-      password: string,
-      crews?:  {
-        __typename: "ModelCrewConnection",
-        nextToken?: string | null,
-      } | null,
-      events?:  {
-        __typename: "ModelEventConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
       eventUserAttendeesId?: string | null,
