@@ -48,6 +48,13 @@ const CustomDrawer: React.FC<{
     }
   };
 
+  const handleUserNameClick = () => {
+    // Navigate to the desired page here
+    // Replace 'YourProfileScreen' with the actual screen you want to navigate to
+    navigation.navigate('MyInfo');
+  };
+
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -69,6 +76,7 @@ const CustomDrawer: React.FC<{
               fontSize: 18,
               marginBottom: 5,
             }}
+            onPress={handleUserNameClick}
           >
             {userName} {/* Display the user's name */}
           </Text>
