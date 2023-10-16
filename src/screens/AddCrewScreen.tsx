@@ -1,6 +1,7 @@
 import React from "react";
 import { View, ScrollView, SafeAreaView, Text } from "react-native";
 import { sharedStyles } from "../../utils/SharedStyles";
+import CrewDropDown from "../components/add-crew/CrewDropDown";
 
 const AddCrewScreen: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const AddCrewScreen: React.FC = () => {
           <Text style={sharedStyles.screenTitle}>
             Add new member to your Crew
           </Text>
-          <Text> hiiiiii</Text>
+          <CrewDropDown />
         </View>
       </ScrollView>
     </SafeAreaView>
