@@ -5,6 +5,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import DrawerNavigation from "./src/components/navigation/DrawerNavigation.tsx";
 import { addVenue, fetchVenues } from "./src/database/Venue.ts";
+import Venues from "./src/screens/Venues.tsx";
 
 //Important: Remember to import Auth when we get to the authentication part
 
@@ -18,12 +19,12 @@ export default function App() {
   //   .catch((error) => {
   //     console.error("Error:", error);
   //   });
-  fetchVenues();
-  /*return (
-    <Venues/>
-  );*/
- 
-  
+  //fetchVenues();
+  return (
+    <Venues />
+  );
+
+
   return (
     <NavigationContainer>
       <DrawerNavigation />

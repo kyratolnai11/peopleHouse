@@ -3,12 +3,13 @@ import { createVenue } from "../graphql/mutations";
 import { API, graphqlOperation } from 'aws-amplify';
 import { CreateVenueInput, ModelVenueConnection } from "../API";
 
-export async function fetchVenues() {
+export async function fetchVenues() : Promise<ModelVenueConnection | undefined >{
   try {
     console.log("Getting venues...");
     var venueData: any = await API.graphql(graphqlOperation(listVenues));
     let venues: ModelVenueConnection = venueData.data.listVenues.items;
-    console.log(venues);
+    console.log("In the method:", venues);
+    return venues;
   } catch (err) {
     console.log('error fetching todos:', err);
   }

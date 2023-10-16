@@ -1,21 +1,22 @@
 import React from 'react';
 import { SafeAreaView, Text, View, StyleSheet, Image } from 'react-native';
 import { Card } from 'react-native-paper';
+import { Venue } from "../API";
 
-const VenueCard = (props: Venue) => {
-    const title = 'LEGO Arena'
-    const shortDescription = 'Ready'
-    const description = 'Ready Set GO'
+const VenueCard: React.FC<{props: Venue}> = ({props}) => {
+  const id = props.id;
+  const name = props.name;
+  const shortDescription = props.shortDescription;
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <Card>
             <Image 
-                source={require('../../assets/venue-images/LEGO-arena.png')}
+                source={require(`../../assets/venue-images/${id}.png`)}
                 style={styles.image}
             />
             <Text style={styles.shortDescription}>{shortDescription}</Text>
-            <Text style={styles.description}>{title}</Text>
+            <Text style={styles.description}>{name}</Text>
         </Card>
       </View>
     </SafeAreaView>
