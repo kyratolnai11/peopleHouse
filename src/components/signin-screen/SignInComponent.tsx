@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, {useState } from 'react';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Auth } from 'aws-amplify';
-import { createNavigationContainerRef, useNavigation, NavigationProp, ParamListBase, CommonActions } from '@react-navigation/native';
-import { StackScreenProps } from '@react-navigation/stack'
-import HomeScreen from '../../screens/HomeScreen';
-import AuthNavigator from '../navigation/AuthNavigator';
-import InfoScreen from '../../screens/InfoScreen';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import SignInStyles from './SignInStyles';
 
 

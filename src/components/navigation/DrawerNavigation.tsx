@@ -1,14 +1,12 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import React, { useState } from "react";
 import CustomDrawer from "./CustomDrawer";
 import { Appearance } from "react-native";
 import { ActionBarImage } from "./ActionBarImage";
 import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
 import SignUpScreen from "../signup-screen/SignUpComponent";
-import SignInScreen from "../../screens/SignInScreen"
-import AuthNavigator from "./AuthNavigator";
 import Colors from "../../../utils/theme";
+import VenuesScreen from "../../screens/VenuesScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
 
 
@@ -40,6 +38,7 @@ const DrawerNavigation: React.FC = () => {
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
+      <Drawer.Screen name="Venues" component={VenuesScreen} />
       <Drawer.Screen name="SignUp" component={SignUpScreen} />
       <Drawer.Screen
         name="MyInfo"

@@ -1,9 +1,10 @@
-import { useNavigation } from '@react-navigation/core';
 import { Auth } from 'aws-amplify';
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, Alert,} from 'react-native';
-import { addUser } from '../navigation/User';
-import { UserType } from '../../API';
+import { addUser } from '../navigation/UserDBConnection';
+import { CreateUserInput, UserType } from '../../API';
+
+//REMOVE - once system is finished. It is only for our use 
 
 
 const SignUpScreen = () => {
@@ -32,13 +33,15 @@ const SignUpScreen = () => {
                 const userId = signUpResponse.userSub;
 
 
-                await addUser({
-                  userId,
-                  firstName,
-                  lastName,
+                const userToAdd: CreateUserInput = {
+                  id: userId,
+                  firstname: firstName,
+                  lastname: lastName,
                   userType: UserType.NORMAL, // Assuming UserType is an enum
-                  email,
-                });
+                  email: email
+                };
+          
+                await addUser(userToAdd);
 
                 Alert.alert('Success', 'Sign-up successful, please verify account in Amplify', [{ text: 'OK', onPress: clearFields }]);
         } catch (error){

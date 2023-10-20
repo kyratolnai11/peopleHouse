@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { Auth } from 'aws-amplify';
 import { NavigationContainer } from "@react-navigation/native";
 import DrawerNavigation from "./src/components/navigation/DrawerNavigation";
-import SignInScreen from "./src/screens/SignInScreen";
 import AuthNavigator from './src/components/navigation/AuthNavigator'; // Import AuthStackNavigator
 
 Amplify.configure(awsconfig);

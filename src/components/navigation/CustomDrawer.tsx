@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { CommonActions } from '@react-navigation/native';
 import { View, Text, Image, TouchableOpacity, Appearance } from "react-native";
 import {
   DrawerContentScrollView,
@@ -8,8 +7,7 @@ import {
 } from "@react-navigation/drawer";
 import Colors from "../../../utils/theme";
 import { Auth } from "aws-amplify";
-import SignIn from "../../screens/SignInScreen"
-import AuthNavigator from "./AuthNavigator";
+import UserCognito from "../cognito/UserCognito";
 
 const CustomDrawer: React.FC<{
   state: any;
@@ -20,20 +18,16 @@ const CustomDrawer: React.FC<{
   const [userName, setUserName] = useState(''); // State to hold the user's name
 
   useEffect(() => {
-    // Function to fetch the logged-in user's attributes
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       try {
-        const userInfo = await Auth.currentAuthenticatedUser();
-        const { attributes } = userInfo;
-        const firstName = attributes['custom:firstName'] || '';
-        const lastName = attributes['custom:lastName'] || '';
-        setUserName(`${firstName} ${lastName}`);
+        const userData = await UserCognito.fetchUserData();
+        setUserName(userData);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
 
-    fetchUserData(); // Fetch user data when the component mounts
+    fetchData(); 
   }, []);
 
   const handleSignOut = async () => {
