@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, Alert,} from 'react-native';
-import { addUser } from '../navigation/UserDBConnection';
+import { addUser } from '../../database/UserDBConnection';
 import { CreateUserInput, UserType } from '../../API';
 
 //REMOVE - once system is finished. It is only for our use 
