@@ -215,17 +215,7 @@ export const onCreateEvent = /* GraphQL */ `subscription OnCreateEvent($filter: 
       nextToken
       __typename
     }
-    venue {
-      id
-      name
-      shortDescription
-      description
-      capacity
-      openingHours
-      createdAt
-      updatedAt
-      __typename
-    }
+    venueId
     createdAt
     updatedAt
     userEventsId
@@ -255,17 +245,7 @@ export const onUpdateEvent = /* GraphQL */ `subscription OnUpdateEvent($filter: 
       nextToken
       __typename
     }
-    venue {
-      id
-      name
-      shortDescription
-      description
-      capacity
-      openingHours
-      createdAt
-      updatedAt
-      __typename
-    }
+    venueId
     createdAt
     updatedAt
     userEventsId
@@ -295,17 +275,7 @@ export const onDeleteEvent = /* GraphQL */ `subscription OnDeleteEvent($filter: 
       nextToken
       __typename
     }
-    venue {
-      id
-      name
-      shortDescription
-      description
-      capacity
-      openingHours
-      createdAt
-      updatedAt
-      __typename
-    }
+    venueId
     createdAt
     updatedAt
     userEventsId

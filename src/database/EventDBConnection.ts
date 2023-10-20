@@ -19,14 +19,14 @@ export const addEvent = async () => {
   try {
     console.log("Try to add event...");
     const eventToAdd: CreateEventInput = {
-        id: "string",
         title: "string",
         brief: "string",
         description: "string",
         agenda: "string",
         datetime: "1970-01-01T00:00:00Z",
         numOfTickets: 100,
-        host: "string"
+        host: "string",
+        venueId: "1",
     };
     const response = await API.graphql(
       graphqlOperation(createEvent, { input: eventToAdd })

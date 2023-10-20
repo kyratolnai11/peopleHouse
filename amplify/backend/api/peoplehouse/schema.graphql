@@ -41,7 +41,7 @@ type Event @model {
   host: String!
   userAttendees: [User] @hasMany
   crewAttendees: [Crew] @hasMany
-  venue: Venue @belongsTo
+  venueId: String!
 }
 
 enum UserType {

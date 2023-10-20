@@ -149,17 +149,7 @@ export const getEvent = /* GraphQL */ `query GetEvent($id: ID!) {
       nextToken
       __typename
     }
-    venue {
-      id
-      name
-      shortDescription
-      description
-      capacity
-      openingHours
-      createdAt
-      updatedAt
-      __typename
-    }
+    venueId
     createdAt
     updatedAt
     userEventsId
@@ -183,6 +173,7 @@ export const listEvents = /* GraphQL */ `query ListEvents(
       datetime
       numOfTickets
       host
+      venueId
       createdAt
       updatedAt
       userEventsId
