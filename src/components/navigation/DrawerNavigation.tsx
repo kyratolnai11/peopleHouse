@@ -7,13 +7,14 @@ import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
 import Colors from "../../../utils/theme";
 import VenuesScreen from "../../screens/VenuesScreen";
+import AddCrewScreen from "../../screens/AddCrewScreen";
 
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator
-      initialRouteName="Home"
+      initialRouteName="Add Crew"
       drawerContent={CustomDrawer}
       screenOptions={{
         headerStyle: { backgroundColor: Colors.dark.primary, height: 120 },
@@ -36,6 +37,10 @@ const DrawerNavigation: React.FC = () => {
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
       <Drawer.Screen name="Venues" component={VenuesScreen} />
+      <Drawer.Screen
+        name="Add Crew"
+        component={AddCrewScreen}
+      />
     </Drawer.Navigator>
   );
 };

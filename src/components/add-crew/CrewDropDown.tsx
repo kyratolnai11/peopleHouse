@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
+import { sharedStyles } from "../../../utils/SharedStyles";
 
 const CrewDropDown: React.FC = () => {
   const [value, setValue] = useState("");
@@ -15,8 +16,8 @@ const CrewDropDown: React.FC = () => {
   console.log(value);
 
   return (
-    <View>
-      <Text>Relation:</Text>
+    <View style={styles.sectionContainer}>
+      <Text style={sharedStyles.secondaryTitle}>Relation:</Text>
       <Dropdown
         style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
         placeholderStyle={styles.placeholderStyle}
@@ -36,6 +37,20 @@ const CrewDropDown: React.FC = () => {
           setIsFocus(false);
         }}
       />
+      {value && (
+        <View>
+          <Image
+            source={require("../../../assets/add-crew/love-figure.png")}
+            style={styles.image}
+          />
+          <Text style={[sharedStyles.text, { textAlign: "justify" }]}>
+            Children are your own responsibility and MUST always be accompanied
+            by you or your +ONE at all times inside People House. You also
+            consent that the data you have entered is correct, and agree on
+            using these data according to our privacy policy and terms of use.
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -43,10 +58,6 @@ const CrewDropDown: React.FC = () => {
 export default CrewDropDown;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    padding: 16,
-  },
   dropdown: {
     height: 50,
     borderColor: "gray",
@@ -80,5 +91,17 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
+  },
+  image: {
+    width: 150,
+    height: 150,
+    marginVertical: 20,
+    alignSelf: "center",
+  },
+  sectionContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
   },
 });
