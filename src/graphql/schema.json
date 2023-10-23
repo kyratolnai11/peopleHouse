@@ -5493,6 +5493,7 @@
           "name" : "notIn",
           "description" : null,
           "type" : {
+<<<<<<< HEAD
             "kind" : "LIST",
             "name" : null,
             "ofType" : {
@@ -5500,6 +5501,11 @@
               "name" : "Float",
               "ofType" : null
             }
+=======
+            "kind" : "ENUM",
+            "name" : "ModelAttributeTypes",
+            "ofType" : null
+>>>>>>> main
           },
           "defaultValue" : null
         } ],
