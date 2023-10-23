@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Colors from "../../../utils/theme";
 import { UseFormSetValue } from "react-hook-form";
 import { AddCrewForm } from "./CrewDropDown";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import { format } from "date-fns-tz";
+import { addCrewStyles } from "./StyleSheet";
 
 type DatePickerProps = {
   setValue: UseFormSetValue<AddCrewForm>;
@@ -30,8 +30,11 @@ const DatePicker: React.FC<DatePickerProps> = ({ setValue, name }) => {
 
   return (
     <View>
-      <TouchableOpacity onPress={showDatepicker} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>{name}</Text>
+      <TouchableOpacity
+        onPress={showDatepicker}
+        style={addCrewStyles.dateButton}
+      >
+        <Text style={addCrewStyles.dateButtonText}>{name}</Text>
       </TouchableOpacity>
 
       {show && (
@@ -53,22 +56,5 @@ const DatePicker: React.FC<DatePickerProps> = ({ setValue, name }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  loginButton: {
-    backgroundColor: Colors.dark.secondary, // Set your desired background color
-    padding: 10,
-    borderRadius: 10,
-    width: 120,
-    marginBottom: 10,
-    // Adjust as needed to provide separation from other elements
-  },
-  loginButtonText: {
-    color: Colors.dark.textPrimary, // Set the text color for the button
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-});
 
 export default DatePicker;

@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Auth } from 'aws-amplify';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import SignInStyles from './SignInStyles';
+import { sharedStyles } from '../../../utils/SharedStyles';
 
 
 
@@ -66,7 +67,7 @@ const LoginScreen = () => {
       <View style={SignInStyles.inputContainer}>
         <Text style={SignInStyles.inputTitle}>Email</Text>
         <TextInput
-          style={SignInStyles.input}
+          style={sharedStyles.input}
           keyboardType='email-address'
           placeholder="Please enter your email address"
           value={email}
