@@ -18,6 +18,7 @@ export const onCreateUser = /* GraphQL */ `
           lastname
           familyRole
           dateOfBirth
+          email
           createdAt
           updatedAt
           userCrewsId
@@ -71,6 +72,7 @@ export const onUpdateUser = /* GraphQL */ `
           lastname
           familyRole
           dateOfBirth
+          email
           createdAt
           updatedAt
           userCrewsId
@@ -124,6 +126,7 @@ export const onDeleteUser = /* GraphQL */ `
           lastname
           familyRole
           dateOfBirth
+          email
           createdAt
           updatedAt
           userCrewsId
@@ -278,6 +281,7 @@ export const onCreateCrew = /* GraphQL */ `
       lastname
       familyRole
       dateOfBirth
+      email
       createdAt
       updatedAt
       userCrewsId
@@ -295,6 +299,7 @@ export const onUpdateCrew = /* GraphQL */ `
       lastname
       familyRole
       dateOfBirth
+      email
       createdAt
       updatedAt
       userCrewsId
@@ -312,6 +317,7 @@ export const onDeleteCrew = /* GraphQL */ `
       lastname
       familyRole
       dateOfBirth
+      email
       createdAt
       updatedAt
       userCrewsId
@@ -355,6 +361,7 @@ export const onCreateEvent = /* GraphQL */ `
           lastname
           familyRole
           dateOfBirth
+          email
           createdAt
           updatedAt
           userCrewsId
@@ -408,6 +415,7 @@ export const onUpdateEvent = /* GraphQL */ `
           lastname
           familyRole
           dateOfBirth
+          email
           createdAt
           updatedAt
           userCrewsId
@@ -461,6 +469,7 @@ export const onDeleteEvent = /* GraphQL */ `
           lastname
           familyRole
           dateOfBirth
+          email
           createdAt
           updatedAt
           userCrewsId

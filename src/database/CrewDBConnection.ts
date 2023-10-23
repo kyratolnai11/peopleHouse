@@ -12,6 +12,7 @@ export const addCrew = async (userId: string, crewData: AddCrewForm) => {
       userId: userId,
       familyRole: crewData.userType,
       dateOfBirth: crewData.dateOfBirth?.toISOString() ?? null,
+      email: crewData.email ?? null,
     };
     const ras = await API.graphql(
       graphqlOperation(createCrew, { input: crewToAdd })

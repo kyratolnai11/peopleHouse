@@ -63,21 +63,7 @@ const CrewDropDown: React.FC = () => {
           setIsFocus(false);
         }}
       />
-      {option === "Child" && (
-        <View>
-          <Image
-            source={require("../../../assets/add-crew/love-figure.png")}
-            style={styles.image}
-          />
-          <Text style={[sharedStyles.text, { textAlign: "justify" }]}>
-            Children are your own responsibility and MUST always be accompanied
-            by you or your +ONE at all times inside People House. You also
-            consent that the data you have entered is correct, and agree on
-            using these data according to our privacy policy and terms of use.
-          </Text>
-        </View>
-      )}
-      {option === "Child(16+)" && (
+      {(option === "Child" || option === "Child(16+)") && (
         <View>
           <Image
             source={require("../../../assets/add-crew/love-figure.png")}
@@ -94,7 +80,7 @@ const CrewDropDown: React.FC = () => {
       {option === "+ONE" && (
         <View>
           <Image
-            source={require("../../../assets/add-crew/love-figure.png")}
+            source={require("../../../assets/add-crew/coffee.png")}
             style={styles.image}
           />
           <Text

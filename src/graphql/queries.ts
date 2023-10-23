@@ -18,6 +18,7 @@ export const getUser = /* GraphQL */ `
           lastname
           familyRole
           dateOfBirth
+          email
           createdAt
           updatedAt
           userCrewsId
@@ -158,6 +159,7 @@ export const getCrew = /* GraphQL */ `
       lastname
       familyRole
       dateOfBirth
+      email
       createdAt
       updatedAt
       userCrewsId
@@ -180,6 +182,7 @@ export const listCrews = /* GraphQL */ `
         lastname
         familyRole
         dateOfBirth
+        email
         createdAt
         updatedAt
         userCrewsId
@@ -226,6 +229,7 @@ export const getEvent = /* GraphQL */ `
           lastname
           familyRole
           dateOfBirth
+          email
           createdAt
           updatedAt
           userCrewsId
@@ -303,6 +307,7 @@ export const crewsByUserId = /* GraphQL */ `
         lastname
         familyRole
         dateOfBirth
+        email
         createdAt
         updatedAt
         userCrewsId
