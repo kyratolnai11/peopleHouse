@@ -1,4 +1,4 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
 import { RouteProp } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
@@ -17,6 +17,7 @@ const VenueDetailsScreen: React.FC<VenueDetailsRouteProps> = ({ route }) => {
   const venueId = route?.params?.venueId;
   const [venue, setVenue] = useState<GetVenueQuery['getVenue'] | undefined>();
   const [events, setEvents] = useState<Event[] | undefined>(); // State to store events
+  const navigation = useNavigation(); // Access the navigation prop
 
 
   if (!venueId) {
@@ -32,6 +33,8 @@ const VenueDetailsScreen: React.FC<VenueDetailsRouteProps> = ({ route }) => {
       setVenue(venueData);
     };
 
+    
+
     const getEventsData = async () => {
       // Fetch events data for the specific venue and set it in the events state
       // Implement your database connection logic here
@@ -46,8 +49,14 @@ const VenueDetailsScreen: React.FC<VenueDetailsRouteProps> = ({ route }) => {
 
     getVenueInfo();
     getEventsData();
+
+  
   }, [venueId]);
 
+  if (venue) {
+    navigation.setOptions({ headerTitle: venue.name });
+  }
+  
 
   return (
     <SafeAreaView>
