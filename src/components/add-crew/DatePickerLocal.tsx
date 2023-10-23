@@ -3,14 +3,21 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Colors from "../../../utils/theme";
+import { UseFormSetValue } from "react-hook-form";
+import { AddCrewForm } from "./CrewDropDown";
 
-const DatePicker: React.FC = () => {
+type DatePickerProps = {
+  setValue: UseFormSetValue<AddCrewForm>;
+};
+
+const DatePicker: React.FC<DatePickerProps> = ({ setValue }) => {
   const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
 
   const onChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate;
     setDate(currentDate);
+    setValue("dateOfBirth", date);
     setShow(false);
   };
 

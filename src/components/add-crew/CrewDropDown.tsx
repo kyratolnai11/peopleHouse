@@ -6,9 +6,8 @@ import { Controller, useForm } from "react-hook-form";
 import { TextInput } from "react-native-gesture-handler";
 import Colors from "../../../utils/theme";
 import DatePicker from "./DatePickerLocal";
-import { getFormattedEventDatetime } from "../../constants";
 
-type AddCrewForm = {
+export type AddCrewForm = {
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
@@ -26,7 +25,7 @@ const CrewDropDown: React.FC = () => {
     { label: "Child", value: "Child" },
   ];
 
-  const { handleSubmit, control } = useForm<AddCrewForm>();
+  const { handleSubmit, control, setValue } = useForm<AddCrewForm>();
 
   const onSubmit = (data: AddCrewForm) => {
     console.log("Form submitted" + data.dateOfBirth);
@@ -95,7 +94,7 @@ const CrewDropDown: React.FC = () => {
           />
 
           <Text style={sharedStyles.text}>Date of Birth:</Text>
-          <DatePicker />
+          <DatePicker setValue={setValue}/>
 
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}
