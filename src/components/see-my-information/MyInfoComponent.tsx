@@ -88,7 +88,7 @@ const MyInfoComponent: React.FC = () => {
       </TouchableOpacity>
             </View>
           ) : (
-            <Text>Loading user information...</Text>
+            <Text style={myInfoStyles.loadMessage}>Loading user information...</Text>
           )}
         </View>
       </ScrollView>

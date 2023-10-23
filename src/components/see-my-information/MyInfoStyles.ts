@@ -63,26 +63,30 @@ const myInfoStyles = StyleSheet.create({
     margin: 5,
   },
   crewCards: {
-    width: '48%', // 2 cards per row with a little space in between
+    width: '48%', 
     margin: '1%',
   },
   addCrewButton: {
-    backgroundColor: Colors.dark.primary, // Set your desired background color
+    backgroundColor: Colors.dark.primary, 
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
     width: '50%',
     alignSelf: 'center',
     marginBottom: 20,
-    // Adjust as needed to provide separation from other elements
+    
   },
 
   addCrewButtonText: {
-    color: 'black', // Set the text color for the button
+    color: 'black', 
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 16,
   },
+  loadMessage:{
+    fontWeight: 'bold',
+    fontSize: 20,
+  }
 });
 
 export default myInfoStyles;
