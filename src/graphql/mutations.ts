@@ -234,7 +234,8 @@ export const createEvent = /* GraphQL */ `mutation CreateEvent(
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {
@@ -245,17 +246,7 @@ export const createEvent = /* GraphQL */ `mutation CreateEvent(
       nextToken
       __typename
     }
-    venue {
-      id
-      name
-      shortDescription
-      description
-      capacity
-      openingHours
-      createdAt
-      updatedAt
-      __typename
-    }
+    venueId
     createdAt
     updatedAt
     userEventsId
@@ -277,7 +268,8 @@ export const updateEvent = /* GraphQL */ `mutation UpdateEvent(
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {
@@ -288,17 +280,7 @@ export const updateEvent = /* GraphQL */ `mutation UpdateEvent(
       nextToken
       __typename
     }
-    venue {
-      id
-      name
-      shortDescription
-      description
-      capacity
-      openingHours
-      createdAt
-      updatedAt
-      __typename
-    }
+    venueId
     createdAt
     updatedAt
     userEventsId
@@ -320,7 +302,8 @@ export const deleteEvent = /* GraphQL */ `mutation DeleteEvent(
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {
@@ -331,17 +314,7 @@ export const deleteEvent = /* GraphQL */ `mutation DeleteEvent(
       nextToken
       __typename
     }
-    venue {
-      id
-      name
-      shortDescription
-      description
-      capacity
-      openingHours
-      createdAt
-      updatedAt
-      __typename
-    }
+    venueId
     createdAt
     updatedAt
     userEventsId

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, View, ScrollView } from "react-native";
 import { fetchVenues } from "../database/VenueDBConnection";
 import { ModelVenueConnection } from "../API";
-import VenueCard from "../components/venue-screens/VenueCard";
+import VenueCard from "../components/venue-screen/VenueCard";
 import { sharedStyles } from "../../utils/SharedStyles";
 import Colors from "../../utils/theme";
 
