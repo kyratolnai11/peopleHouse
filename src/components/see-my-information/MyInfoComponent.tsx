@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Image } from 'react-native';
+import { View, Text, TextInput, Image, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Auth } from 'aws-amplify';
-import { User, UserType } from '../../API';
+import { Crew, User} from '../../API';
 import { fetchUserById } from '../../database/UserDBConnection';
 import myInfoStyles from './MyInfoStyles';
+import CrewCard from './CrewCard';
+
 const MyInfoComponent: React.FC = () => {
-  const [userInfo, setUserInfo] = useState<User | null>(null);
+  const [userInfo, setUserInfo] = useState<User | undefined>(undefined);
+  //const [userCrews, setUserCrews] = useState<Crew[]>([]); // Store the user's crews
+
 
   useEffect(() => {
     async function fetchUserInfo() {
@@ -16,83 +20,80 @@ const MyInfoComponent: React.FC = () => {
 
         console.log(user.attributes.sub);
 
-        const firstName = user.attributes['custom:firstName'];
-        const lastName = user.attributes['custom:lastName'];
-
         const databaseUser = await fetchUserById(user.attributes.sub);
+        //const userCrews = await getCrewsByUser(user);
 
-        setUserInfo({
-          __typename: "User",
-          id: user.attributes.sub, 
-          firstname: firstName,
-          lastname: lastName,
-          email: user.attributes.email,
-          userType: UserType.COMMUNITY_BUILDER, 
-          crews: null, 
-          events: null, 
-          createdAt: '', 
-          updatedAt: '', 
-          eventUserAttendeesId: null, 
-        });
+
+        setUserInfo(databaseUser);
+        //setUserCrews(userCrews);
 
       } catch (error) {
         console.log(error);
-      }
-
-      async function getCrews() {
-        
-      }
+      }    
     }
-
     fetchUserInfo();
   }, []);
 
+  const mockCrewData: Crew[] = [
+    { id: "1", firstname: "Crew", lastname: 'A', __typename: 'Crew', familyRole: 'test', createdAt: '', updatedAt:'' },
+    { id: "2", firstname: "Crew", lastname: 'B', __typename: 'Crew', familyRole: 'test', createdAt: '', updatedAt:''},
+    { id: "3", firstname: "Crew", lastname: 'C', __typename: 'Crew', familyRole: 'test', createdAt: '', updatedAt:''},
+  ];
+
+  const handleAddCrew = async() => {
+    console.log('Add crew pressed');
+    
+  };
+
   return (
-    <View style={myInfoStyles.container}>
-      {userInfo ? (
-        <View style={myInfoStyles.userInfoContainer}>
-          {/* User Image and Name Section (Centered) */}
-          <View style={myInfoStyles.userImageContainer}>
-            <Image
-              source={require("../../../assets/lego-figure.png")}
-              style={myInfoStyles.userImage}
-            />
-          </View>
-          <View style={myInfoStyles.userNameContainer}>
-            <Text style={myInfoStyles.infoItem}>
-              {userInfo.firstname} {userInfo.lastname}
-            </Text>
-          </View>
-  
-          {/* Email Address Section (Not Centered) */}
-          <View style={myInfoStyles.emailContainer}>
-            <Text style={myInfoStyles.emailLabel}>Email address:</Text>
-            <TextInput
-              style={myInfoStyles.emailInput}
-              value={userInfo.email}
-              editable={false}
-            />
-          </View>
-          <View style={myInfoStyles.userTypeContainer}>
-            <Text style={myInfoStyles.userTypeLabel}>User type:</Text>
-            <TextInput
-              style={myInfoStyles.userTypeInput}
-              value={userInfo.userType}
-              editable={false}
-            />
-          </View>
-          <Text style={myInfoStyles.crewsection}>My crew:</Text>
-          <Text style={myInfoStyles.crews}>No crew to load...</Text>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={myInfoStyles.container}>
+          {userInfo ? (
+            <View style={myInfoStyles.userInfoContainer}>
+              <View style={myInfoStyles.userImageContainer}>
+                <Image
+                  source={require("../../../assets/lego-figure.png")}
+                  style={myInfoStyles.userImage}
+                />
+              </View>
+              <View style={myInfoStyles.userNameContainer}>
+                <Text style={myInfoStyles.infoItem}>
+                  {userInfo.firstname} {userInfo.lastname}
+                </Text>
+              </View>
+
+              <View style={myInfoStyles.emailContainer}>
+                <Text style={myInfoStyles.emailLabel}>Email address:</Text>
+                <TextInput
+                  style={myInfoStyles.emailInput}
+                  value={userInfo.email}
+                  editable={false}
+                />
+              </View>
+              <Text style={myInfoStyles.crewsection}>My crew:</Text>
+              {mockCrewData.length === 0 ? (
+                <Text style={myInfoStyles.noCrewText}>Currently you have no crew.</Text>
+              ) : (
+                <View style={myInfoStyles.crewGrid}>
+                  {mockCrewData.map((item) => (
+                    <View style={myInfoStyles.crewCards} key={item.id}>
+                      <CrewCard crew={item} />
+                    </View>
+                  ))}
+                </View>
+              )}
+               <TouchableOpacity onPress={handleAddCrew} style={myInfoStyles.addCrewButton}>
+        <Text style={myInfoStyles.addCrewButtonText}>Add Crew</Text>
+      </TouchableOpacity>
+            </View>
+          ) : (
+            <Text>Loading user information...</Text>
+          )}
         </View>
-      ) : (
-        <Text>Loading user information...</Text>
-      )}
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
-  
-  
-  
-  
- };  
+};
 
 export default MyInfoComponent;

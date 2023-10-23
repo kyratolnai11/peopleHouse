@@ -52,7 +52,7 @@ const DrawerNavigation: React.FC = () => {
         options={{
           // Hide the label for Settings screen
           drawerLabel: () => null, // or drawerLabel: '',
-          headerTitle: "",
+          headerTitle: "My Information",
           drawerItemStyle: { display: "none" }, // or other styling as needed
         }}
       />      
