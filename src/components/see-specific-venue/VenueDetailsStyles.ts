@@ -2,9 +2,6 @@ import Colors from "../../../utils/theme";
 import { StyleSheet } from "react-native";
 
 export const venueDetailsStyles = StyleSheet.create({
-    scrollView:{
-        flex: 1,
-    },
     container: {
         flex: 1,
       },
@@ -19,7 +16,6 @@ export const venueDetailsStyles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: 'white',
-        textDecorationLine: 'underline',
         paddingBottom: 5,
       },
       sectionText: {
@@ -77,7 +73,8 @@ export const venueDetailsStyles = StyleSheet.create({
       },
       decorativeLine:{
         height: 1, // Adjust the height as needed
-  backgroundColor: 'white', // Set the color of the line
-  marginVertical: 10, // Add margin to control the spacing above and below the line
+        backgroundColor: 'F6F1EE', // Set the color of the line
+        marginVertical: 10, // Add margin to control the spacing above and below the line
+        marginBottom: 20,
       },
 });
