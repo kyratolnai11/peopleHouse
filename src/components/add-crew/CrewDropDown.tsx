@@ -6,44 +6,36 @@ import { Controller, useForm } from "react-hook-form";
 import { TextInput } from "react-native-gesture-handler";
 import Colors from "../../../utils/theme";
 import DatePicker from "./DatePickerLocal";
-import { Auth } from "aws-amplify";
+import { fetchLoggedInUserID } from "../cognito/UserCognito";
+import { addCrew } from "../../database/CrewDBConnection";
 
 export type AddCrewForm = {
   firstName: string;
   lastName: string;
   dateOfBirth?: Date;
+  userType: string;
 };
 
 const CrewDropDown: React.FC = () => {
   const [option, setOption] = useState("");
   const [isFocus, setIsFocus] = useState(false);
+  const [userId, setUserId] = useState("");
 
   const data = [
     { label: "+ONE", value: "+ONE" },
-    { label: "Child ((16+)", value: "Child ((16+)" },
+    { label: "Child ((16+)", value: "Child(16+)" },
     { label: "Child", value: "Child" },
   ];
 
   const { handleSubmit, control, setValue } = useForm<AddCrewForm>();
 
   useEffect(() => {
-    async function fetchUserInfo() {
-      try {
-        const user = await Auth.currentAuthenticatedUser({
-          bypassCache: false,
-        });
-
-        console.log(user.attributes.sub);
-
-        //setUserCrews(userCrews);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchUserInfo();
+    fetchLoggedInUserID().then((id) => setUserId(id));
   }, []);
 
-  const onSubmit = (data: AddCrewForm) => {
+  const onSubmit = async (data: AddCrewForm) => {
+    console.log("This is the userId", userId);
+    await addCrew(userId, data);
     console.log("Form submitted" + data.dateOfBirth);
   };
 
@@ -66,6 +58,7 @@ const CrewDropDown: React.FC = () => {
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
           setOption(item.value);
+          setValue("userType", option);
           setIsFocus(false);
         }}
       />
