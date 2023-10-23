@@ -12,6 +12,7 @@ import { addCrew } from "../../database/CrewDBConnection";
 export type AddCrewForm = {
   firstName: string;
   lastName: string;
+  email?: string;
   dateOfBirth?: Date;
   userType: string;
 };
@@ -23,7 +24,7 @@ const CrewDropDown: React.FC = () => {
 
   const data = [
     { label: "+ONE", value: "+ONE" },
-    { label: "Child ((16+)", value: "Child(16+)" },
+    { label: "Child (16+)", value: "Child(16+)" },
     { label: "Child", value: "Child" },
   ];
 
@@ -74,45 +75,113 @@ const CrewDropDown: React.FC = () => {
             consent that the data you have entered is correct, and agree on
             using these data according to our privacy policy and terms of use.
           </Text>
-          <Text style={sharedStyles.text}>First Name:</Text>
-          <Controller
-            name="firstName"
-            control={control}
-            render={({ field }) => (
-              <TextInput
-                placeholder="Enter your first name"
-                value={field.value}
-                onChangeText={field.onChange}
-                style={styles.input}
-              />
-            )}
-          />
-
-          <Text style={sharedStyles.text}>Last Name:</Text>
-          <Controller
-            name="lastName"
-            control={control}
-            render={({ field }) => (
-              <TextInput
-                placeholder="Enter your last name"
-                value={field.value}
-                onChangeText={field.onChange}
-                style={styles.input}
-              />
-            )}
-          />
-
-          <Text style={sharedStyles.text}>Date of Birth:</Text>
-          <DatePicker setValue={setValue} name="Date of birth" />
-
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            style={styles.loginButton}
-          >
-            <Text style={styles.loginButtonText}>Add Crew</Text>
-          </TouchableOpacity>
         </View>
       )}
+      {option === "Child(16+)" && (
+        <View>
+          <Image
+            source={require("../../../assets/add-crew/love-figure.png")}
+            style={styles.image}
+          />
+          <Text style={[sharedStyles.text, { textAlign: "justify" }]}>
+            Children are your own responsibility and MUST always be accompanied
+            by you or your +ONE at all times inside People House. You also
+            consent that the data you have entered is correct, and agree on
+            using these data according to our privacy policy and terms of use.
+          </Text>
+        </View>
+      )}
+      {option === "+ONE" && (
+        <View>
+          <Image
+            source={require("../../../assets/add-crew/love-figure.png")}
+            style={styles.image}
+          />
+          <Text
+            style={[
+              sharedStyles.text,
+              { textAlign: "justify", fontWeight: "bold" },
+            ]}
+          >
+            If your +ONE is LEGO Pensioner or employed by LEGO Group or Kirkbi,
+            please use option "Employee/Pensioner +ONE" instead.
+          </Text>
+          <Text style={[sharedStyles.text, { textAlign: "justify" }]}>
+            Who is a +ONE? A lucky person who you choose to share exiting People
+            House moments with. You are no longer limited to choosing a partner
+            but free to choose whoever feels right for you. For example this
+            could be: partner, mother, brother, cousin or a friend.
+          </Text>
+          <Text style={[sharedStyles.text, { textAlign: "justify" }]}>
+            Your +ONE needs to complete their registration following a link that
+            you will receive in your email.
+          </Text>
+          <Text style={[sharedStyles.text, { textAlign: "justify" }]}>
+            Until this process is completed, your +ONE will appear on "Home" as
+            an inactive member. They will not be able to sign-up and attend
+            events nor have any access to People House.
+          </Text>
+        </View>
+      )}
+      <View style={{ width: 300, marginTop: 20 }}>
+        <Text style={sharedStyles.text}>First Name:</Text>
+        <Controller
+          name="firstName"
+          control={control}
+          render={({ field }) => (
+            <TextInput
+              placeholder="Enter your first name"
+              value={field.value}
+              onChangeText={field.onChange}
+              style={styles.input}
+            />
+          )}
+        />
+
+        <Text style={sharedStyles.text}>Last Name:</Text>
+        <Controller
+          name="lastName"
+          control={control}
+          render={({ field }) => (
+            <TextInput
+              placeholder="Enter your last name"
+              value={field.value}
+              onChangeText={field.onChange}
+              style={styles.input}
+            />
+          )}
+        />
+        {option === "+ONE" && (
+          <View>
+            <Text style={sharedStyles.text}>Email:</Text>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <TextInput
+                  placeholder="Enter your email"
+                  value={field.value}
+                  onChangeText={field.onChange}
+                  style={styles.input}
+                />
+              )}
+            />
+          </View>
+        )}
+        {option === "Child" && (
+          <View>
+            <Text style={sharedStyles.text}>Date of Birth:</Text>
+            <DatePicker setValue={setValue} name="Date of birth" />
+          </View>
+        )}
+
+        <TouchableOpacity
+          onPress={handleSubmit(onSubmit)}
+          style={styles.loginButton}
+        >
+          <Text style={styles.loginButtonText}>Add Crew</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
