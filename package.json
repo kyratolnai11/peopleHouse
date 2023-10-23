@@ -16,6 +16,8 @@
     "@react-native-community/datetimepicker": "7.2.0",
     "@react-native-community/netinfo": "9.3.10",
     "@react-navigation/drawer": "6.6.4",
+    "@react-navigation/native": "^6.1.8",
+    "@react-navigation/stack": "^6.3.18",
     "@typescript-eslint/parser": "6.7.2",
     "amazon-cognito-identity-js": "6.3.6",
     "aws-amplify": "5.3.11",

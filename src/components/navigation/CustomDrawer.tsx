@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, Appearance } from "react-native";
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import Colors from "../../../utils/theme";
+import { Auth } from "aws-amplify";
+import UserCognito from "../cognito/UserCognito";
 
 const CustomDrawer: React.FC<{
   state: any;
@@ -13,6 +15,33 @@ const CustomDrawer: React.FC<{
   descriptors: any;
 }> = ({ state, navigation, descriptors }) => {
   const colorScheme = Appearance.getColorScheme();
+  const [userName, setUserName] = useState(''); // State to hold the user's name
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await UserCognito.fetchUserData();
+        setUserName(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData(); 
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await Auth.signOut();
+      console.log('Sign out successful.');
+  
+      // Navigate to SignInScreen using AuthStackNavigator
+      navigation.navigate('SignIn');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -35,8 +64,7 @@ const CustomDrawer: React.FC<{
               marginBottom: 5,
             }}
           >
-            {/* Reminder: Add the name of the logged in user instead */}
-            John Doe
+            {userName} {/* Display the user's name */}
           </Text>
         </View>
         <View
@@ -57,7 +85,7 @@ const CustomDrawer: React.FC<{
         </View>
       </DrawerContentScrollView>
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
-        <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity onPress={handleSignOut} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{

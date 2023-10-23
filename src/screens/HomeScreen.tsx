@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Image, ScrollView, SafeAreaView } from "react-native";
 import { homeStyles } from "../components/home-screen/Stylesheet";
-
 const HomeScreen: React.FC = () => {
   return (
     <SafeAreaView>

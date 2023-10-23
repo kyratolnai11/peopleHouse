@@ -1,10 +1,10 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import React from "react";
 import CustomDrawer from "./CustomDrawer";
 import { Appearance } from "react-native";
 import { ActionBarImage } from "./ActionBarImage";
 import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
+import SignUpScreen from "../signup-screen/SignUpComponent";
 import Colors from "../../../utils/theme";
 import VenuesScreen from "../../screens/VenuesScreen";
 import AddCrewScreen from "../../screens/AddCrewScreen";
@@ -12,6 +12,7 @@ import AddCrewScreen from "../../screens/AddCrewScreen";
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();
   const Drawer = createDrawerNavigator();
+
   return (
     <Drawer.Navigator
       initialRouteName="Add Crew"
@@ -41,6 +42,8 @@ const DrawerNavigation: React.FC = () => {
         name="Add Crew"
         component={AddCrewScreen}
       />
+      <Drawer.Screen name="SignUp" component={SignUpScreen} />
+      
     </Drawer.Navigator>
   );
 };
