@@ -3,7 +3,6 @@ import { View, Image, Text } from "react-native";
 import SignInComponent from "../components/signin-screen/SignInComponent";
 import SignInStyles from "../components/signin-screen/SignInStyles";
 import EmailLink from "../components/info-screen/EmailLink";
-import { sharedStyles } from "../../utils/SharedStyles";
 import Colors from "../../utils/theme";
 
 const HeaderComponent = () => (

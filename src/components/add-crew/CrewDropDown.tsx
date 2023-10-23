@@ -110,7 +110,7 @@ const CrewDropDown: React.FC = () => {
           />
 
           <Text style={sharedStyles.text}>Date of Birth:</Text>
-          <DatePicker setValue={setValue} />
+          <DatePicker setValue={setValue} name="Date of birth" />
 
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}

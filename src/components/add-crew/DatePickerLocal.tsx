@@ -5,13 +5,16 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import Colors from "../../../utils/theme";
 import { UseFormSetValue } from "react-hook-form";
 import { AddCrewForm } from "./CrewDropDown";
+import { sharedStyles } from "../../../utils/SharedStyles";
+import { format } from "date-fns-tz";
 
 type DatePickerProps = {
   setValue: UseFormSetValue<AddCrewForm>;
+  name: string;
 };
 
-const DatePicker: React.FC<DatePickerProps> = ({ setValue }) => {
-  const [date, setDate] = useState(new Date(1598051730000));
+const DatePicker: React.FC<DatePickerProps> = ({ setValue, name }) => {
+  const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
   const onChange = (event: any, selectedDate: any) => {
@@ -26,20 +29,26 @@ const DatePicker: React.FC<DatePickerProps> = ({ setValue }) => {
   };
 
   return (
-    <View style={{ alignItems: "center" }}>
+    <View>
       <TouchableOpacity onPress={showDatepicker} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Date o Birth</Text>
+        <Text style={styles.loginButtonText}>{name}</Text>
       </TouchableOpacity>
-      <Text>selected: {date.toLocaleString()}</Text>
+
       {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          is24Hour={true}
-          onChange={onChange}
-          textColor="#FFD400"
-        />
+        <View style={{ alignItems: "flex-start" }}>
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode="date"
+            is24Hour={true}
+            onChange={onChange}
+          />
+        </View>
+      )}
+      {date && (
+        <Text style={sharedStyles.text}>
+          Selected: {format(date, "yyyy-MM-dd")}
+        </Text>
       )}
     </View>
   );
@@ -47,15 +56,15 @@ const DatePicker: React.FC<DatePickerProps> = ({ setValue }) => {
 
 const styles = StyleSheet.create({
   loginButton: {
-    backgroundColor: Colors.dark.primary, // Set your desired background color
+    backgroundColor: Colors.dark.secondary, // Set your desired background color
     padding: 10,
     borderRadius: 10,
-    marginTop: 10,
     width: 120,
+    marginBottom: 10,
     // Adjust as needed to provide separation from other elements
   },
   loginButtonText: {
-    color: "black", // Set the text color for the button
+    color: Colors.dark.textPrimary, // Set the text color for the button
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 16,
