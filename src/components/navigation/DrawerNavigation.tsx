@@ -8,6 +8,7 @@ import SignUpScreen from "../signup-screen/SignUpComponent";
 import Colors from "../../../utils/theme";
 import VenuesScreen from "../../screens/VenuesScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
+import VenueDetailsScreen from "../see-specific-venue/VenueDetailsComponent";
 
 
 const DrawerNavigation: React.FC = () => {
@@ -56,7 +57,18 @@ const DrawerNavigation: React.FC = () => {
           drawerItemStyle: { display: "none" }, // or other styling as needed
         }}
       />      
+      <Drawer.Screen
+        name="SpecificVenue"
+        component={VenueDetailsScreen}
+        options={{
+          // Hide the label for Settings screen
+          drawerLabel: () => null, // or drawerLabel: '',
+          headerTitle: "See Venue",
+          drawerItemStyle: { display: "none" }, // or other styling as needed
+        }}
+      />   
     </Drawer.Navigator>
+    
   );
 };
 

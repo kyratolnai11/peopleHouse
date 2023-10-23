@@ -11,6 +11,8 @@ import { Venue } from "../../API";
 import { getVenueImages } from "../../constants";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import { venueStyles } from "./VenueStyles";
+import { CommonActions, useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
+
 
 type VenueCardProps = {
   venue: Venue;
@@ -21,10 +23,25 @@ const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   const description = venue.description;
   const shortDescription = venue.shortDescription;
   const imageFile = getVenueImages(id);
+  const navigation = useNavigation(); // Initialize navigation
+
 
   const handleOpenURL = () => {
-    console.log("Cards pressed");
-    //This is where we will navigate to the individual venue page
+    console.log("Cards pressed", { venueId: id });
+
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'SpecificVenue',
+            params: {
+              venueId: id, // Set the venueId parameter here
+            },
+          },
+        ],
+      })
+    );
   };
 
   return (
