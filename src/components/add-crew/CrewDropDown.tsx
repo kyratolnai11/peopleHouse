@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import { Controller, useForm } from "react-hook-form";
 import { TextInput } from "react-native-gesture-handler";
 import Colors from "../../../utils/theme";
+import DatePicker from "./DatePickerLocal";
+import { getFormattedEventDatetime } from "../../constants";
 
 type AddCrewForm = {
   firstName: string;
@@ -21,6 +17,8 @@ type AddCrewForm = {
 const CrewDropDown: React.FC = () => {
   const [option, setOption] = useState("");
   const [isFocus, setIsFocus] = useState(false);
+  // const [dateT, setDate] = useState(new Date());
+  // const [openDP, setOpenDP] = useState(false);
 
   const data = [
     { label: "+ONE", value: "+ONE" },
@@ -31,7 +29,7 @@ const CrewDropDown: React.FC = () => {
   const { handleSubmit, control } = useForm<AddCrewForm>();
 
   const onSubmit = (data: AddCrewForm) => {
-    console.log("Form submitted" + data);
+    console.log("Form submitted" + data.dateOfBirth);
   };
 
   return (
@@ -56,7 +54,7 @@ const CrewDropDown: React.FC = () => {
           setIsFocus(false);
         }}
       />
-      {option && (
+      {option === "Child" && (
         <View>
           <Image
             source={require("../../../assets/add-crew/love-figure.png")}
@@ -68,7 +66,7 @@ const CrewDropDown: React.FC = () => {
             consent that the data you have entered is correct, and agree on
             using these data according to our privacy policy and terms of use.
           </Text>
-          <Text>First Name:</Text>
+          <Text style={sharedStyles.text}>First Name:</Text>
           <Controller
             name="firstName"
             control={control}
@@ -82,7 +80,7 @@ const CrewDropDown: React.FC = () => {
             )}
           />
 
-          <Text>Last Name:</Text>
+          <Text style={sharedStyles.text}>Last Name:</Text>
           <Controller
             name="lastName"
             control={control}
@@ -96,8 +94,8 @@ const CrewDropDown: React.FC = () => {
             )}
           />
 
-          <Text>Date of Birth:</Text>
-          {/* Add a date picker component here */}
+          <Text style={sharedStyles.text}>Date of Birth:</Text>
+          <DatePicker />
 
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}

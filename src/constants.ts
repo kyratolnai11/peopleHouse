@@ -1,3 +1,5 @@
+import { format, utcToZonedTime } from "date-fns-tz";
+
 export const getVenueImages = (id: string) => {
   switch (id) {
     case "1":
@@ -27,4 +29,45 @@ export const getVenueImages = (id: string) => {
     default:
       return null;
   }
+};
+
+export const getFormattedEventDatetime = (
+  startTimestamp?: Date,
+  endTimestamp?: Date
+): { date: string; time: string } => {
+  if (!startTimestamp || !endTimestamp) {
+    return {
+      date: "",
+      time: "",
+    };
+  }
+
+  const datePart = format(
+    utcToZonedTime(startTimestamp, "Europe/Copenhagen"),
+    `EEE. dd.MM.yy`,
+    {
+      timeZone: "Europe/Copenhagen",
+    }
+  );
+
+  const startTime = format(
+    utcToZonedTime(startTimestamp, "Europe/Copenhagen"),
+    `HH:mm`,
+    {
+      timeZone: "Europe/Copenhagen",
+    }
+  );
+
+  const endTime = format(
+    utcToZonedTime(endTimestamp, "Europe/Copenhagen"),
+    "HH:mm",
+    {
+      timeZone: "Europe/Copenhagen",
+    }
+  );
+
+  return {
+    date: datePart,
+    time: `${startTime} - ${endTime}`,
+  };
 };
