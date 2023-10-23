@@ -39,13 +39,20 @@ const DrawerNavigation: React.FC = () => {
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
       <Drawer.Screen name="Venues" component={VenuesScreen} />
-      <Drawer.Screen name="SignUp" component={SignUpScreen} />
+      <Drawer.Screen 
+      name="SignUp"
+      component={SignUpScreen}
+      options={{
+        headerTitle: "Sign up",
+        drawerLabel: 'Sign up'
+      }}/>
       <Drawer.Screen
         name="MyInfo"
         component={MyInfoScreen}
         options={{
           // Hide the label for Settings screen
           drawerLabel: () => null, // or drawerLabel: '',
+          headerTitle: "",
           drawerItemStyle: { display: "none" }, // or other styling as needed
         }}
       />      

@@ -55,6 +55,7 @@ const CustomDrawer: React.FC<{
         contentContainerStyle={{ backgroundColor: Colors.dark.secondary }}
       >
         <View style={{ padding: 20 }}>
+          <TouchableOpacity onPress={handleUserNameClick}>
           <Image
             source={require("../../../assets/lego-figure.png")}
             style={{
@@ -64,6 +65,7 @@ const CustomDrawer: React.FC<{
               marginBottom: 10,
             }}
           />
+          </TouchableOpacity>
           <Text
             style={{
               color: "#fff",
