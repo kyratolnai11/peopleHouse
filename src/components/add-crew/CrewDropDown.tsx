@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { sharedStyles } from "../../../utils/SharedStyles";
@@ -6,18 +6,17 @@ import { Controller, useForm } from "react-hook-form";
 import { TextInput } from "react-native-gesture-handler";
 import Colors from "../../../utils/theme";
 import DatePicker from "./DatePickerLocal";
+import { Auth } from "aws-amplify";
 
 export type AddCrewForm = {
   firstName: string;
   lastName: string;
-  dateOfBirth: Date;
+  dateOfBirth?: Date;
 };
 
 const CrewDropDown: React.FC = () => {
   const [option, setOption] = useState("");
   const [isFocus, setIsFocus] = useState(false);
-  // const [dateT, setDate] = useState(new Date());
-  // const [openDP, setOpenDP] = useState(false);
 
   const data = [
     { label: "+ONE", value: "+ONE" },
@@ -26,6 +25,23 @@ const CrewDropDown: React.FC = () => {
   ];
 
   const { handleSubmit, control, setValue } = useForm<AddCrewForm>();
+
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        const user = await Auth.currentAuthenticatedUser({
+          bypassCache: false,
+        });
+
+        console.log(user.attributes.sub);
+
+        //setUserCrews(userCrews);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchUserInfo();
+  }, []);
 
   const onSubmit = (data: AddCrewForm) => {
     console.log("Form submitted" + data.dateOfBirth);
@@ -94,7 +110,7 @@ const CrewDropDown: React.FC = () => {
           />
 
           <Text style={sharedStyles.text}>Date of Birth:</Text>
-          <DatePicker setValue={setValue}/>
+          <DatePicker setValue={setValue} />
 
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}
