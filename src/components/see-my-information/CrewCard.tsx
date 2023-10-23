@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { Card } from "react-native-paper";
 import { Crew } from "../../API"; // Import the Crew type if available
-import { sharedStyles } from "../../../utils/SharedStyles";
 import { crewStyles } from "./CrewStyles";
 
 type CrewCardProps = {
