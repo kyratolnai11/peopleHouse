@@ -79,7 +79,7 @@ container: {
   },
   footerParagraphText:{
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: 16,
   },
 });
 

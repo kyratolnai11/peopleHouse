@@ -5323,7 +5323,7 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "ne",
+          "name" : "ne"
         }, {
           "name" : "gt",
           "description" : null,
@@ -5493,7 +5493,6 @@
           "name" : "notIn",
           "description" : null,
           "type" : {
-<<<<<<< HEAD
             "kind" : "LIST",
             "name" : null,
             "ofType" : {
@@ -5501,11 +5500,6 @@
               "name" : "Float",
               "ofType" : null
             }
-=======
-            "kind" : "ENUM",
-            "name" : "ModelAttributeTypes",
-            "ofType" : null
->>>>>>> main
           },
           "defaultValue" : null
         } ],
