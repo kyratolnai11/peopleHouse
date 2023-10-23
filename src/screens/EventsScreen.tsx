@@ -14,6 +14,20 @@ const EventsScreen = () => {
     fetchAllEvents()
       .then((eventsdata) => {
         console.log("Events are set");
+
+        //sort events in chronological order
+        if(eventsdata && eventsdata.items)
+        {
+          eventsdata.items.sort((a, b) => {
+            if (a && a.startDateTime && b && b.startDateTime ) {
+              const date1 = new Date(a.startDateTime);
+              const date2 = new Date(b.startDateTime);
+              return date1.getTime() - date2.getTime();
+            }
+            return 0;
+          });
+        }
+        
         setEvents(eventsdata);
         setDataFetched(true);
       })

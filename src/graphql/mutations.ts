@@ -234,7 +234,8 @@ export const createEvent = /* GraphQL */ `mutation CreateEvent(
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {
@@ -267,7 +268,8 @@ export const updateEvent = /* GraphQL */ `mutation UpdateEvent(
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {
@@ -300,7 +302,8 @@ export const deleteEvent = /* GraphQL */ `mutation DeleteEvent(
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {

@@ -134,7 +134,8 @@ export type Event = {
   brief: string,
   description: string,
   agenda: string,
-  datetime: string,
+  startDateTime: string,
+  endDateTime: string,
   numOfTickets: number,
   host: string,
   userAttendees?: ModelUserConnection | null,
@@ -262,7 +263,8 @@ export type CreateEventInput = {
   brief: string,
   description: string,
   agenda: string,
-  datetime: string,
+  startDateTime: string,
+  endDateTime: string,
   numOfTickets: number,
   host: string,
   venueId: string,
@@ -275,7 +277,8 @@ export type ModelEventConditionInput = {
   brief?: ModelStringInput | null,
   description?: ModelStringInput | null,
   agenda?: ModelStringInput | null,
-  datetime?: ModelStringInput | null,
+  startDateTime?: ModelStringInput | null,
+  endDateTime?: ModelStringInput | null,
   numOfTickets?: ModelIntInput | null,
   host?: ModelStringInput | null,
   venueId?: ModelStringInput | null,
@@ -292,7 +295,8 @@ export type UpdateEventInput = {
   brief?: string | null,
   description?: string | null,
   agenda?: string | null,
-  datetime?: string | null,
+  startDateTime?: string | null,
+  endDateTime?: string | null,
   numOfTickets?: number | null,
   host?: string | null,
   venueId?: string | null,
@@ -352,7 +356,8 @@ export type ModelEventFilterInput = {
   brief?: ModelStringInput | null,
   description?: ModelStringInput | null,
   agenda?: ModelStringInput | null,
-  datetime?: ModelStringInput | null,
+  startDateTime?: ModelStringInput | null,
+  endDateTime?: ModelStringInput | null,
   numOfTickets?: ModelIntInput | null,
   host?: ModelStringInput | null,
   venueId?: ModelStringInput | null,
@@ -362,6 +367,12 @@ export type ModelEventFilterInput = {
   userEventsId?: ModelIDInput | null,
   venueEventsId?: ModelIDInput | null,
 };
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
 
 export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
@@ -441,7 +452,8 @@ export type ModelSubscriptionEventFilterInput = {
   brief?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
   agenda?: ModelSubscriptionStringInput | null,
-  datetime?: ModelSubscriptionStringInput | null,
+  startDateTime?: ModelSubscriptionStringInput | null,
+  endDateTime?: ModelSubscriptionStringInput | null,
   numOfTickets?: ModelSubscriptionIntInput | null,
   host?: ModelSubscriptionStringInput | null,
   venueId?: ModelSubscriptionStringInput | null,
@@ -669,7 +681,8 @@ export type CreateEventMutation = {
     brief: string,
     description: string,
     agenda: string,
-    datetime: string,
+    startDateTime: string,
+    endDateTime: string,
     numOfTickets: number,
     host: string,
     userAttendees?:  {
@@ -701,7 +714,8 @@ export type UpdateEventMutation = {
     brief: string,
     description: string,
     agenda: string,
-    datetime: string,
+    startDateTime: string,
+    endDateTime: string,
     numOfTickets: number,
     host: string,
     userAttendees?:  {
@@ -733,7 +747,8 @@ export type DeleteEventMutation = {
     brief: string,
     description: string,
     agenda: string,
-    datetime: string,
+    startDateTime: string,
+    endDateTime: string,
     numOfTickets: number,
     host: string,
     userAttendees?:  {
@@ -902,7 +917,8 @@ export type GetEventQuery = {
     brief: string,
     description: string,
     agenda: string,
-    datetime: string,
+    startDateTime: string,
+    endDateTime: string,
     numOfTickets: number,
     host: string,
     userAttendees?:  {
@@ -937,7 +953,40 @@ export type ListEventsQuery = {
       brief: string,
       description: string,
       agenda: string,
-      datetime: string,
+      startDateTime: string,
+      endDateTime: string,
+      numOfTickets: number,
+      host: string,
+      venueId: string,
+      createdAt: string,
+      updatedAt: string,
+      userEventsId?: string | null,
+      venueEventsId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type EventsByVenueIdQueryVariables = {
+  venueId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelEventFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type EventsByVenueIdQuery = {
+  eventsByVenueId?:  {
+    __typename: "ModelEventConnection",
+    items:  Array< {
+      __typename: "Event",
+      id: string,
+      title: string,
+      brief: string,
+      description: string,
+      agenda: string,
+      startDateTime: string,
+      endDateTime: string,
       numOfTickets: number,
       host: string,
       venueId: string,
@@ -1160,7 +1209,8 @@ export type OnCreateEventSubscription = {
     brief: string,
     description: string,
     agenda: string,
-    datetime: string,
+    startDateTime: string,
+    endDateTime: string,
     numOfTickets: number,
     host: string,
     userAttendees?:  {
@@ -1191,7 +1241,8 @@ export type OnUpdateEventSubscription = {
     brief: string,
     description: string,
     agenda: string,
-    datetime: string,
+    startDateTime: string,
+    endDateTime: string,
     numOfTickets: number,
     host: string,
     userAttendees?:  {
@@ -1222,7 +1273,8 @@ export type OnDeleteEventSubscription = {
     brief: string,
     description: string,
     agenda: string,
-    datetime: string,
+    startDateTime: string,
+    endDateTime: string,
     numOfTickets: number,
     host: string,
     userAttendees?:  {

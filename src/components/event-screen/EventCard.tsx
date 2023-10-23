@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Card } from "react-native-paper";
 import { Event } from "../../API";
-import { getEventHeaderImages } from "../../constants";
+import { getEventHeaderImages, getFormattedDate } from "../../constants";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import { eventStyles } from "./EventStyles";
 import CustomButton from "./CustomButton.tsx";
@@ -17,33 +17,11 @@ type EventCardProps = {
     event: Event;
 };
 
-export const getFormattedDate = (unformattedDateTime: string) => {
-    //split date and time
-    const strings = unformattedDateTime.split('T');
-    const unformattedDate = strings[0];
-    const unformattedTime = strings[1].split('Z')[0];
-
-    //format date
-    const dateValues = unformattedDate.split('-');
-    const year = dateValues[0].slice(2);
-    const month = dateValues[1];
-    const day = dateValues[2];
-    const dateFormatted = day + "." + month + "." + year;
-
-    //formate time
-    const timeFormatted = unformattedTime.slice(undefined,5);
-
-    //final format
-    const finalFormat = dateFormatted + "    " + timeFormatted;
-    
-    return finalFormat
-}
-
 const EventCard: React.FC<EventCardProps> = ({ event: event }) => {
     const venueID = event.venueId;
     const description = event.title;
     const brief = event.brief;
-    const dateTime = getFormattedDate(event.datetime);
+    const formattedDateTime = getFormattedDate(event.startDateTime, event.endDateTime);
     const imageFile = getEventHeaderImages(venueID);
 
     const handleOpenURL = () => {
@@ -65,7 +43,7 @@ const EventCard: React.FC<EventCardProps> = ({ event: event }) => {
                                 {brief}
                             </Text>
                             <Text style={eventStyles.dateTimeText}>
-                                {dateTime}
+                                {formattedDateTime}
                             </Text>
                             <CustomButton name="Sign-up" />
                         </View>

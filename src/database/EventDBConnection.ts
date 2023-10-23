@@ -1,4 +1,4 @@
-import { listEvents } from "../graphql/queries";
+import { listEvents, eventsByVenueId } from "../graphql/queries";
 import { createEvent } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 import { CreateEventInput, ModelEventConnection } from "../API";
@@ -15,18 +15,31 @@ export async function fetchAllEvents(): Promise<ModelEventConnection | undefined
   }
 }
 
+export async function fetchEventsByVenueId(id: string): Promise<ModelEventConnection | undefined> {
+  try {
+    console.log("Getting events for venue id: " + id);
+    const eventData: any = await API.graphql(graphqlOperation(eventsByVenueId, id));
+    const events: ModelEventConnection = eventData.data.listEvents;
+    console.log("Got events:", events);
+    return events;
+  } catch (error) {
+    console.log("Error fetching events:", error);
+  }
+}
+
 export const addEvent = async () => {
   try {
     console.log("Try to add event...");
     const eventToAdd: CreateEventInput = {
-        title: "Acrylic Painting for Beginners",
-        brief: "Express your creativity!",
-        description: "If you are new to the art scene, this is the workshop for you! Our creative facilitator and artist Kirsten starts with a brief overview of different techniques and forms of expression that you can use as inspiration, and then we're off to a good start. Kirsten's teaching in acrylic painting is based on you and the art you would like to express. She uses layer upon layer techniques, lasering, drip painting, and splashing. Kirsten has all the materials you need ready for you in Maker Space,  so your desire to paint is the only prerequisite for participating! Cost: 50 DKK The class fee can be paid at the Heart Café prior to the start of the class and the receipt will serve as your ticket. Denne workshop er for dig der er ”helt ny” som billedkunstner, og den kreative facilitator og kunstner Kirsten, starter med en kort gennemgang af forskellige teknikker og udtryksformer, du kan bruge som inspiration….og så er vi ligesom i gang. Kirstens undervisning i akrylmaleri, tager udgangspunkt i dig og den kunst du tænker du gerne vil udtrykke. Hun anvender lag på lag teknikker, lasering, drip painting (dryp teknik) og splash. Alle materialerne du skal bruge, har Kirsten klar til dig i Maker Space, sin lyst til at male er den eneste forudsætning for at deltage! Pris: 50 DKK Betaling for holdet skal ske i Heart Café inden holdets start, og kvitteringen vil fungere som din billet.",
-        agenda: "Minimum participant age: 12 *Please note, this workshop is for participants 12 years and up and our facilitator cannot accommodate accompanying younger children* Aldersbegrænsning: 12 år Vær venligst opmærksom på, at denne workshop er for voksne og at facilitatoren ikke kan varetage undervisning af medbragte børn samtidig.",
-        datetime: "2023-10-23T16:15:00Z",
+        title: "Music and Rhythm for Littles",
+        brief: "Join our family friendly musical playroom!",
+        description: "At this family workshop you will sing and play together with our talented facilitator Jannie. Jannie works with children and music every day, so she knows exactly how to get 'the whole team' to sing and play together. When you have sung a few songs, you will discover the foundation of music (pulse of music) - the four magic '1,2,3,4'. You will build up rhythms with some simple notes and then of course you will play on your own body (body percussion) and on instruments. Come and join in making music the fun way. Cost: 10 DKK The workshop fee can be paid at the Heart Café prior to the start of the class and the receipt will serve as your ticket. På denne Family workshop skal I synge, spille og lege sammen med Jannie. Begge arbejder de med børn og musik hver dag, så de ved helt præcist hvordan de skal få ”hele holdet” til at synge og spille sammen. Når I har sunget et par sange, skal I på opdagelse i Musikkens fundament (Musikkens puls) – de magiske fire ”1,2,3,4”. I skal opbygge rytmer med nogle enkle noder og så skal der selvfølgelig spilles på din egen krop(bodypercussion) samt på instrumenter. Kom og vær med til at lave musik på den sjove måde. Pris: 10 DKK Betaling for holdet skal ske i Heart Café inden holdets start, og kvitteringen vil fungere som din billet. ",
+        agenda: "Minimum participant age: 3 *Please note, parents must stay with children under 16 while they are in People House* Aldersbegrænsning: 3 år *Vær venligst opmærksom på, at børn under 16 år skal være under forældres opsyn hele tiden, mens de opholder sig i People House*",
+        startDateTime: "2023-10-28T12:00:00Z",
+        endDateTime: "2023-10-28T12:30:00Z",
         numOfTickets: 100,
         host: "Community Builder Team",
-        venueId: "11",
+        venueId: "5",
     };
     const response = await API.graphql(
       graphqlOperation(createEvent, { input: eventToAdd })

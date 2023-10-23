@@ -204,7 +204,8 @@ export const onCreateEvent = /* GraphQL */ `subscription OnCreateEvent($filter: 
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {
@@ -234,7 +235,8 @@ export const onUpdateEvent = /* GraphQL */ `subscription OnUpdateEvent($filter: 
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {
@@ -264,7 +266,8 @@ export const onDeleteEvent = /* GraphQL */ `subscription OnDeleteEvent($filter: 
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {

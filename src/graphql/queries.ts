@@ -138,7 +138,8 @@ export const getEvent = /* GraphQL */ `query GetEvent($id: ID!) {
     brief
     description
     agenda
-    datetime
+    startDateTime
+    endDateTime
     numOfTickets
     host
     userAttendees {
@@ -170,7 +171,8 @@ export const listEvents = /* GraphQL */ `query ListEvents(
       brief
       description
       agenda
-      datetime
+      startDateTime
+      endDateTime
       numOfTickets
       host
       venueId
@@ -187,4 +189,43 @@ export const listEvents = /* GraphQL */ `query ListEvents(
 ` as GeneratedQuery<
   APITypes.ListEventsQueryVariables,
   APITypes.ListEventsQuery
+>;
+export const eventsByVenueId = /* GraphQL */ `query EventsByVenueId(
+  $venueId: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  eventsByVenueId(
+    venueId: $venueId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      title
+      brief
+      description
+      agenda
+      startDateTime
+      endDateTime
+      numOfTickets
+      host
+      venueId
+      createdAt
+      updatedAt
+      userEventsId
+      venueEventsId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.EventsByVenueIdQueryVariables,
+  APITypes.EventsByVenueIdQuery
 >;
