@@ -2,16 +2,30 @@ import React from "react";
 import { SafeAreaView, View, Text, Image, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { sharedStyles } from "../../utils/SharedStyles";
-import { RouteProp } from "@react-navigation/native";
-import { getEventHeaderImages, getFormattedDate } from "../constants";
+import { RouteProp, useNavigation } from "@react-navigation/native";
+import {
+  getEventHeaderImages,
+  getFormattedDate,
+  getVenueLogos,
+} from "../constants";
 import Colors from "../../utils/theme";
 import ShowMore from "../components/event-screen/ShowMore";
+import CustomButton from "../components/event-screen/CustomButton";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 type RootStackParamList = {
   Event: { eventId: string };
+  Availibility: {
+    eventName: string;
+    eventLocation: string;
+    eventTime: string;
+    numberOfTickets: number;
+    ticketsLeft: number;
+  };
 };
 
 type EventScreenRouteProp = RouteProp<RootStackParamList, "Event">;
+type navProp = StackNavigationProp<RootStackParamList, "Availibility">;
 
 type EventScreenProps = {
   route: EventScreenRouteProp;
@@ -32,7 +46,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
     endDateTime: "2023-10-28T12:30:00Z",
     numOfTickets: 100,
     host: "Community Builder Team",
-    venueId: "10",
+    venueId: "8",
     venueName: "The Makers Space",
   };
 
@@ -40,10 +54,26 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
 
   const imageFile = getEventHeaderImages(eventToAdd.venueId);
 
+  const logo = getVenueLogos(eventToAdd.venueId);
+
   const formattedDateTime = getFormattedDate(
     eventToAdd.startDateTime,
     eventToAdd.endDateTime
   );
+
+  //navigation to Availability screen
+  const navigation = useNavigation<navProp>();
+
+  const handlePress = () => {
+    console.log("Event button pressed");
+    navigation.navigate("Availibility", {
+      eventName: eventToAdd.title,
+      eventLocation: eventToAdd.venueName,
+      eventTime: formattedDateTime,
+      numberOfTickets: eventToAdd.numOfTickets,
+      ticketsLeft: 5,
+    });
+  };
 
   return (
     <SafeAreaView>
@@ -57,13 +87,25 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
             <Text style={styles.brief}>{eventToAdd.brief}</Text>
             <View style={styles.overlay}></View>
           </View>
-          <Text style={styles.headerText}>Hosted by</Text>
-          <Text style={sharedStyles.text}>{eventToAdd.host}</Text>
+          <View style={styles.row}>
+            <Image source={logo} style={styles.logo} />
+            <View style={styles.rowContainer}>
+              <Text style={[sharedStyles.text, styles.communityText]}>
+                <Text style={styles.byText}>By: </Text>
+                {eventToAdd.host}
+              </Text>
+            </View>
+          </View>
 
           <Text style={styles.headerText}>Event details</Text>
           <ShowMore text={eventToAdd.description} />
           <Text style={styles.headerText}>Event agenda</Text>
           <ShowMore text={eventToAdd.agenda} />
+
+          <CustomButton
+            name="Check availability"
+            action={() => handlePress()}
+          />
 
           <Text>Id:{JSON.stringify(eventId)}</Text>
         </View>
@@ -75,6 +117,18 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
 export default EventScreen;
 
 const styles = StyleSheet.create({
+  rowContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
+  communityText: { textAlign: "center", marginTop: -20, marginLeft: 20 },
+  byText: {
+    color: Colors.dark.secondary,
+    fontWeight: "bold",
+    fontSize: 18,
+    paddingBottom: 10,
+    textAlign: "center",
+  },
   image: {
     width: 500,
     height: 200,
@@ -82,11 +136,19 @@ const styles = StyleSheet.create({
     marginTop: -37,
     zIndex: 0,
   },
+  logo: {
+    width: 200,
+    height: 100,
+    resizeMode: "cover",
+    marginTop: -37,
+    zIndex: 0,
+    alignSelf: "center",
+  },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     zIndex: 1,
     backgroundColor: "rgba(0, 0, 0, 0.1)",
-    marginTop: -60
+    marginTop: -60,
   },
   imageContainer: {
     position: "relative",
@@ -139,5 +201,12 @@ const styles = StyleSheet.create({
     color: Colors.dark.secondary,
     textDecorationLine: "underline",
     fontWeight: "bold",
+  },
+  row: {
+    flexDirection: "row", // Display the Image and Text components in a row
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 60,
+    marginBottom: 10,
   },
 });
