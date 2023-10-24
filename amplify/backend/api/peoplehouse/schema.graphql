@@ -30,6 +30,7 @@ type Crew @model {
   lastname: String!
   familyRole: String!
   dateOfBirth: AWSDateTime
+  email: String
 }
 
 type Event @model {
