@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  ActivityIndicator,
-} from "react-native";
+import { SafeAreaView, View, Text, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { sharedStyles } from "../../utils/SharedStyles";
 import { RouteProp, useNavigation } from "@react-navigation/native";
@@ -17,7 +11,8 @@ import EventHeader from "../components/event-screen/EventHeader";
 import { fetchEventById } from "../database/EventDBConnection";
 import { Event } from "../API";
 import { specificEventStyles } from "../components/event-screen/SpecificEventStyles";
-import Colors from "../../utils/theme";
+
+import LoadingSpinner from "../components/event-screen/LoadingSpinner";
 
 type RootStackParamList = {
   Event: { eventId: string };
@@ -58,11 +53,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
   }, []);
 
   if (event === undefined) {
-    return (
-      <View>
-        <ActivityIndicator size="large" color={Colors.dark.secondary} />
-      </View>
-    );
+    return <LoadingSpinner />;
   }
 
   const logo = getVenueLogos(event.venueId);

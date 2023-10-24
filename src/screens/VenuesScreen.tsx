@@ -4,6 +4,7 @@ import { fetchVenues } from "../database/VenueDBConnection";
 import { ModelVenueConnection } from "../API";
 import VenueCard from "../components/venue-screen/VenueCard";
 import { sharedStyles } from "../../utils/SharedStyles";
+import LoadingSpinner from "../components/event-screen/LoadingSpinner";
 
 const VenuesScreen = () => {
   const [venues, setVenues] = useState<ModelVenueConnection>();
@@ -20,6 +21,10 @@ const VenuesScreen = () => {
         console.error("Error fetching venues:", error);
       });
   }, []);
+
+  if (!venues) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <SafeAreaView>
