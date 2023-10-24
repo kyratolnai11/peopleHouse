@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, View, Text, Image, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { sharedStyles } from "../../utils/SharedStyles";
 import { RouteProp, useNavigation } from "@react-navigation/native";
-import { getFormattedDate, getVenueLogos } from "../constants";
+import { getFormattedDate, getVenueLogos, getVenueName } from "../constants";
 import Colors from "../../utils/theme";
 import ShowMore from "../components/event-screen/ShowMore";
 import CustomButton from "../components/event-screen/CustomButton";
 import { StackNavigationProp } from "@react-navigation/stack";
 import EventHeader from "../components/event-screen/EventHeader";
+import { fetchEventById } from "../database/EventDBConnection";
+import { Event } from "../API";
 
 type RootStackParamList = {
   Event: { eventId: string };
@@ -31,30 +33,38 @@ type EventScreenProps = {
 
 const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
   const { eventId } = route.params;
+  const [event, setEventData] = useState<Event>();
 
-  const eventToAdd = {
-    id: "e9f6b2b7-64b8-4586-9db5-9946891fa703",
-    title: "Music and Rhythm for Littles",
-    brief: "Join our family friendly musical playroom!",
-    description:
-      "At this family workshop you will sing and play together with our talented facilitator Jannie. Jannie works with children and music every day, so she knows exactly how to get 'the whole team' to sing and play together. When you have sung a few songs, you will discover the foundation of music (pulse of music) - the four magic '1,2,3,4'. You will build up rhythms with some simple notes and then of course you will play on your own body (body percussion) and on instruments. Come and join in making music the fun way. Cost: 10 DKK The workshop fee can be paid at the Heart Café prior to the start of the class and the receipt will serve as your ticket. På denne Family workshop skal I synge, spille og lege sammen med Jannie. Begge arbejder de med børn og musik hver dag, så de ved helt præcist hvordan de skal få ”hele holdet” til at synge og spille sammen. Når I har sunget et par sange, skal I på opdagelse i Musikkens fundament (Musikkens puls) – de magiske fire ”1,2,3,4”. I skal opbygge rytmer med nogle enkle noder og så skal der selvfølgelig spilles på din egen krop(bodypercussion) samt på instrumenter. Kom og vær med til at lave musik på den sjove måde. Pris: 10 DKK Betaling for holdet skal ske i Heart Café inden holdets start, og kvitteringen vil fungere som din billet. ",
-    agenda:
-      "Minimum participant age: 3 *Please note, parents must stay with children under 16 while they are in People House* Aldersbegrænsning: 3 år *Vær venligst opmærksom på, at børn under 16 år skal være under forældres opsyn hele tiden, mens de opholder sig i People House*",
-    startDateTime: "2023-10-28T12:00:00Z",
-    endDateTime: "2023-10-28T12:30:00Z",
-    numOfTickets: 100,
-    host: "Community Builder Team",
-    venueId: "8",
-    venueName: "The Makers Space",
-  };
+  useEffect(() => {
+    fetchEventById(eventId)
+      .then((eventsdata) => {
+        console.log("EventsData: " + eventsdata);
+        if (eventsdata && eventsdata.getEvent) {
+          console.log("Get event hahahaa: " + eventsdata.getEvent);
+          setEventData(eventsdata.getEvent);
+          console.log("The specific event is set");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching events:", error);
+      });
+  }, []);
 
-  //functionality of "Show more"
+  if (event === undefined) {
+    return (
+      <View>
+        <Text>Event is undefined</Text>
+      </View>
+    );
+  }
 
-  const logo = getVenueLogos(eventToAdd.venueId);
+  const logo = getVenueLogos(event.venueId);
+
+  const venueName = getVenueName(event.venueId);
 
   const formattedDateTime = getFormattedDate(
-    eventToAdd.startDateTime,
-    eventToAdd.endDateTime
+    event.startDateTime,
+    event.endDateTime
   );
 
   //navigation to Availability screen
@@ -63,12 +73,12 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
   const handlePress = () => {
     console.log("Event button pressed");
     navigation.navigate("Availibility", {
-      eventName: eventToAdd.title,
-      eventLocation: eventToAdd.venueName,
+      eventName: event.title,
+      eventLocation: venueName,
       eventTime: formattedDateTime,
       ticketsLeft: 0,
-      venueId: eventToAdd.venueId,
-      eventBrief: eventToAdd.brief,
+      venueId: event.venueId,
+      eventBrief: event.brief,
     });
   };
 
@@ -77,33 +87,31 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
       <ScrollView>
         <View style={sharedStyles.mainContainer}>
           <EventHeader
-            venueId={eventToAdd.venueId}
-            title={eventToAdd.title}
-            venueName={eventToAdd.venueName}
+            venueId={event.venueId}
+            title={event.title}
+            venueName={venueName}
             time={formattedDateTime}
-            brief={eventToAdd.brief}
+            brief={event.brief}
           />
           <View style={styles.row}>
             <Image source={logo} style={styles.logo} />
             <View style={styles.rowContainer}>
               <Text style={[sharedStyles.text, styles.communityText]}>
                 <Text style={styles.byText}>By: </Text>
-                {eventToAdd.host}
+                {event.host}
               </Text>
             </View>
           </View>
 
           <Text style={styles.headerText}>Event details</Text>
-          <ShowMore text={eventToAdd.description} />
+          <ShowMore text={event.description} />
           <Text style={styles.headerText}>Event agenda</Text>
-          <ShowMore text={eventToAdd.agenda} />
+          <ShowMore text={event.agenda} />
 
           <CustomButton
             name="Check availability"
             action={() => handlePress()}
           />
-
-          <Text>Id:{JSON.stringify(eventId)}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -128,7 +136,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 100,
-    resizeMode: "cover",
+    resizeMode: "contain",
     marginTop: -37,
     zIndex: 0,
     alignSelf: "center",
@@ -138,20 +146,13 @@ const styles = StyleSheet.create({
     color: Colors.dark.secondary,
     fontWeight: "bold",
     fontSize: 20,
-    paddingBottom: 10,
-    paddingTop: 20,
-  },
-  showMoreText: {
-    fontSize: 18,
-    color: Colors.dark.secondary,
-    textDecorationLine: "underline",
-    fontWeight: "bold",
+    paddingBottom: 15,
   },
   row: {
     flexDirection: "row", // Display the Image and Text components in a row
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 60,
-    marginBottom: 10,
+    marginTop: 70,
+    marginBottom: 30,
   },
 });

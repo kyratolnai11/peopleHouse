@@ -128,3 +128,34 @@ export const getFormattedDate = (
 
   return finalFormat;
 };
+
+export const getVenueName = (id: string) => {
+  switch (id) {
+    case "1":
+      return "LEGO Arena";
+    case "2":
+      return "Chef's Corner";
+    case "3":
+      return "The Heart";
+    case "4":
+      return "LEGO Gym";
+    case "5":
+      return "Club House";
+    case "6":
+      return "Cinema";
+    case "7":
+      return "Creative Studio";
+    case "8":
+      return "Music Room";
+    case "9":
+      return "Fireplace Lounge";
+    case "10":
+      return "Health + Wellbeing Center";
+    case "11":
+      return "Maker Space";
+    //The image that I have for Makers space is not good, I will get a
+    //better one. until then we will use the image of Creative studio
+    default:
+      return "Maker Space";
+  }
+};

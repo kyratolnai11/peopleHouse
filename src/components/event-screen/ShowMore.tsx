@@ -10,7 +10,13 @@ type ShowMoreProp = {
 const ShowMore: React.FC<ShowMoreProp> = ({ text }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const textToShow = isExpanded ? text : text.slice(0, 200) + "... ";
+  let textToShow;
+
+  if (text.length > 250) {
+    textToShow = isExpanded ? text : text.slice(0, 200) + "... ";
+  } else {
+    textToShow = text;
+  }
 
   const handleExpandText = () => {
     setIsExpanded(true);
@@ -21,14 +27,14 @@ const ShowMore: React.FC<ShowMoreProp> = ({ text }) => {
   };
   return (
     <View>
-      <Text style={[sharedStyles.text]}>
+      <Text style={[sharedStyles.text, { marginBottom: 30 }]}>
         {textToShow}
-        {!isExpanded && (
+        {!isExpanded && text.length > 250 && (
           <TouchableOpacity onPress={handleExpandText}>
             <Text style={styles.showMoreText}>Show more</Text>
           </TouchableOpacity>
         )}
-        {isExpanded && (
+        {isExpanded && text.length > 250 && (
           <TouchableOpacity onPress={handleCloseText}>
             <Text style={styles.showMoreText}>Show less</Text>
           </TouchableOpacity>
