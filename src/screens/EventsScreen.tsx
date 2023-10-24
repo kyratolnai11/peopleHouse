@@ -5,6 +5,7 @@ import { ModelEventConnection } from "../API";
 import EventCard from "../components/event-screen/EventCard";
 import { sharedStyles } from "../../utils/SharedStyles";
 import Colors from "../../utils/theme";
+import LoadingSpinner from "../components/event-screen/LoadingSpinner";
 
 const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
@@ -34,6 +35,10 @@ const EventsScreen = () => {
         console.error("Error fetching events:", error);
       });
   }, []);
+
+  if (!events) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <SafeAreaView>
