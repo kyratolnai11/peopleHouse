@@ -36,7 +36,7 @@ const EventCard: React.FC<EventCardProps> = ({ event: event }) => {
                     <Card>
                         <Image source={imageFile} style={eventStyles.image} />
                         <View style={eventStyles.textContainer}>
-                            <Text style={sharedStyles.secondaryTitle}>
+                            <Text style={[sharedStyles.secondaryTitle,{maxWidth: 320}]}>
                                 {description}
                             </Text>
                             <Text style={[sharedStyles.text, eventStyles.text]}>
