@@ -30,7 +30,7 @@ export const sharedStyles = StyleSheet.create({
   text: {
     fontSize: 18,
     paddingBottom: 10,
-    lineHeight: 25,
+    lineHeight: 28,
   },
   link: {
     fontSize: 18,

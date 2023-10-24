@@ -5,6 +5,7 @@ import { sharedStyles } from "../../utils/SharedStyles";
 import { RouteProp } from "@react-navigation/native";
 import { getEventHeaderImages, getFormattedDate } from "../constants";
 import Colors from "../../utils/theme";
+import ShowMore from "../components/event-screen/ShowMore";
 
 type RootStackParamList = {
   Event: { eventId: string };
@@ -18,7 +19,6 @@ type EventScreenProps = {
 
 const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
   const { eventId } = route.params;
-  //   const [image, setImage] = useState();
 
   const eventToAdd = {
     id: "e9f6b2b7-64b8-4586-9db5-9946891fa703",
@@ -32,9 +32,11 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
     endDateTime: "2023-10-28T12:30:00Z",
     numOfTickets: 100,
     host: "Community Builder Team",
-    venueId: "5",
+    venueId: "10",
     venueName: "The Makers Space",
   };
+
+  //functionality of "Show more"
 
   const imageFile = getEventHeaderImages(eventToAdd.venueId);
 
@@ -47,12 +49,22 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
     <SafeAreaView>
       <ScrollView>
         <View style={sharedStyles.mainContainer}>
-          <View>
+          <View style={styles.imageContainer}>
             <Image source={imageFile} style={styles.image} />
+            <Text style={styles.eventName}>{eventToAdd.title}</Text>
+            <Text style={styles.venueName}>@ {eventToAdd.venueName}</Text>
+            <Text style={styles.date}>{formattedDateTime}</Text>
+            <Text style={styles.brief}>{eventToAdd.brief}</Text>
+            <View style={styles.overlay}></View>
           </View>
-          <Text style={styles.eventName}>{eventToAdd.title}</Text>
-          <Text style={styles.venueName}>@ {eventToAdd.venueName}</Text>
-          <Text style={styles.date}>{formattedDateTime}</Text>
+          <Text style={styles.headerText}>Hosted by</Text>
+          <Text style={sharedStyles.text}>{eventToAdd.host}</Text>
+
+          <Text style={styles.headerText}>Event details</Text>
+          <ShowMore text={eventToAdd.description} />
+          <Text style={styles.headerText}>Event agenda</Text>
+          <ShowMore text={eventToAdd.agenda} />
+
           <Text>Id:{JSON.stringify(eventId)}</Text>
         </View>
       </ScrollView>
@@ -68,9 +80,17 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "cover",
     marginTop: -37,
+    zIndex: 0,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    marginTop: -60
   },
   imageContainer: {
     position: "relative",
+    alignItems: "center",
   },
   eventName: {
     color: Colors.light.textSecondary,
@@ -78,22 +98,46 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     position: "absolute",
-    paddingBottom: 110,
+    zIndex: 2,
   },
   venueName: {
-    color: Colors.light.textSecondary,
+    color: Colors.light.primary,
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
     position: "absolute",
-    paddingBottom: 30,
+    paddingTop: 45,
+    zIndex: 2,
   },
   date: {
-    color: Colors.light.textSecondary,
+    color: Colors.light.primary,
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
     position: "absolute",
-    paddingTop: 50,
+    paddingTop: 80,
+    zIndex: 2,
+  },
+  brief: {
+    color: Colors.light.textSecondary,
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    position: "absolute",
+    paddingTop: 120,
+    zIndex: 2,
+  },
+  headerText: {
+    color: Colors.dark.secondary,
+    fontWeight: "bold",
+    fontSize: 20,
+    paddingBottom: 10,
+    paddingTop: 20,
+  },
+  showMoreText: {
+    fontSize: 18,
+    color: Colors.dark.secondary,
+    textDecorationLine: "underline",
+    fontWeight: "bold",
   },
 });

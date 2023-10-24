@@ -60,6 +60,37 @@ export const getEventHeaderImages = (id: string) => {
   }
 };
 
+export const getVenueLogos = (id: string) => {
+  switch (id) {
+    case "1":
+      return require("../assets/venue-logos/1.png");
+    case "2":
+      return require("../assets/venue-logos/2.png");
+    case "3":
+      return require("../assets/venue-logos/3.png");
+    case "4":
+      return require("../assets/venue-logos/4.png");
+    case "5":
+      return require("../assets/venue-logos/5.png");
+    case "6":
+      return require("../assets/venue-logos/6.png");
+    case "7":
+      return require("../assets/venue-logos/7.png");
+    case "8":
+      return require("../assets/venue-logos/8.png");
+    case "9":
+      return require("../assets/venue-logos/9.png");
+    case "10":
+      return require("../assets/venue-logos/10.png");
+    case "11":
+      return require("../assets/venue-logos/11.png");
+    //The image that I have for Makers space is not good, I will get a
+    //better one. until then we will use the image of Creative studio
+    default:
+      return null;
+  }
+};
+
 export const getFormattedDate = (
   unformattedDateTime1: string,
   unformattedDateTime2: string
