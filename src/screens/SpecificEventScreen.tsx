@@ -3,15 +3,12 @@ import { SafeAreaView, View, Text, Image, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { sharedStyles } from "../../utils/SharedStyles";
 import { RouteProp, useNavigation } from "@react-navigation/native";
-import {
-  getEventHeaderImages,
-  getFormattedDate,
-  getVenueLogos,
-} from "../constants";
+import { getFormattedDate, getVenueLogos } from "../constants";
 import Colors from "../../utils/theme";
 import ShowMore from "../components/event-screen/ShowMore";
 import CustomButton from "../components/event-screen/CustomButton";
 import { StackNavigationProp } from "@react-navigation/stack";
+import EventHeader from "../components/event-screen/EventHeader";
 
 type RootStackParamList = {
   Event: { eventId: string };
@@ -21,6 +18,8 @@ type RootStackParamList = {
     eventTime: string;
     numberOfTickets: number;
     ticketsLeft: number;
+    venueId: string;
+    eventBrief: string;
   };
 };
 
@@ -52,8 +51,6 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
 
   //functionality of "Show more"
 
-  const imageFile = getEventHeaderImages(eventToAdd.venueId);
-
   const logo = getVenueLogos(eventToAdd.venueId);
 
   const formattedDateTime = getFormattedDate(
@@ -72,6 +69,8 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
       eventTime: formattedDateTime,
       numberOfTickets: eventToAdd.numOfTickets,
       ticketsLeft: 5,
+      venueId: eventToAdd.venueId,
+      eventBrief: eventToAdd.brief,
     });
   };
 
@@ -79,14 +78,13 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
     <SafeAreaView>
       <ScrollView>
         <View style={sharedStyles.mainContainer}>
-          <View style={styles.imageContainer}>
-            <Image source={imageFile} style={styles.image} />
-            <Text style={styles.eventName}>{eventToAdd.title}</Text>
-            <Text style={styles.venueName}>@ {eventToAdd.venueName}</Text>
-            <Text style={styles.date}>{formattedDateTime}</Text>
-            <Text style={styles.brief}>{eventToAdd.brief}</Text>
-            <View style={styles.overlay}></View>
-          </View>
+          <EventHeader
+            venueId={eventToAdd.venueId}
+            title={eventToAdd.title}
+            venueName={eventToAdd.venueName}
+            time={formattedDateTime}
+            brief={eventToAdd.brief}
+          />
           <View style={styles.row}>
             <Image source={logo} style={styles.logo} />
             <View style={styles.rowContainer}>
@@ -129,13 +127,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     textAlign: "center",
   },
-  image: {
-    width: 500,
-    height: 200,
-    resizeMode: "cover",
-    marginTop: -37,
-    zIndex: 0,
-  },
   logo: {
     width: 200,
     height: 100,
@@ -144,51 +135,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
     alignSelf: "center",
   },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    zIndex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
-    marginTop: -60,
-  },
-  imageContainer: {
-    position: "relative",
-    alignItems: "center",
-  },
-  eventName: {
-    color: Colors.light.textSecondary,
-    fontSize: 28,
-    fontWeight: "bold",
-    textAlign: "center",
-    position: "absolute",
-    zIndex: 2,
-  },
-  venueName: {
-    color: Colors.light.primary,
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    position: "absolute",
-    paddingTop: 45,
-    zIndex: 2,
-  },
-  date: {
-    color: Colors.light.primary,
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    position: "absolute",
-    paddingTop: 80,
-    zIndex: 2,
-  },
-  brief: {
-    color: Colors.light.textSecondary,
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
-    position: "absolute",
-    paddingTop: 120,
-    zIndex: 2,
-  },
+
   headerText: {
     color: Colors.dark.secondary,
     fontWeight: "bold",
