@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, Text, Image, StyleSheet } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { sharedStyles } from "../../utils/SharedStyles";
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import { getFormattedDate, getVenueLogos, getVenueName } from "../constants";
-import Colors from "../../utils/theme";
 import ShowMore from "../components/event-screen/ShowMore";
 import CustomButton from "../components/event-screen/CustomButton";
 import { StackNavigationProp } from "@react-navigation/stack";
 import EventHeader from "../components/event-screen/EventHeader";
 import { fetchEventById } from "../database/EventDBConnection";
 import { Event } from "../API";
+import { specificEventStyles } from "../components/event-screen/SpecificEventStyles";
+import Colors from "../../utils/theme";
 
 type RootStackParamList = {
   Event: { eventId: string };
@@ -53,7 +60,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
   if (event === undefined) {
     return (
       <View>
-        <Text>Event is undefined</Text>
+        <ActivityIndicator size="large" color={Colors.dark.secondary} />
       </View>
     );
   }
@@ -76,6 +83,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
       eventName: event.title,
       eventLocation: venueName,
       eventTime: formattedDateTime,
+      //TODO: we need to talk about this on Friday
       ticketsLeft: 0,
       venueId: event.venueId,
       eventBrief: event.brief,
@@ -93,19 +101,21 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
             time={formattedDateTime}
             brief={event.brief}
           />
-          <View style={styles.row}>
-            <Image source={logo} style={styles.logo} />
-            <View style={styles.rowContainer}>
-              <Text style={[sharedStyles.text, styles.communityText]}>
-                <Text style={styles.byText}>By: </Text>
+          <View style={specificEventStyles.row}>
+            <Image source={logo} style={specificEventStyles.logo} />
+            <View style={specificEventStyles.rowContainer}>
+              <Text
+                style={[sharedStyles.text, specificEventStyles.communityText]}
+              >
+                <Text style={specificEventStyles.byText}>By: </Text>
                 {event.host}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.headerText}>Event details</Text>
+          <Text style={specificEventStyles.headerText}>Event details</Text>
           <ShowMore text={event.description} />
-          <Text style={styles.headerText}>Event agenda</Text>
+          <Text style={specificEventStyles.headerText}>Event agenda</Text>
           <ShowMore text={event.agenda} />
 
           <CustomButton
@@ -119,40 +129,3 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
 };
 
 export default EventScreen;
-
-const styles = StyleSheet.create({
-  rowContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
-  communityText: { textAlign: "center", marginTop: -20, marginLeft: 20 },
-  byText: {
-    color: Colors.dark.secondary,
-    fontWeight: "bold",
-    fontSize: 18,
-    paddingBottom: 10,
-    textAlign: "center",
-  },
-  logo: {
-    width: 200,
-    height: 100,
-    resizeMode: "contain",
-    marginTop: -37,
-    zIndex: 0,
-    alignSelf: "center",
-  },
-
-  headerText: {
-    color: Colors.dark.secondary,
-    fontWeight: "bold",
-    fontSize: 20,
-    paddingBottom: 15,
-  },
-  row: {
-    flexDirection: "row", // Display the Image and Text components in a row
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 70,
-    marginBottom: 30,
-  },
-});

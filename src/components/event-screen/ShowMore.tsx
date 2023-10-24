@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import { sharedStyles } from "../../../utils/SharedStyles";
-import Colors from "../../../utils/theme";
+import { specificEventStyles } from "./SpecificEventStyles";
 
 type ShowMoreProp = {
   text: string;
@@ -31,25 +31,17 @@ const ShowMore: React.FC<ShowMoreProp> = ({ text }) => {
         {textToShow}
         {!isExpanded && text.length > 250 && (
           <TouchableOpacity onPress={handleExpandText}>
-            <Text style={styles.showMoreText}>Show more</Text>
+            <Text style={specificEventStyles.showMoreText}>Show more</Text>
           </TouchableOpacity>
         )}
         {isExpanded && text.length > 250 && (
           <TouchableOpacity onPress={handleCloseText}>
-            <Text style={styles.showMoreText}>Show less</Text>
+            <Text style={specificEventStyles.showMoreText}>Show less</Text>
           </TouchableOpacity>
         )}
       </Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  showMoreText: {
-    fontSize: 18,
-    color: Colors.light.textPrimary,
-    fontWeight: "bold",
-  },
-});
 
 export default ShowMore;

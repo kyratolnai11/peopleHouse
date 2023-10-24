@@ -10,9 +10,8 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import EventHeader from "./EventHeader";
 import { sharedStyles } from "../../../utils/SharedStyles";
-import { StyleSheet } from "react-native";
-import Colors from "../../../utils/theme";
 import CustomButton from "./CustomButton";
+import { specificEventStyles } from "./SpecificEventStyles";
 
 type RootStackParamList = {
   Availibility: {
@@ -49,8 +48,8 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
   const button = () => {
     if (ticketsLeft === 0) {
       return (
-        <TouchableOpacity style={[styles.button]} disabled={true}>
-          <Text style={styles.buttonText}>+ Sign up</Text>
+        <TouchableOpacity style={[specificEventStyles.button]} disabled={true}>
+          <Text style={specificEventStyles.buttonText}>+ Sign up</Text>
         </TouchableOpacity>
       );
     }
@@ -69,15 +68,17 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
             brief={eventBrief}
           />
           <View style={{ flex: 1, height: 500 }}>
-            <View style={styles.ticketContainer}>
-              <View style={styles.ticketsHeader}>
-                <Text style={styles.ticketHeaderText}>Tickets</Text>
+            <View style={specificEventStyles.ticketContainer}>
+              <View style={specificEventStyles.ticketsHeader}>
+                <Text style={specificEventStyles.ticketHeaderText}>
+                  Tickets
+                </Text>
               </View>
-              <Text style={styles.ticketText}>{ticketText}</Text>
+              <Text style={specificEventStyles.ticketText}>{ticketText}</Text>
               {button()}
               <Image
                 source={require("../../../assets/event-screen/chair.png")}
-                style={styles.chairImage}
+                style={specificEventStyles.chairImage}
               />
             </View>
           </View>
@@ -86,55 +87,5 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  ticketsHeader: {
-    backgroundColor: Colors.light.tertiary,
-    transform: "rotate(-1deg)",
-    width: 180,
-    height: 50,
-    justifyContent: "center",
-    position: "absolute",
-    marginTop: -20,
-  },
-  ticketHeaderText: {
-    fontSize: 28,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  ticketContainer: {
-    borderWidth: 1,
-    borderColor: Colors.light.textPrimary,
-    width: 350,
-    height: 350,
-    borderRadius: 20,
-    position: "relative",
-    alignItems: "center",
-    marginTop: 60,
-    justifyContent: "space-between",
-  },
-  ticketText: {
-    marginTop: 100,
-    fontSize: 20,
-  },
-  chairImage: {
-    width: 100,
-    resizeMode: "cover",
-  },
-  button: {
-    backgroundColor: Colors.dark.lightGrey,
-    padding: 10,
-    borderRadius: 10,
-    marginTop: 10,
-    width: 200,
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: Colors.dark.grey,
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-});
 
 export default EventAvailibityScreen;
