@@ -14,14 +14,15 @@ import { CommonActions, useNavigation } from "@react-navigation/native";
 
 const CustomDrawer: React.FC<{
   state: any;
+  navigation: any;
   descriptors: any;
-}> = ({ state, descriptors }) => {
+}> = ({ state, descriptors, navigation }) => {
   const colorScheme = Appearance.getColorScheme();
   const [userName, setUserName] = useState("");
 
   type navProp = StackNavigationProp<RootStackParamList, "HomeScreen">;
 
-  const navigation = useNavigation<navProp>();
+  const stackNavigation = useNavigation<navProp>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +43,7 @@ const CustomDrawer: React.FC<{
       console.log("Sign out successful.");
 
       // Navigate to SignInScreen using AuthStackNavigator
-      navigation.dispatch(
+      stackNavigation.dispatch(
         CommonActions.reset({
           index: 0,
           routes: [{ name: "HomeScreen" }],
