@@ -1,16 +1,18 @@
 import { RouteProp } from "@react-navigation/native";
 import React from "react";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View, Text, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import EventHeader from "./EventHeader";
 import { sharedStyles } from "../../../utils/SharedStyles";
+import { StyleSheet } from "react-native";
+import Colors from "../../../utils/theme";
+import CustomButton from "./CustomButton";
 
 type RootStackParamList = {
   Availibility: {
     eventName: string;
     eventLocation: string;
     eventTime: string;
-    numberOfTickets: number;
     ticketsLeft: number;
     venueId: string;
     eventBrief: string;
@@ -29,10 +31,13 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
     eventName,
     eventTime,
     ticketsLeft,
-    numberOfTickets,
     venueId,
     eventBrief,
   } = route.params;
+
+  const ticketText =
+    ticketsLeft > 10 ? "Tickets avaliable" : { ticketsLeft } + "tickets left";
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -44,12 +49,59 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
             time={eventTime}
             brief={eventBrief}
           />
-          <Text>{ticketsLeft}</Text>
-          <Text>{numberOfTickets}</Text>
+          <View style={{ flex: 1, height: 500 }}>
+            <View style={styles.ticketContainer}>
+              <View style={styles.ticketsHeader}>
+                <Text style={styles.ticketHeaderText}>Tickets</Text>
+              </View>
+              <Text style={styles.ticketText}>{ticketText}</Text>
+              <CustomButton name="+ Sing up" />
+              <Image
+                source={require("../../../assets/event-screen/chair.png")}
+                style={styles.chairImage}
+              />
+            </View>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  ticketsHeader: {
+    backgroundColor: Colors.light.tertiary,
+    transform: "rotate(-1deg)",
+    width: 180,
+    height: 50,
+    justifyContent: "center",
+    position: "absolute",
+    marginTop: -20,
+  },
+  ticketHeaderText: {
+    fontSize: 28,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  ticketContainer: {
+    borderWidth: 1,
+    borderColor: Colors.light.textPrimary,
+    width: 350,
+    height: 350,
+    borderRadius: 20,
+    position: "relative",
+    alignItems: "center",
+    marginTop: 60,
+    justifyContent: "space-between",
+  },
+  ticketText: {
+    marginTop: 100,
+    fontSize: 20,
+  },
+  chairImage: {
+    width: 100,
+    resizeMode: "cover",
+  },
+});
 
 export default EventAvailibityScreen;

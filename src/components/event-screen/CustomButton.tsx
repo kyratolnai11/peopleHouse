@@ -14,7 +14,10 @@ const CustomButton: React.FC<CustomButtonProp> = ({ name, action }) => {
     if (action) action();
   };
   return (
-    <TouchableOpacity style={eventStyles.button} onPress={() => handlePress()}>
+    <TouchableOpacity
+      style={[eventStyles.button]}
+      onPress={() => handlePress()}
+    >
       <Text style={eventStyles.buttonText}>{name}</Text>
     </TouchableOpacity>
   );
