@@ -13,6 +13,8 @@ export type ColorTheme = {
 const sharedColors = {
   black: "#000000",
   white: "#FFFFFF",
+  grey: "#b2b2b0",
+  lightGrey: "#EDF2F7",
 };
 
 const extraColors = {

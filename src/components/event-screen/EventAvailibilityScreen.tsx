@@ -1,6 +1,12 @@
 import { RouteProp } from "@react-navigation/native";
 import React from "react";
-import { SafeAreaView, View, Text, Image } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import EventHeader from "./EventHeader";
 import { sharedStyles } from "../../../utils/SharedStyles";
@@ -36,7 +42,20 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
   } = route.params;
 
   const ticketText =
-    ticketsLeft > 10 ? "Tickets avaliable" : { ticketsLeft } + "tickets left";
+    ticketsLeft > 10
+      ? "Tickets avaliable"
+      : ticketsLeft.toString() + " tickets left";
+
+  const button = () => {
+    if (ticketsLeft === 0) {
+      return (
+        <TouchableOpacity style={[styles.button]} disabled={true}>
+          <Text style={styles.buttonText}>+ Sign up</Text>
+        </TouchableOpacity>
+      );
+    }
+    return <CustomButton name="+ Sing up" />;
+  };
 
   return (
     <SafeAreaView>
@@ -55,7 +74,7 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
                 <Text style={styles.ticketHeaderText}>Tickets</Text>
               </View>
               <Text style={styles.ticketText}>{ticketText}</Text>
-              <CustomButton name="+ Sing up" />
+              {button()}
               <Image
                 source={require("../../../assets/event-screen/chair.png")}
                 style={styles.chairImage}
@@ -101,6 +120,20 @@ const styles = StyleSheet.create({
   chairImage: {
     width: 100,
     resizeMode: "cover",
+  },
+  button: {
+    backgroundColor: Colors.dark.lightGrey,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    width: 200,
+    alignSelf: "center",
+  },
+  buttonText: {
+    color: Colors.dark.grey,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 
