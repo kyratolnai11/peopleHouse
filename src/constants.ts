@@ -1,3 +1,5 @@
+import { format } from "date-fns-tz";
+
 export const getVenueImages = (id: string) => {
   switch (id) {
     case "1":
@@ -58,18 +60,22 @@ export const getEventHeaderImages = (id: string) => {
   }
 };
 
-export const getFormattedDate = (unformattedDateTime1: string, unformattedDateTime2: string) => {
+export const getFormattedDate = (
+  unformattedDateTime1: string,
+  unformattedDateTime2: string
+) => {
+  //getting name of the day
+  const dayName = format(new Date(unformattedDateTime1), "EEEE");
   //split date and time
-  const strings1 = unformattedDateTime1.split('T');
+  const strings1 = unformattedDateTime1.split("T");
   const unformattedDate1 = strings1[0];
-  const unformattedTime1 = strings1[1].split('Z')[0];
+  const unformattedTime1 = strings1[1].split("Z")[0];
 
-  const strings2 = unformattedDateTime2.split('T');
-  const unformattedDate2 = strings2[0];
-  const unformattedTime2 = strings2[1].split('Z')[0];
+  const strings2 = unformattedDateTime2.split("T");
+  const unformattedTime2 = strings2[1].split("Z")[0];
 
   //format date
-  const dateValues = unformattedDate1.split('-');
+  const dateValues = unformattedDate1.split("-");
   const year = dateValues[0].slice(2);
   const month = dateValues[1];
   const day = dateValues[2];
@@ -80,7 +86,14 @@ export const getFormattedDate = (unformattedDateTime1: string, unformattedDateTi
   const endTimeFormatted = unformattedTime2.slice(undefined, 5);
 
   //final format
-  const finalFormat = dateFormatted + "    " + startTimeFormatted + " - " + endTimeFormatted;
-  
-  return finalFormat
-}
+  const finalFormat =
+    dayName +
+    " " +
+    dateFormatted +
+    " " +
+    startTimeFormatted +
+    " - " +
+    endTimeFormatted;
+
+  return finalFormat;
+};

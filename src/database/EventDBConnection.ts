@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { listEvents, eventsByVenueId } from "../graphql/queries";
 import { createEvent } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
