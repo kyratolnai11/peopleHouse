@@ -1,6 +1,6 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { CreateUserInput} from "../../API";
-import { createUser } from "../../graphql/mutations";
+import { CreateUserInput} from "../API";
+import { createUser } from "../graphql/mutations";
 
 export const addUser = async (userToAdd: CreateUserInput) => {
     try {
