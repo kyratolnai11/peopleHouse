@@ -46,7 +46,7 @@ const CustomDrawer: React.FC<{
       stackNavigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: "HomeScreen" }],
+          routes: [{ name: "SignIn" }],
         })
       );
     } catch (error) {
