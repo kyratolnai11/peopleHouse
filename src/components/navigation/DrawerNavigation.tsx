@@ -44,7 +44,6 @@ const DrawerNavigation: React.FC = () => {
       <Drawer.Screen name="Venues" component={VenuesScreen} />
       <Drawer.Screen name="Add Crew" component={AddCrewScreen} />
       <Drawer.Screen name="Events" component={EventsScreen} />
-      <Drawer.Screen name="SignUp" component={SignUpScreen} />
       <Drawer.Screen 
       name="SignUp"
       component={SignUpScreen}

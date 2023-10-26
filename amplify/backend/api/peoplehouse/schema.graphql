@@ -41,13 +41,10 @@ type Event @model {
   agenda: String!
   startDateTime: AWSDateTime!
   endDateTime: AWSDateTime!
-  startDateTime: AWSDateTime!
-  endDateTime: AWSDateTime!
   numOfTickets: Int!
   host: String!
   userAttendees: [User] @hasMany
   crewAttendees: [Crew] @hasMany
-  venueId: String! @index(name: "byVenueId")
   venueId: String! @index(name: "byVenueId")
 }
 
