@@ -67,7 +67,6 @@ export const getFormattedDate = (unformattedDateTime1: string, unformattedDateTi
   const unformattedTime1 = strings1[1].split('Z')[0];
 
   const strings2 = unformattedDateTime2.split('T');
-  const unformattedDate2 = strings2[0];
   const unformattedTime2 = strings2[1].split('Z')[0];
 
   //format date
