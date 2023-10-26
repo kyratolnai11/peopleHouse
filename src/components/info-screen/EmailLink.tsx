@@ -5,12 +5,13 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 type EmailLinkProp = {
   name: string;
+  color?: string;
 };
 
-const EmailLink: React.FC<EmailLinkProp> = ({ name }) => {
+const EmailLink: React.FC<EmailLinkProp> = ({ name, color }) => {
   return (
     <TouchableOpacity onPress={() => Linking.openURL("mailto:" + name)}>
-      <Text style={infoStyles.link}>{name}</Text>
+      <Text style={[infoStyles.link, { color: color }]}>{name}</Text>
     </TouchableOpacity>
   );
 };

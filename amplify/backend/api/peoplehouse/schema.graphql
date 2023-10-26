@@ -30,20 +30,24 @@ type Crew @model {
   lastname: String!
   familyRole: String!
   dateOfBirth: AWSDateTime
+  email: String
 }
 
 type Event @model {
-  id: ID!
+  id: ID! @index(name: "byId")
   title: String!
   brief: String!
   description: String!
   agenda: String!
   startDateTime: AWSDateTime!
   endDateTime: AWSDateTime!
+  startDateTime: AWSDateTime!
+  endDateTime: AWSDateTime!
   numOfTickets: Int!
   host: String!
   userAttendees: [User] @hasMany
   crewAttendees: [Crew] @hasMany
+  venueId: String! @index(name: "byVenueId")
   venueId: String! @index(name: "byVenueId")
 }
 

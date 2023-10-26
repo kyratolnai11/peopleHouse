@@ -9,7 +9,7 @@ export async function fetchVenues(): Promise<ModelVenueConnection | undefined> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const venueData: any = await API.graphql(graphqlOperation(listVenues));
     const venues: ModelVenueConnection = venueData.data.listVenues;
-    console.log("Got venues");
+    console.log("Got venues:", venues);
     return venues;
   } catch (err) {
     console.log("Error fetching venues:", err);
@@ -39,11 +39,11 @@ export const addVenue = async () => {
       capacity: 50,
       openingHours: "00:00 - 24:00",
     };
-    const ras = await API.graphql(
+    const response = await API.graphql(
       graphqlOperation(createVenue, { input: venueToAdd })
     );
-    console.log(ras);
-  } catch (err) {
-    console.log("error creating venue:", err);
+    console.log(response);
+  } catch (error) {
+    console.log("Error creating venue:", error);
   }
 };
