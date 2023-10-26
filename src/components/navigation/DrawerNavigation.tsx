@@ -16,7 +16,7 @@ const DrawerNavigation: React.FC = () => {
 
   return (
     <Drawer.Navigator
-      initialRouteName="Add Crew"
+      initialRouteName="Home"
       drawerContent={CustomDrawer}
       screenOptions={{
         headerStyle: { backgroundColor: Colors.dark.primary, height: 120 },
