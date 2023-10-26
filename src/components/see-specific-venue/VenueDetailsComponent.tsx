@@ -53,10 +53,11 @@ const VenueDetailsScreen: React.FC<VenueDetailsRouteProps> = ({ route }) => {
   
   }, [venueId]);
 
-  if (venue) {
-    navigation.setOptions({ headerTitle: venue.name });
-  }
-  
+  useEffect(() => {
+    if (venue) {
+      navigation.setOptions({ headerTitle: venue.name });
+    }
+  }, [venue]);
 
   return (
     <SafeAreaView>

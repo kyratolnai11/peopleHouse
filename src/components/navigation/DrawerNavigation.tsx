@@ -56,7 +56,8 @@ const DrawerNavigation: React.FC = () => {
           headerTitle: "My Information",
           drawerItemStyle: { display: "none" }, // or other styling as needed
         }}
-      />      
+      />     
+       
       <Drawer.Screen
         name="SpecificVenue"
         component={VenueDetailsScreen}

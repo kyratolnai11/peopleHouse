@@ -36,7 +36,7 @@ const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
           {
             name: 'SpecificVenue',
             params: {
-              venueId: id, // Set the venueId parameter here
+              venueId: id, 
             },
           },
         ],
