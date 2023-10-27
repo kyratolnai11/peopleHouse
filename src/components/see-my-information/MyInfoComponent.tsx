@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Image, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Auth } from 'aws-amplify';
-import { Crew, User} from '../../API';
+import { Crew, ModelCrewConnection, User } from '../../API';
 import { fetchUserById } from '../../database/UserDBConnection';
 import myInfoStyles from './MyInfoStyles';
 import CrewCard from './CrewCard';
+import { fetchCrewsByUser } from '../../database/CrewDBConnection';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 
 const MyInfoComponent: React.FC = () => {
   const [userInfo, setUserInfo] = useState<User | undefined>(undefined);
-  //const [userCrews, setUserCrews] = useState<Crew[]>([]); // Store the user's crews
+  const [userCrews, setUserCrews] = useState<Crew[]>();
+  const navigation = useNavigation<any>();
+
 
 
   useEffect(() => {
@@ -21,28 +25,40 @@ const MyInfoComponent: React.FC = () => {
         console.log(user.attributes.sub);
 
         const databaseUser = await fetchUserById(user.attributes.sub);
-        //const userCrews = await getCrewsByUser(user);
-
+        const databaseCrews = await fetchCrewsByUser(user.attributes.sub);
 
         setUserInfo(databaseUser);
-        //setUserCrews(userCrews);
+
+        if (databaseCrews) {
+          if (databaseCrews.items) {
+            // Filter out null values and cast the result to Crew[]
+            const crewItems: Crew[] = databaseCrews.items.filter(item => item !== null) as Crew[];
+            setUserCrews(crewItems);
+          } else {
+            console.log("Invalid data format for userCrewsData: Missing 'items' field");
+          }
+        } else {
+          console.log("No crews data received or data format is invalid.");
+        }
+        
 
       } catch (error) {
         console.log(error);
-      }    
+      }
     }
     fetchUserInfo();
   }, []);
 
-  const mockCrewData: Crew[] = [
-    { id: "1", firstname: "Crew", lastname: 'A', __typename: 'Crew', familyRole: 'test', createdAt: '', updatedAt:'' },
-    { id: "2", firstname: "Crew", lastname: 'B', __typename: 'Crew', familyRole: 'test', createdAt: '', updatedAt:''},
-    { id: "3", firstname: "Crew", lastname: 'C', __typename: 'Crew', familyRole: 'test', createdAt: '', updatedAt:''},
-  ];
 
-  const handleAddCrew = async() => {
+
+
+  const handleAddCrew = async () => {
     console.log('Add crew pressed');
-    
+    navigation.dispatch(
+      CommonActions.reset({
+        routes: [{ name: 'Add Crew' }],
+      })
+    );
   };
 
   return (
@@ -72,20 +88,28 @@ const MyInfoComponent: React.FC = () => {
                 />
               </View>
               <Text style={myInfoStyles.crewsection}>My crew:</Text>
-              {mockCrewData.length === 0 ? (
-                <Text style={myInfoStyles.noCrewText}>Currently you have no crew.</Text>
+              {userCrews && userCrews ? (
+                userCrews.length === 0 ? (
+                  <Text style={myInfoStyles.noCrewText}>Currently you have no crew.</Text>
+                ) : (
+                  <View style={myInfoStyles.crewGrid}>
+                    {userCrews.map((item) => (
+                      // Add a null/undefined check for 'item'
+                      item ? (
+                        <View style={myInfoStyles.crewCards} key={item.id}>
+                          <CrewCard crew={item} />
+                        </View>
+                      ) : null
+                    ))}
+                  </View>
+                )
               ) : (
-                <View style={myInfoStyles.crewGrid}>
-                  {mockCrewData.map((item) => (
-                    <View style={myInfoStyles.crewCards} key={item.id}>
-                      <CrewCard crew={item} />
-                    </View>
-                  ))}
-                </View>
+                <Text style={myInfoStyles.noCrewText}>Loading...</Text>
               )}
-               <TouchableOpacity onPress={handleAddCrew} style={myInfoStyles.addCrewButton}>
-        <Text style={myInfoStyles.addCrewButtonText}>Add Crew</Text>
-      </TouchableOpacity>
+
+              <TouchableOpacity onPress={handleAddCrew} style={myInfoStyles.addCrewButton}>
+                <Text style={myInfoStyles.addCrewButtonText}>Add Crew</Text>
+              </TouchableOpacity>
             </View>
           ) : (
             <Text style={myInfoStyles.loadMessage}>Loading user information...</Text>

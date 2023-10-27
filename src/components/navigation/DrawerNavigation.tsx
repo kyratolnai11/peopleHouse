@@ -42,7 +42,14 @@ const DrawerNavigation: React.FC = () => {
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
       <Drawer.Screen name="Venues" component={VenuesScreen} />
-      <Drawer.Screen name="Add Crew" component={AddCrewScreen} />
+      <Drawer.Screen name="Add Crew"
+      component={AddCrewScreen}
+      options={{
+        // Hide the label for Settings screen
+        drawerLabel: () => null, // or drawerLabel: '',
+        headerTitle: "Add Crew",
+        drawerItemStyle: { display: "none" }, // or other styling as needed
+      }}/>
       <Drawer.Screen name="Events" component={EventsScreen} />
       <Drawer.Screen 
       name="SignUp"
