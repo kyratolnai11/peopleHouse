@@ -3,6 +3,7 @@ import { SafeAreaView, Text, View, ScrollView } from "react-native";
 import { fetchAllEvents } from "../database/EventDBConnection";
 import { ModelEventConnection } from "../API";
 import EventCard from "../components/event-screen/EventCard";
+import VenueDropDown from "../components/event-screen/VenueDropDown";
 import { sharedStyles } from "../../utils/SharedStyles";
 import Colors from "../../utils/theme";
 
@@ -43,11 +44,8 @@ const EventsScreen = () => {
           style={[
             sharedStyles.mainContainer,
             { backgroundColor: Colors.light.primaryBackground },
-          ]}
-        >
-          {/* <Text style={sharedStyles.screenTitle}>
-            All events
-          </Text> */}
+          ]}>
+            <VenueDropDown/>
           {events &&
             events.items &&
             dataFetched &&
