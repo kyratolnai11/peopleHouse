@@ -7,6 +7,7 @@ import { fetchVenueById } from '../../database/VenueDBConnection';
 import { venueDetailsStyles } from './VenueDetailsStyles';
 import { Event } from '../../API';
 import { fetchEventsByVenueId } from '../../database/EventDBConnection';
+import EventCard from '../event-screen/EventCard';
 
 
 type VenueDetailsRouteProps = {
@@ -38,8 +39,20 @@ const VenueDetailsScreen: React.FC<VenueDetailsRouteProps> = ({ route }) => {
 
     const getEventsData = async () => {
       const eventsFromDB = await fetchEventsByVenueId(venueId);
-      setEvents(eventsFromDB);
+    
+      if (eventsFromDB) {
+        if (eventsFromDB.items) {
+          // Filter out null values and cast the result to Event[]
+          const eventItems: Event[] = eventsFromDB.items.filter(item => item !== null) as Event[];
+          setEvents(eventItems);
+        } else {
+          console.log("Invalid data format for events: Missing 'items' field");
+        }
+      } else {
+        console.log("No events data received or data format is invalid.");
+      }
     };
+    
 
     getVenueInfo();
     getEventsData();
@@ -88,7 +101,7 @@ const VenueDetailsScreen: React.FC<VenueDetailsRouteProps> = ({ route }) => {
             {events && events.length > 0 ? (
               <View>
                 {events.map((event) => (
-                  <Text key={event.id}>{event.agenda} - Description: {event.description}</Text>
+                  <EventCard key={event.id} event={event} />
                 ))}
               </View>
             ) : (

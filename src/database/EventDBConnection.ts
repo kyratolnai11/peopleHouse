@@ -18,8 +18,8 @@ export async function fetchAllEvents(): Promise<ModelEventConnection | undefined
 export async function fetchEventsByVenueId(id: string): Promise<ModelEventConnection | undefined> {
   try {
     console.log("Getting events for venue id: " + id);
-    const eventData: any = await API.graphql(graphqlOperation(eventsByVenueId, id));
-    const events: ModelEventConnection = eventData.data.listEvents;
+    const eventData: any = await API.graphql(graphqlOperation(eventsByVenueId,{venueId: id}));
+    const events: ModelEventConnection = eventData.data.eventsByVenueId;
     console.log("Got events:", events);
     return events;
   } catch (error) {
