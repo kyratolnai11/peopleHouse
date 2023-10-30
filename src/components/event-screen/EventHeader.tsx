@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     position: "absolute",
     zIndex: 2,
+    marginTop: -20,
   },
   venueName: {
     color: Colors.light.primary,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     position: "absolute",
-    paddingTop: 45,
+    paddingTop: 55,
     zIndex: 2,
   },
   date: {
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     position: "absolute",
-    paddingTop: 80,
+    paddingTop: 90,
     zIndex: 2,
   },
   brief: {
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     position: "absolute",
-    paddingTop: 120,
+    paddingTop: 125,
     zIndex: 2,
   },
 });
