@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, View, ScrollView } from "react-native";
+import { SafeAreaView, View, ScrollView } from "react-native";
 import { fetchAllEvents } from "../database/EventDBConnection";
 import { ModelEventConnection } from "../API";
 import EventCard from "../components/event-screen/EventCard";
 import { sharedStyles } from "../../utils/SharedStyles";
 import Colors from "../../utils/theme";
+import LoadingSpinner from "../components/event-screen/LoadingSpinner";
 
 const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
@@ -16,10 +17,9 @@ const EventsScreen = () => {
         console.log("Events are set");
 
         //sort events in chronological order
-        if(eventsdata && eventsdata.items)
-        {
+        if (eventsdata && eventsdata.items) {
           eventsdata.items.sort((a, b) => {
-            if (a && a.startDateTime && b && b.startDateTime ) {
+            if (a && a.startDateTime && b && b.startDateTime) {
               const date1 = new Date(a.startDateTime);
               const date2 = new Date(b.startDateTime);
               return date1.getTime() - date2.getTime();
@@ -27,7 +27,7 @@ const EventsScreen = () => {
             return 0;
           });
         }
-        
+
         setEvents(eventsdata);
         setDataFetched(true);
       })
@@ -35,6 +35,10 @@ const EventsScreen = () => {
         console.error("Error fetching events:", error);
       });
   }, []);
+
+  if (!events) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <SafeAreaView>
