@@ -8,14 +8,21 @@ import {
 import Colors from "../../../utils/theme";
 import { Auth } from "aws-amplify";
 import UserCognito from "../cognito/UserCognito";
+import { RootStackParamList } from "../signin-screen/SignInComponent";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 
 const CustomDrawer: React.FC<{
   state: any;
   navigation: any;
   descriptors: any;
-}> = ({ state, navigation, descriptors }) => {
+}> = ({ state, descriptors, navigation }) => {
   const colorScheme = Appearance.getColorScheme();
-  const [userName, setUserName] = useState(''); // State to hold the user's name
+  const [userName, setUserName] = useState("");
+
+  type navProp = StackNavigationProp<RootStackParamList, "HomeScreen">;
+
+  const stackNavigation = useNavigation<navProp>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,22 +30,27 @@ const CustomDrawer: React.FC<{
         const userData = await UserCognito.fetchUserData();
         setUserName(userData);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
 
-    fetchData(); 
+    fetchData();
   }, []);
 
   const handleSignOut = async () => {
     try {
       await Auth.signOut();
-      console.log('Sign out successful.');
-  
+      console.log("Sign out successful.");
+
       // Navigate to SignInScreen using AuthStackNavigator
-      navigation.navigate('SignIn');
+      stackNavigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "SignIn" }],
+        })
+      );
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error("Error signing out:", error);
     }
   };
 
@@ -95,7 +107,10 @@ const CustomDrawer: React.FC<{
         </View>
       </DrawerContentScrollView>
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
-        <TouchableOpacity onPress={handleSignOut} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity
+          onPress={handleSignOut}
+          style={{ paddingVertical: 15 }}
+        >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{

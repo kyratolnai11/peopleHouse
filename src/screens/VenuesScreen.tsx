@@ -4,7 +4,7 @@ import { fetchVenues } from "../database/VenueDBConnection";
 import { ModelVenueConnection } from "../API";
 import VenueCard from "../components/venue-screen/VenueCard";
 import { sharedStyles } from "../../utils/SharedStyles";
-import Colors from "../../utils/theme";
+import LoadingSpinner from "../components/event-screen/LoadingSpinner";
 
 const VenuesScreen = () => {
   const [venues, setVenues] = useState<ModelVenueConnection>();
@@ -22,15 +22,14 @@ const VenuesScreen = () => {
       });
   }, []);
 
+  if (!venues) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <SafeAreaView>
       <ScrollView>
-        <View
-          style={[
-            sharedStyles.mainContainer,
-            { backgroundColor: Colors.light.primaryBackground },
-          ]}
-        >
+        <View style={sharedStyles.mainContainer}>
           <Text style={sharedStyles.screenTitle}>
             We provide the place – you bring the fun!
           </Text>

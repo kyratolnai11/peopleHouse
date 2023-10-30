@@ -10,9 +10,10 @@ export const venueStyles = StyleSheet.create({
   },
   image: {
     width: 390,
-    borderRadius: 12.5,
+    borderTopLeftRadius: 12.5,
+    borderTopRightRadius: 12.5,
     overflow: "hidden",
-    resizeMode: "contain",
+    resizeMode: "cover",
     marginTop: -5,
   },
   text: {

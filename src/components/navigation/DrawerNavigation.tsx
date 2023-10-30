@@ -7,6 +7,7 @@ import InfoScreen from "../../screens/InfoScreen";
 import SignUpScreen from "../signup-screen/SignUpComponent";
 import Colors from "../../../utils/theme";
 import VenuesScreen from "../../screens/VenuesScreen";
+import EventStackNavigator from "./EventStackNavigator";
 import AddCrewScreen from "../../screens/AddCrewScreen";
 import EventsScreen from "../../screens/EventsScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
@@ -79,6 +80,9 @@ const DrawerNavigation: React.FC = () => {
           drawerItemStyle: { display: "none" }, // or other styling as needed
         }}
       />   
+      <Drawer.Screen name="SignUp" component={SignUpScreen} />
+      <Drawer.Screen name="Events" component={EventStackNavigator} />
+      <Drawer.Screen name="Add Crew" component={AddCrewScreen} />
     </Drawer.Navigator>
     
   );
