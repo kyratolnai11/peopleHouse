@@ -4,6 +4,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { venueDropDownStyles } from "./VenueDropDownStyles";
 
 const data = [
+    { label: 'All venues', value: '0'},
     { label: 'LEGO Arena', value: '1' },
     { label: 'Chefs Corner', value: '2' },
     { label: 'The Heart', value: '3' },
