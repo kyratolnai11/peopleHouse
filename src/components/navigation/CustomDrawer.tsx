@@ -20,7 +20,7 @@ const CustomDrawer: React.FC<{
   const colorScheme = Appearance.getColorScheme();
   const [userName, setUserName] = useState("");
 
-  type navProp = StackNavigationProp<RootStackParamList, "HomeScreen">;
+  type navProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
   const stackNavigation = useNavigation<navProp>();
 
@@ -57,9 +57,8 @@ const CustomDrawer: React.FC<{
   const handleUserNameClick = () => {
     // Navigate to the desired page here
     // Replace 'YourProfileScreen' with the actual screen you want to navigate to
-    navigation.navigate('MyInfo');
+    navigation.navigate("MyInfo");
   };
-
 
   return (
     <View style={{ flex: 1 }}>
@@ -68,15 +67,15 @@ const CustomDrawer: React.FC<{
       >
         <View style={{ padding: 20 }}>
           <TouchableOpacity onPress={handleUserNameClick}>
-          <Image
-            source={require("../../../assets/lego-figure.png")}
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 40,
-              marginBottom: 10,
-            }}
-          />
+            <Image
+              source={require("../../../assets/lego-figure.png")}
+              style={{
+                height: 80,
+                width: 80,
+                borderRadius: 40,
+                marginBottom: 10,
+              }}
+            />
           </TouchableOpacity>
           <Text
             style={{

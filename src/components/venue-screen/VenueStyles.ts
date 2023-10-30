@@ -5,11 +5,12 @@ export const venueStyles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
+    paddingVertical: 10,
+
     backgroundColor: Colors.light.primaryBackground,
   },
   image: {
-    width: 390,
+    width: 350,
     borderTopLeftRadius: 12.5,
     borderTopRightRadius: 12.5,
     overflow: "hidden",
@@ -21,5 +22,6 @@ export const venueStyles = StyleSheet.create({
   },
   textContainer: {
     padding: 15,
+    maxWidth: 350,
   },
 });

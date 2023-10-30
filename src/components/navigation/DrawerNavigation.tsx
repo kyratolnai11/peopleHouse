@@ -6,12 +6,12 @@ import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
 import SignUpScreen from "../signup-screen/SignUpComponent";
 import Colors from "../../../utils/theme";
-import VenuesScreen from "../../screens/VenuesScreen";
 import EventStackNavigator from "./EventStackNavigator";
+import VenueStackNavigation from "./VenueStackNavigation";
+import AuthStackNavigator from "./AuthNavigator";
 import AddCrewScreen from "../../screens/AddCrewScreen";
 import EventsScreen from "../../screens/EventsScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
-import VenueDetailsScreen from "../see-specific-venue/VenueDetailsComponent";
 import SpecificCrewComponent from "../specific-crew/SpecificCrewComponent";
 
 
@@ -24,7 +24,7 @@ const DrawerNavigation: React.FC = () => {
       initialRouteName="Home"
       drawerContent={CustomDrawer}
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.dark.primary, height: 120 },
+        headerStyle: { backgroundColor: Colors.dark.primary, height: 80 },
         headerTintColor: Colors.dark.primaryBackground,
         drawerActiveBackgroundColor:
           colorScheme === "dark"
@@ -43,41 +43,27 @@ const DrawerNavigation: React.FC = () => {
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
-      <Drawer.Screen name="CrewTest" component={SpecificCrewComponent} />
-      <Drawer.Screen name="Venues" component={VenuesScreen} />
-      <Drawer.Screen name="Add Crew"
-      component={AddCrewScreen}
+      <Drawer.Screen name="Venues" component={VenueStackNavigation} />
+
+      <Drawer.Screen 
+      name="SignUp"
+      component={SignUpScreen}
       options={{
-        // Hide the label for Settings screen
-        drawerLabel: () => null, // or drawerLabel: '',
-        headerTitle: "Add Crew",
-        drawerItemStyle: { display: "none" }, // or other styling as needed
+        headerTitle: "Sign up",
+        drawerLabel: 'Sign up'
       }}/>
       <Drawer.Screen
-        name="MyInfo"
-        component={MyInfoScreen}
+        name="AuthNav"
+        component={AuthStackNavigator}
         options={{
           // Hide the label for Settings screen
           drawerLabel: () => null, // or drawerLabel: '',
-          headerTitle: "My Information",
           drawerItemStyle: { display: "none" }, // or other styling as needed
         }}
-      />     
-       
-      <Drawer.Screen
-        name="SpecificVenue"
-        component={VenueDetailsScreen}
-        options={{
-          // Hide the label for Settings screen
-          drawerLabel: () => null, // or drawerLabel: '',
-          headerTitle: "See Venue",
-          drawerItemStyle: { display: "none" }, // or other styling as needed
-        }}
-      />   
-      <Drawer.Screen name="SignUp" component={SignUpScreen} />
+      />
+
       <Drawer.Screen name="Events" component={EventStackNavigator} />
     </Drawer.Navigator>
-    
   );
 };
 

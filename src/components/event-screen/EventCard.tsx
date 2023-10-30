@@ -18,14 +18,13 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 export type RootStackParamList = {
   Event: { eventId: string };
-  Events: undefined;
 };
 
 type EventCardProps = {
   event: Event;
 };
 
-type navProp = StackNavigationProp<RootStackParamList, "Events">;
+type navProp = StackNavigationProp<RootStackParamList, "Event">;
 
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const venueID = event.venueId;
