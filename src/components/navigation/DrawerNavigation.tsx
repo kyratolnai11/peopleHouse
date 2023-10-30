@@ -8,7 +8,7 @@ import SignUpScreen from "../signup-screen/SignUpComponent";
 import Colors from "../../../utils/theme";
 import EventStackNavigator from "./EventStackNavigator";
 import VenueStackNavigation from "./VenueStackNavigation";
-import MyInfoStackNavigation from "./MyInfoStackNavigation";
+import AuthStackNavigator from "./AuthNavigator";
 
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();
@@ -48,12 +48,11 @@ const DrawerNavigation: React.FC = () => {
         }}
       />
       <Drawer.Screen
-        name="MyInfo"
-        component={MyInfoStackNavigation}
+        name="AuthNav"
+        component={AuthStackNavigator}
         options={{
           // Hide the label for Settings screen
           drawerLabel: () => null, // or drawerLabel: '',
-          headerTitle: "My Information",
           drawerItemStyle: { display: "none" }, // or other styling as needed
         }}
       />
