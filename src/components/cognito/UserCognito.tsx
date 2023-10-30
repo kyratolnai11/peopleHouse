@@ -1,6 +1,6 @@
 import { Auth } from "aws-amplify";
 
-const fetchUserData = async () => {
+export const fetchUserData = async () => {
   try {
     const userInfo = await Auth.currentAuthenticatedUser();
     const { attributes } = userInfo;
@@ -11,10 +11,6 @@ const fetchUserData = async () => {
     console.error("Error fetching user data:", error);
     throw error; // Re-throw the error to handle it in the calling component
   }
-};
-
-export default {
-  fetchUserData,
 };
 
 export async function fetchLoggedInUserID() {
@@ -30,3 +26,15 @@ export async function fetchLoggedInUserID() {
     console.log(error);
   }
 }
+
+export const fetchUserType = async () => {
+  try {
+    const userInfo = await Auth.currentAuthenticatedUser();
+    const { attributes } = userInfo;
+    const userType = attributes["custom:userType"] || "";
+    return userType;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error; // Re-throw the error to handle it in the calling component
+  }
+};

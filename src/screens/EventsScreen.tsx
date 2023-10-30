@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, ScrollView } from "react-native";
+import { SafeAreaView, View, ScrollView, Text, Image } from "react-native";
 import { fetchAllEvents } from "../database/EventDBConnection";
-import { ModelEventConnection } from "../API";
+import { ModelEventConnection, UserType } from "../API";
 import EventCard from "../components/event-screen/EventCard";
 import { sharedStyles } from "../../utils/SharedStyles";
 import Colors from "../../utils/theme";
 import LoadingSpinner from "../components/event-screen/LoadingSpinner";
+import { fetchUserType } from "../components/cognito/UserCognito";
+import CustomButton from "../components/event-screen/CustomButton";
+import { eventStyles } from "../components/event-screen/EventStyles";
 
 const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
   const [dataFetched, setDataFetched] = useState(false);
+  const [userType, setUserType] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await fetchUserType();
+        setUserType(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     fetchAllEvents()
@@ -49,9 +66,16 @@ const EventsScreen = () => {
             { backgroundColor: Colors.light.primaryBackground },
           ]}
         >
-          {/* <Text style={sharedStyles.screenTitle}>
-            All events
-          </Text> */}
+          {userType === UserType.COMMUNITY_BUILDER && (
+            <View style={eventStyles.cmContainer}>
+              <Text style={eventStyles.cmText}>For Community Builders</Text>
+              <Image
+                style={eventStyles.cmImage}
+                source={require("../../assets/event-screen/pencil.png")}
+              />
+              <CustomButton name="Create event" />
+            </View>
+          )}
           {events &&
             events.items &&
             dataFetched &&
