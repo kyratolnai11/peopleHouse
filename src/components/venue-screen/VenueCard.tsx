@@ -11,6 +11,15 @@ import { Venue } from "../../API";
 import { getVenueImages } from "../../constants";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import { venueStyles } from "./VenueStyles";
+import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
+import { StackNavigationProp } from "@react-navigation/stack";
+
+export type RootStackParamList = {
+  SpecificVenue: { venueId: string };
+  Venues: undefined;
+};
+
+type navProp = StackNavigationProp<RootStackParamList, "SpecificVenue">;
 
 type VenueCardProps = {
   venue: Venue;
@@ -21,10 +30,12 @@ const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   const description = venue.description;
   const shortDescription = venue.shortDescription;
   const imageFile = getVenueImages(id);
+  const navigation = useNavigation<navProp>(); // Initialize navigation
 
   const handleOpenURL = () => {
-    console.log("Cards pressed");
-    //This is where we will navigate to the individual venue page
+    console.log("Cards pressed", { venueId: id });
+
+    navigation.navigate("SpecificVenue", { venueId: id });
   };
 
   return (

@@ -2,25 +2,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import EventScreen from "../../screens/SpecificEventScreen";
 import EventsScreen from "../../screens/EventsScreen";
 import Colors from "../../../utils/theme";
-import { View, Image } from "react-native";
 import EventAvailibityScreen from "../event-screen/EventAvailibilityScreen";
+import CustomBackImage from "./CustomBackButton";
 
 const EventStack = createStackNavigator();
 
-const CustomBackImage = () => {
-  return (
-    <View>
-      <Image
-        source={require("../../../assets/event-screen/back.png")}
-        style={{ width: 20, height: 20, marginHorizontal: 10 }}
-      />
-    </View>
-  );
-};
-
 const EventStackNavigator: React.FC = () => {
   return (
-    <EventStack.Navigator initialRouteName="Events">
+    <EventStack.Navigator initialRouteName="EventScreen">
       <EventStack.Screen
         name="Event"
         component={EventScreen as React.FC}
@@ -34,7 +23,7 @@ const EventStackNavigator: React.FC = () => {
         }}
       />
       <EventStack.Screen
-        name="Events"
+        name="EventScreen"
         component={EventsScreen}
         options={{ title: "" }}
       />

@@ -25,6 +25,8 @@ const AuthStackNavigator: React.FC = () => {
             component={SignUpScreen}
             options={{ headerShown: false }}/>
 
+            
+
     </Stack.Navigator>
     
     
