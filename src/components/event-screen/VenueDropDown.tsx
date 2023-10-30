@@ -2,21 +2,7 @@ import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { venueDropDownStyles } from "./VenueDropDownStyles";
-
-const data = [
-    { label: 'All venues', value: '0'},
-    { label: 'LEGO Arena', value: '1' },
-    { label: 'Chefs Corner', value: '2' },
-    { label: 'The Heart', value: '3' },
-    { label: 'LEGO Gym', value: '4' },
-    { label: 'Club House', value: '5' },
-    { label: 'Cinema', value: '6' },
-    { label: 'Creative Studio', value: '7' },
-    { label: 'Music Room', value: '8' },
-    { label: 'Fireplace Lounge', value: '9'},
-    { label: 'Health + Wellbeing Center', value: '10'},
-    { label: 'Maker Space', value: '11'}
-];
+import { allVenuesByNameAndId } from '../../constants.ts';
 
 type VenueDropDownProps = {
     filterByVenueId: Function;
@@ -34,7 +20,7 @@ const VenueDropDown: React.FC<VenueDropDownProps> = ({ filterByVenueId }) => {
                     placeholderStyle={venueDropDownStyles.placeholderStyle}
                     selectedTextStyle={venueDropDownStyles.selectedTextStyle}
                     inputSearchStyle={venueDropDownStyles.inputSearchStyle}
-                    data={data}
+                    data={allVenuesByNameAndId}
                     maxHeight={300}
                     labelField="label"
                     valueField="value"
