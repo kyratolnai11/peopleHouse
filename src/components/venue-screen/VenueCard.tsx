@@ -19,7 +19,7 @@ export type RootStackParamList = {
   Venues: undefined;
 };
 
-type navProp = StackNavigationProp<RootStackParamList, "Venues">;
+type navProp = StackNavigationProp<RootStackParamList, "SpecificVenue">;
 
 type VenueCardProps = {
   venue: Venue;

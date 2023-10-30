@@ -8,15 +8,15 @@ const VenueStack = createStackNavigator();
 
 const VenueStackNavigation: React.FC = () => {
   return (
-    <VenueStack.Navigator initialRouteName="Events">
+    <VenueStack.Navigator>
       <VenueStack.Screen
-        name="Venues"
+        name="VenuesScreen"
         component={VenuesScreen}
         options={{ title: "" }}
       />
       <VenueStack.Screen
-       name="SpecificVenue"
-       component={VenueDetailsScreen as React.FC}
+        name="SpecificVenue"
+        component={VenueDetailsScreen as React.FC}
         options={{
           title: "",
           headerBackTitleStyle: { color: Colors.light.textPrimary },
