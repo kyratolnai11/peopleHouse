@@ -34,7 +34,7 @@ type Crew @model {
 }
 
 type Event @model {
-  id: ID! @index(name: "byId")
+  id: ID!
   title: String!
   brief: String!
   description: String!

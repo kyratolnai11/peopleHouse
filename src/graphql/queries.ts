@@ -319,51 +319,6 @@ export const crewsByUserId = /* GraphQL */ `
     }
   }
 `;
-export const eventsById = /* GraphQL */ `
-  query EventsById(
-    $id: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelEventFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    eventsById(
-      id: $id
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        title
-        brief
-        description
-        agenda
-        startDateTime
-        endDateTime
-        numOfTickets
-        host
-        userAttendees {
-          nextToken
-          __typename
-        }
-        crewAttendees {
-          nextToken
-          __typename
-        }
-        venueId
-        createdAt
-        updatedAt
-        userEventsId
-        venueEventsId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
 export const eventsByVenueId = /* GraphQL */ `
   query EventsByVenueId(
     $venueId: String!
