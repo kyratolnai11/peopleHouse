@@ -19,10 +19,10 @@ export const eventStyles = StyleSheet.create({
   },
   text: {
     textAlign: "justify",
-    maxWidth: 300,
   },
   textContainer: {
     padding: 15,
+    maxWidth: 350,
   },
   button: {
     backgroundColor: Colors.light.buttonBackground,

@@ -9,7 +9,6 @@ import Colors from "../../../utils/theme";
 import VenuesScreen from "../../screens/VenuesScreen";
 import EventStackNavigator from "./EventStackNavigator";
 import AddCrewScreen from "../../screens/AddCrewScreen";
-import EventsScreen from "../../screens/EventsScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
 import VenueDetailsScreen from "../see-specific-venue/VenueDetailsComponent";
 
@@ -51,7 +50,6 @@ const DrawerNavigation: React.FC = () => {
         headerTitle: "Add Crew",
         drawerItemStyle: { display: "none" }, // or other styling as needed
       }}/>
-      <Drawer.Screen name="Events" component={EventsScreen} />
       <Drawer.Screen 
       name="SignUp"
       component={SignUpScreen}
@@ -79,10 +77,8 @@ const DrawerNavigation: React.FC = () => {
           headerTitle: "See Venue",
           drawerItemStyle: { display: "none" }, // or other styling as needed
         }}
-      />   
-      <Drawer.Screen name="SignUp" component={SignUpScreen} />
+      />
       <Drawer.Screen name="Events" component={EventStackNavigator} />
-      <Drawer.Screen name="Add Crew" component={AddCrewScreen} />
     </Drawer.Navigator>
     
   );
