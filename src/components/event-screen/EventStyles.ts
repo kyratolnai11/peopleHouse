@@ -5,15 +5,16 @@ export const eventStyles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
+    paddingVertical: 10,
     backgroundColor: Colors.light.primaryBackground,
   },
   image: {
     width: 350,
     height: 150,
-    borderRadius: 12.5,
+    borderTopLeftRadius: 12.5,
+    borderTopRightRadius: 12.5,
     overflow: "hidden",
-    resizeMode: "contain",
+    resizeMode: "cover",
     marginTop: -15,
   },
   text: {
@@ -21,6 +22,7 @@ export const eventStyles = StyleSheet.create({
   },
   textContainer: {
     padding: 15,
+    maxWidth: 350,
   },
   button: {
     backgroundColor: Colors.light.buttonBackground,
@@ -28,17 +30,18 @@ export const eventStyles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
     width: 200,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   buttonText: {
-    color: 'black',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: "black",
+    textAlign: "center",
+    fontWeight: "bold",
     fontSize: 16,
   },
   dateTimeText: {
     color: Colors.dark.secondary,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 16,
-  }
+    marginBottom: 20,
+  },
 });

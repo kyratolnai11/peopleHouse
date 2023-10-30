@@ -1,21 +1,25 @@
-import React, {useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { Auth } from 'aws-amplify';
-import { useNavigation, CommonActions } from '@react-navigation/native';
-import SignInStyles from './SignInStyles';
+import React, { useState } from "react";
+import { View, TextInput, Text, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Auth } from "aws-amplify";
+import { useNavigation, CommonActions } from "@react-navigation/native";
+import SignInStyles from "./SignInStyles";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { sharedStyles } from '../../../utils/SharedStyles';
 
+export type RootStackParamList = {
+  SignIn: undefined;
+  HomeScreen: undefined;
+  SignUp: undefined;
+};
 
-
+type navProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const navigation = useNavigation<any>();
-  
+  const navigation = useNavigation<navProp>();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -23,45 +27,40 @@ const LoginScreen = () => {
 
   const clearFields = () => {
     // Clear input fields
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
   };
 
-
-  async function currentAuthenticatedUser(){
-    try{
-        const user = await Auth.currentAuthenticatedUser({
-            bypassCache: false
-        });
-        console.log('Successful login! ', user.attributes);
-    } catch (error){
-        console.log(error);
+  async function currentAuthenticatedUser() {
+    try {
+      const user = await Auth.currentAuthenticatedUser({
+        bypassCache: false,
+      });
+      console.log("Successful login! ", user.attributes);
+    } catch (error) {
+      console.log(error);
     }
   }
- 
-  
 
-  const handleLogin = async() => {
-    try{
-        await Auth.signIn(email, password);
-        console.log('Login pressed:', { email, password });
-        currentAuthenticatedUser();
-  
-          navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [{ name: 'HomeScreen' }],
-            })
-          );
-          clearFields();
-    } catch(error){
-        console.error('Error signing in:', error);
+  const handleLogin = async () => {
+    try {
+      await Auth.signIn(email, password);
+      console.log("Login pressed:", { email, password });
+      currentAuthenticatedUser();
+
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "HomeScreen" }],
+        })
+      );
+      clearFields();
+    } catch (error) {
+      console.error("Error signing in:", error);
     }
-
   };
 
   return (
-    
     <View style={SignInStyles.container}>
       <Text style={SignInStyles.headerText}>Who are you?</Text>
       <View style={SignInStyles.inputContainer}>
@@ -85,7 +84,12 @@ const LoginScreen = () => {
             onChangeText={(text) => setPassword(text)}
           />
           <TouchableOpacity onPress={togglePasswordVisibility}>
-            <Ionicons name={passwordVisible ? 'eye' : 'eye-off'} size={24} color="gray" style={SignInStyles.eye}/>
+            <Ionicons
+              name={passwordVisible ? "eye" : "eye-off"}
+              size={24}
+              color="gray"
+              style={SignInStyles.eye}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -95,6 +99,5 @@ const LoginScreen = () => {
     </View>
   );
 };
-
 
 export default LoginScreen;

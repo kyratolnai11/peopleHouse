@@ -6,6 +6,7 @@ import EventCard from "../components/event-screen/EventCard";
 import VenueDropDown from "../components/event-screen/VenueDropDown";
 import { sharedStyles } from "../../utils/SharedStyles";
 import Colors from "../../utils/theme";
+import LoadingSpinner from "../components/event-screen/LoadingSpinner";
 
 const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();

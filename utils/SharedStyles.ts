@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Colors from "./theme";
 
 export const sharedStyles = StyleSheet.create({
   mainContainer: {
@@ -7,6 +8,7 @@ export const sharedStyles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     paddingVertical: 40,
+    backgroundColor: Colors.light.primaryBackground,
   },
   screenTitle: {
     fontSize: 31,
@@ -28,7 +30,7 @@ export const sharedStyles = StyleSheet.create({
   text: {
     fontSize: 18,
     paddingBottom: 10,
-    lineHeight: 25,
+    lineHeight: 28,
   },
   link: {
     fontSize: 18,

@@ -1,7 +1,7 @@
-import { listVenues } from "../graphql/queries";
+import { getVenue, listVenues } from "../graphql/queries";
 import { createVenue } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
-import { CreateVenueInput, ModelVenueConnection } from "../API";
+import { CreateVenueInput, ModelVenueConnection, Venue } from "../API";
 
 export async function fetchVenues(): Promise<ModelVenueConnection | undefined> {
   try {
@@ -13,6 +13,18 @@ export async function fetchVenues(): Promise<ModelVenueConnection | undefined> {
     return venues;
   } catch (err) {
     console.log("Error fetching venues:", err);
+  }
+}
+
+export async function fetchVenueById(venueId: string): Promise<Venue | undefined> {
+  try {
+      console.log(`Getting venue with ID: ${venueId}`);
+      const venueDataSingle: any = await API.graphql(graphqlOperation(getVenue, { id: venueId }));
+      const venue: Venue = venueDataSingle.data.getVenue;
+      console.log('Got venue', venue);
+      return venue;
+  } catch (error) {
+      console.log('Error fetching venue: ', error);
   }
 }
 
