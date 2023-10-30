@@ -9,7 +9,7 @@ const EventStack = createStackNavigator();
 
 const EventStackNavigator: React.FC = () => {
   return (
-    <EventStack.Navigator initialRouteName="Events">
+    <EventStack.Navigator initialRouteName="EventScreen">
       <EventStack.Screen
         name="Event"
         component={EventScreen as React.FC}
@@ -23,7 +23,7 @@ const EventStackNavigator: React.FC = () => {
         }}
       />
       <EventStack.Screen
-        name="Events"
+        name="EventScreen"
         component={EventsScreen}
         options={{ title: "" }}
       />

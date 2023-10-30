@@ -8,7 +8,7 @@ const MyInfoStack = createStackNavigator();
 
 const MyInfoStackNavigation: React.FC = () => {
   return (
-    <MyInfoStack.Navigator initialRouteName="Events">
+    <MyInfoStack.Navigator>
       <MyInfoStack.Screen
         name="My Info"
         component={MyInfoScreen}
