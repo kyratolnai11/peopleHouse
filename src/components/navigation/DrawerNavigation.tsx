@@ -12,6 +12,7 @@ import AddCrewScreen from "../../screens/AddCrewScreen";
 import EventsScreen from "../../screens/EventsScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
 import VenueDetailsScreen from "../see-specific-venue/VenueDetailsComponent";
+import SpecificCrewComponent from "../specific-crew/SpecificCrewComponent";
 
 
 const DrawerNavigation: React.FC = () => {
@@ -42,6 +43,7 @@ const DrawerNavigation: React.FC = () => {
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
+      <Drawer.Screen name="CrewTest" component={SpecificCrewComponent} />
       <Drawer.Screen name="Venues" component={VenuesScreen} />
       <Drawer.Screen name="Add Crew"
       component={AddCrewScreen}
@@ -50,14 +52,6 @@ const DrawerNavigation: React.FC = () => {
         drawerLabel: () => null, // or drawerLabel: '',
         headerTitle: "Add Crew",
         drawerItemStyle: { display: "none" }, // or other styling as needed
-      }}/>
-      <Drawer.Screen name="Events" component={EventsScreen} />
-      <Drawer.Screen 
-      name="SignUp"
-      component={SignUpScreen}
-      options={{
-        headerTitle: "Sign up",
-        drawerLabel: 'Sign up'
       }}/>
       <Drawer.Screen
         name="MyInfo"
@@ -82,7 +76,6 @@ const DrawerNavigation: React.FC = () => {
       />   
       <Drawer.Screen name="SignUp" component={SignUpScreen} />
       <Drawer.Screen name="Events" component={EventStackNavigator} />
-      <Drawer.Screen name="Add Crew" component={AddCrewScreen} />
     </Drawer.Navigator>
     
   );
