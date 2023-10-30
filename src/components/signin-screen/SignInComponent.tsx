@@ -5,6 +5,7 @@ import { Auth } from "aws-amplify";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import SignInStyles from "./SignInStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { sharedStyles } from '../../../utils/SharedStyles';
 
 export type RootStackParamList = {
   SignIn: undefined;
@@ -65,8 +66,8 @@ const LoginScreen = () => {
       <View style={SignInStyles.inputContainer}>
         <Text style={SignInStyles.inputTitle}>Email</Text>
         <TextInput
-          style={SignInStyles.input}
-          keyboardType="email-address"
+          style={sharedStyles.input}
+          keyboardType='email-address'
           placeholder="Please enter your email address"
           value={email}
           onChangeText={(text) => setEmail(text.toLowerCase())}

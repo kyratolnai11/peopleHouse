@@ -37,6 +37,13 @@ export const sharedStyles = StyleSheet.create({
     fontWeight: "bold",
     textDecorationLine: "underline",
   },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingLeft: 8,
+  },
 });
 
 //Practices:

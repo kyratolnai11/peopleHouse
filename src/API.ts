@@ -1341,46 +1341,6 @@ export type CrewsByUserIdQuery = {
   } | null,
 };
 
-export type EventsByIdQueryVariables = {
-  id: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelEventFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type EventsByIdQuery = {
-  eventsById?:  {
-    __typename: "ModelEventConnection",
-    items:  Array< {
-      __typename: "Event",
-      id: string,
-      title: string,
-      brief: string,
-      description: string,
-      agenda: string,
-      startDateTime: string,
-      endDateTime: string,
-      numOfTickets: number,
-      host: string,
-      userAttendees?:  {
-        __typename: "ModelUserConnection",
-        nextToken?: string | null,
-      } | null,
-      crewAttendees?:  {
-        __typename: "ModelCrewConnection",
-        nextToken?: string | null,
-      } | null,
-      venueId: string,
-      createdAt: string,
-      updatedAt: string,
-      userEventsId?: string | null,
-      venueEventsId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type EventsByVenueIdQueryVariables = {
   venueId: string,
   sortDirection?: ModelSortDirection | null,

@@ -8,6 +8,7 @@ import SignUpScreen from "../signup-screen/SignUpComponent";
 import Colors from "../../../utils/theme";
 import VenuesScreen from "../../screens/VenuesScreen";
 import EventStackNavigator from "./EventStackNavigator";
+import AddCrewScreen from "../../screens/AddCrewScreen";
 
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();
@@ -40,6 +41,7 @@ const DrawerNavigation: React.FC = () => {
       <Drawer.Screen name="Venues" component={VenuesScreen} />
       <Drawer.Screen name="SignUp" component={SignUpScreen} />
       <Drawer.Screen name="Events" component={EventStackNavigator} />
+      <Drawer.Screen name="Add Crew" component={AddCrewScreen} />
     </Drawer.Navigator>
   );
 };
