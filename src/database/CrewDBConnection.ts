@@ -24,26 +24,26 @@ export const addCrew = async (userId: string, crewData: AddCrewForm) => {
   }
 };
 
-export async function fetchCrewByUser2(id: string): Promise<Crew | undefined> {
+export async function fetchCrewsByUser(id: string): Promise<ModelCrewConnection | undefined> {
   try {
     console.log("Getting crews for user id: " + id);
-    const crewData: any = await API.graphql(graphqlOperation(getCrew, { id: id }));
+    const crewData: any = await API.graphql(graphqlOperation(crewsByUserId, { userId: id }));
     console.log(crewData);
-    const crew: Crew = crewData.data.crewsByUserId;
-    console.log("Got crews for user id:", crew);
-    return crew;
+    const crews: ModelCrewConnection = crewData.data.crewsByUserId;
+    console.log("Got crews for user id:", crews);
+    return crews;
   } catch (error) {
     console.log("Error fetching crews for user id: ", error);
   }
 }
 
-export async function fetchCrewByUser(id: string): Promise<Crew | undefined> {
+
+export async function fetchCrewById(id: string): Promise<Crew | undefined> {
   try {
     console.log("Getting crew for user id: " + id);
     const crewData: any = await API.graphql(graphqlOperation(getCrew, { id: id }));
-    console.log(crewData);
     const crew: Crew = crewData.data.getCrew;
-    console.log("Got crew for user id:", crew.firstname);
+    console.log("Got crew for user id:", crew);
     return crew;
   } catch (error) {
     console.error("Error fetching crew for user id: ", error);
