@@ -9,7 +9,7 @@ export const specificEventStyles = StyleSheet.create({
   },
 
   ticketsHeader: {
-    backgroundColor: Colors.light.tertiary,
+    backgroundColor: Colors.light.primary,
     transform: "rotate(-1deg)",
     width: 180,
     height: 50,
@@ -95,5 +95,58 @@ export const specificEventStyles = StyleSheet.create({
     alignItems: "center",
     height: 600,
     backgroundColor: Colors.dark.white
+  },
+  image: {
+    width: 500,
+    height: 200,
+    resizeMode: "cover",
+    marginTop: -37,
+    zIndex: 0,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    marginTop: -60,
+  },
+  imageContainer: {
+    position: "relative",
+    alignItems: "center",
+  },
+  eventName: {
+    color: Colors.light.textSecondary,
+    fontSize: 28,
+    fontWeight: "bold",
+    textAlign: "center",
+    position: "absolute",
+    zIndex: 2,
+    marginTop: -20,
+  },
+  venueName: {
+    color: Colors.light.primary,
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    position: "absolute",
+    paddingTop: 55,
+    zIndex: 2,
+  },
+  date: {
+    color: Colors.light.primary,
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    position: "absolute",
+    paddingTop: 90,
+    zIndex: 2,
+  },
+  brief: {
+    color: Colors.light.textSecondary,
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    position: "absolute",
+    paddingTop: 125,
+    zIndex: 2,
   },
 });
