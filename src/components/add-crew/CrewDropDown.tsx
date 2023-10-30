@@ -51,7 +51,11 @@ const CrewDropDown: React.FC = () => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
-        { text: "OK", onPress: () => console.log("OK Pressed") },
+        { text: "OK", onPress: () => {
+          console.log("OK Pressed");
+          navigation.goBack();
+        },
+      },
       ]
     );
     console.log("Form submitted");

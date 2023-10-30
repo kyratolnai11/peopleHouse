@@ -2,17 +2,24 @@ import Colors from "../../../utils/theme";
 import { StyleSheet } from "react-native";
 
 export const specificCrewStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.light.primaryBackground,
+  },
+  emailContainer: {
+    marginTop: 10,
+    marginLeft: 15,
+  },
     addCrewButton: {
         backgroundColor: Colors.dark.primary, 
         padding: 10,
         borderRadius: 10,
-        marginTop: 10,
+        marginTop: 30,
         width: '50%',
         alignSelf: 'center',
         marginBottom: 20,
         
       },
-    
       addCrewButtonText: {
         color: 'black', 
         textAlign: 'center',

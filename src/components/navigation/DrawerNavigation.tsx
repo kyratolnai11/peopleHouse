@@ -12,7 +12,8 @@ import AuthStackNavigator from "./AuthNavigator";
 import AddCrewScreen from "../../screens/AddCrewScreen";
 import EventsScreen from "../../screens/EventsScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
-import SpecificCrewComponent from "../specific-crew/SpecificCrewComponent";
+import SpecificCrewComponent from "../../screens/SpecificCrewScreen";
+import MyInfoStackNavigation from "./MyInfoStackNavigation";
 
 
 const DrawerNavigation: React.FC = () => {
@@ -63,6 +64,15 @@ const DrawerNavigation: React.FC = () => {
       />
 
       <Drawer.Screen name="Events" component={EventStackNavigator} />
+      <Drawer.Screen
+        name="MyInfo"
+        component={MyInfoStackNavigation}
+        options={{
+          drawerLabel: () => null, // or drawerLabel: '',
+          drawerItemStyle: { display: "none" }, // or other styling as needed
+          headerTitle: "",
+        }}
+      />
     </Drawer.Navigator>
   );
 };
