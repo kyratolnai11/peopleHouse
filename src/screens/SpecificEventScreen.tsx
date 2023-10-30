@@ -74,8 +74,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
       eventName: event.title,
       eventLocation: venueName,
       eventTime: formattedDateTime,
-      //TODO: we need to talk about this on Friday
-      ticketsLeft: 0,
+      ticketsLeft: event.numOfTickets,
       venueId: event.venueId,
       eventBrief: event.brief,
     });
