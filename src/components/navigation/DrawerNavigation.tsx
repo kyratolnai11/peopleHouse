@@ -7,9 +7,8 @@ import InfoScreen from "../../screens/InfoScreen";
 import SignUpScreen from "../signup-screen/SignUpComponent";
 import Colors from "../../../utils/theme";
 import EventStackNavigator from "./EventStackNavigator";
-import AddCrewScreen from "../../screens/AddCrewScreen";
-import MyInfoScreen from "../../screens/MyInfoScreen";
 import VenueStackNavigation from "./VenueStackNavigation";
+import MyInfoStackNavigation from "./MyInfoStackNavigation";
 
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();
@@ -41,16 +40,6 @@ const DrawerNavigation: React.FC = () => {
       <Drawer.Screen name="Info" component={InfoScreen} />
       <Drawer.Screen name="Venues" component={VenueStackNavigation} />
       <Drawer.Screen
-        name="Add Crew"
-        component={AddCrewScreen}
-        options={{
-          // Hide the label for Settings screen
-          drawerLabel: () => null, // or drawerLabel: '',
-          headerTitle: "Add Crew",
-          drawerItemStyle: { display: "none" }, // or other styling as needed
-        }}
-      />
-      <Drawer.Screen
         name="SignUp"
         component={SignUpScreen}
         options={{
@@ -60,7 +49,7 @@ const DrawerNavigation: React.FC = () => {
       />
       <Drawer.Screen
         name="MyInfo"
-        component={MyInfoScreen}
+        component={MyInfoStackNavigation}
         options={{
           // Hide the label for Settings screen
           drawerLabel: () => null, // or drawerLabel: '',
