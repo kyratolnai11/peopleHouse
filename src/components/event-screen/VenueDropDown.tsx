@@ -17,7 +17,11 @@ const data = [
     { label: 'Maker Space', value: '11'}
 ];
 
-const VenueDropDown: React.FC = () => {
+type VenueDropDownProps = {
+    filterByVenueId: Function;
+};
+
+const VenueDropDown: React.FC<VenueDropDownProps> = ({ filterByVenueId }) => {
     const [value, setValue] = useState("");
     const [isFocus, setIsFocus] = useState(false);
 
@@ -39,8 +43,9 @@ const VenueDropDown: React.FC = () => {
                     onBlur={() => setIsFocus(false)}
                     onChange={item => {
                         setValue(item.value);
-                        console.log("Venue selected: ", item.label);
+                        console.log("Venue selected: ", item.label, item.value);
                         setIsFocus(false);
+                        filterByVenueId(item.value);
                     }}
                 />
             </View>
