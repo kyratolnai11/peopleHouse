@@ -5,14 +5,16 @@ import { ModelEventConnection } from "../API";
 import EventCard from "../components/event-screen/EventCard";
 import VenueDropDown from "../components/event-screen/VenueDropDown";
 import { sharedStyles } from "../../utils/SharedStyles";
-import Colors from "../../utils/theme";
 import LoadingSpinner from "../components/event-screen/LoadingSpinner";
+import DatePicker from "../components/event-screen/DatePicker";
 
 const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
   const [dataFetched, setDataFetched] = useState(false);
   const [venueId, setVenueId] = useState("");
   const [filteredByVenueID, setFilteredByVenueID] = useState(false);
+  const [date, setDate] = useState<Date>(new Date());
+  const [filteredByDate, setFilteredByDate] = useState(false);
 
   useEffect(() => {
     if (filteredByVenueID !== true) {
@@ -79,6 +81,12 @@ const EventsScreen = () => {
     }
   }
 
+  function filterByDate(date: Date) {
+    setFilteredByDate(true);
+    setDate(date);
+    console.log("Selected date (events screen): ", date)
+  }
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -87,6 +95,7 @@ const EventsScreen = () => {
             Come have fun with us!
           </Text>
           <VenueDropDown filterByVenueId={filterByVenueId} />
+          <DatePicker filterByDate={filterByDate}/>
           {events && events.items ? (
             events.items.length === 0 ? (
               <Text style={sharedStyles.centeredText}> No events for this venue. </Text>
