@@ -9,11 +9,21 @@ import LoadingSpinner from "../components/event-screen/LoadingSpinner";
 import { fetchUserType } from "../components/cognito/UserCognito";
 import CustomButton from "../components/event-screen/CustomButton";
 import { eventStyles } from "../components/event-screen/EventStyles";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
+
+export type RootStackParamList = {
+  CreateEvent: undefined;
+};
+
+type navProp = StackNavigationProp<RootStackParamList, "CreateEvent">;
 
 const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
   const [dataFetched, setDataFetched] = useState(false);
   const [userType, setUserType] = useState();
+
+  const navigation = useNavigation<navProp>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,6 +67,11 @@ const EventsScreen = () => {
     return <LoadingSpinner />;
   }
 
+  const handleButtonpress = () => {
+    console.log("Cards pressed");
+    navigation.navigate("CreateEvent");
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -73,7 +88,7 @@ const EventsScreen = () => {
                 style={eventStyles.cmImage}
                 source={require("../../assets/event-screen/pencil.png")}
               />
-              <CustomButton name="Create event" />
+              <CustomButton name="Create event" action={handleButtonpress} />
             </View>
           )}
           {events &&

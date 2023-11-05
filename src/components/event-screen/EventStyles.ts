@@ -62,7 +62,7 @@ export const eventStyles = StyleSheet.create({
   cmImage: {
     height: 80,
     width: 130,
-    transform: "rotate(50deg)",
+    transform: [{ rotate: "50deg" }],
     alignSelf: "center",
   },
 });
