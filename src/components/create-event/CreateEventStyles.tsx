@@ -35,4 +35,10 @@ export const createEventStyles = StyleSheet.create({
     width: 100,
     resizeMode: "cover",
   },
+  secondaryTitle: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: Colors.light.secondary,
+    paddingTop: 10,
+  },
 });

@@ -5,22 +5,39 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { UseFormSetValue } from "react-hook-form";
 import { AddCrewForm } from "./CrewDropDown";
 import { sharedStyles } from "../../../utils/SharedStyles";
-import { format } from "date-fns-tz";
 import { addCrewStyles } from "./StyleSheet";
 
 type DatePickerProps = {
-  setValue: UseFormSetValue<AddCrewForm>;
+  setValueCrew?: UseFormSetValue<AddCrewForm>;
+  setEventStartDate?: React.Dispatch<React.SetStateAction<Date>>;
+  setEventStartTime?: React.Dispatch<React.SetStateAction<Date>>;
+  setEventEndTime?: React.Dispatch<React.SetStateAction<Date>>;
+  type?: "Time" | "Date";
   name: string;
 };
 
-const DatePicker: React.FC<DatePickerProps> = ({ setValue, name }) => {
+const DatePicker: React.FC<DatePickerProps> = ({
+  setValueCrew,
+  setEventEndTime,
+  setEventStartDate,
+  setEventStartTime,
+  name,
+  type,
+}) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
   const onChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate;
     setDate(currentDate);
-    setValue("dateOfBirth", date);
+    //setting values for crew birthday
+    setValueCrew && setValueCrew("dateOfBirth", date);
+
+    //Setting values for event creation
+    setEventStartDate && setEventStartDate(date);
+    setEventStartTime && setEventStartTime(date);
+    setEventEndTime && setEventEndTime(date);
+
     setShow(false);
   };
 
@@ -42,16 +59,14 @@ const DatePicker: React.FC<DatePickerProps> = ({ setValue, name }) => {
           <DateTimePicker
             testID="dateTimePicker"
             value={date}
-            mode="date"
+            mode={type === "Time" ? "time" : "date"}
             is24Hour={true}
             onChange={onChange}
           />
         </View>
       )}
       {date && (
-        <Text style={sharedStyles.text}>
-          Selected: {format(date, "yyyy-MM-dd")}
-        </Text>
+        <Text style={sharedStyles.text}>Selected: {date.toISOString()}</Text>
       )}
     </View>
   );

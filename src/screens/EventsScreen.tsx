@@ -123,6 +123,7 @@ const EventsScreen = () => {
             { backgroundColor: Colors.light.primaryBackground },
           ]}
         >
+          <Text style={sharedStyles.screenTitle}>Come have fun with us!</Text>
           {userType === UserType.COMMUNITY_BUILDER && (
             <View style={eventStyles.cmContainer}>
               <Text style={eventStyles.cmText}>For Community Builders</Text>
@@ -133,9 +134,7 @@ const EventsScreen = () => {
               <CustomButton name="Create event" action={handleButtonpress} />
             </View>
           )}
-        </View>
-        <View style={sharedStyles.mainContainer}>
-          <Text style={sharedStyles.screenTitle}>Come have fun with us!</Text>
+
           <VenueDropDown filterByVenueId={filterByVenueId} />
           {events && events.items ? (
             events.items.length === 0 ? (

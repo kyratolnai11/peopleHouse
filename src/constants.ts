@@ -161,16 +161,29 @@ export const getVenueName = (id: string) => {
 };
 
 export const allVenuesByNameAndId = [
-  { label: 'All venues', value: '0'},
-  { label: 'LEGO Arena', value: '1' },
-  { label: 'Chefs Corner', value: '2' },
-  { label: 'The Heart', value: '3' },
-  { label: 'LEGO Gym', value: '4' },
-  { label: 'Club House', value: '5' },
-  { label: 'Cinema', value: '6' },
-  { label: 'Creative Studio', value: '7' },
-  { label: 'Music Room', value: '8' },
-  { label: 'Fireplace Lounge', value: '9'},
-  { label: 'Health + Wellbeing Center', value: '10'},
-  { label: 'Maker Space', value: '11'}
+  { label: "All venues", value: "0" },
+  { label: "LEGO Arena", value: "1" },
+  { label: "Chefs Corner", value: "2" },
+  { label: "The Heart", value: "3" },
+  { label: "LEGO Gym", value: "4" },
+  { label: "Club House", value: "5" },
+  { label: "Cinema", value: "6" },
+  { label: "Creative Studio", value: "7" },
+  { label: "Music Room", value: "8" },
+  { label: "Fireplace Lounge", value: "9" },
+  { label: "Health + Wellbeing Center", value: "10" },
+  { label: "Maker Space", value: "11" },
 ];
+
+export const formatDateForEvent = (date: Date, time: Date) => {
+  // Extract year, month, and day components from the date object
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  // Extract hour and minute components from the time object
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+
+  return new Date(year, month, day, hours, minutes);
+};

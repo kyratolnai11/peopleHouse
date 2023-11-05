@@ -170,7 +170,7 @@ const CrewDropDown: React.FC = () => {
           {option === "Child" && (
             <View>
               <Text style={sharedStyles.text}>Date of Birth:</Text>
-              <DatePicker setValue={setValue} name="Date of birth" />
+              <DatePicker setValueCrew={setValue} name="Date of birth" />
             </View>
           )}
 
