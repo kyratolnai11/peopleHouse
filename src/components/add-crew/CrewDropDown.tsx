@@ -8,8 +8,6 @@ import DatePicker from "./DatePickerLocal";
 import { fetchLoggedInUserID } from "../cognito/UserCognito";
 import { addCrew } from "../../database/CrewDBConnection";
 import { addCrewStyles } from "./StyleSheet";
-import { CommonActions, useNavigation } from '@react-navigation/native';
-
 
 export type AddCrewForm = {
   firstName: string;
@@ -23,8 +21,6 @@ const CrewDropDown: React.FC = () => {
   const [option, setOption] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [userId, setUserId] = useState("");
-  const navigation = useNavigation<any>();
-
 
   const data = [
     { label: "+ONE", value: "+ONE" },
@@ -38,7 +34,6 @@ const CrewDropDown: React.FC = () => {
     fetchLoggedInUserID().then((id) => setUserId(id));
   }, []);
 
-  
   const onSubmit = async (data: AddCrewForm) => {
     await addCrew(userId, data);
     reset();
