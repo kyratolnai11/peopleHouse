@@ -12,8 +12,6 @@ Amplify.configure(awsconfig);
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
- 
-
   const checkAuth = async () => {
     try {
       await Auth.currentAuthenticatedUser();
