@@ -41,4 +41,10 @@ export const createEventStyles = StyleSheet.create({
     color: Colors.light.secondary,
     paddingTop: 10,
   },
+  datePickerContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginLeft: -10,
+    paddingTop: 20,
+  },
 });
