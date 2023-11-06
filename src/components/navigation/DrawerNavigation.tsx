@@ -9,7 +9,12 @@ import Colors from "../../../utils/theme";
 import EventStackNavigator from "./EventStackNavigator";
 import VenueStackNavigation from "./VenueStackNavigation";
 import AuthStackNavigator from "./AuthNavigator";
+import AddCrewScreen from "../../screens/AddCrewScreen";
+import EventsScreen from "../../screens/EventsScreen";
+import MyInfoScreen from "../../screens/MyInfoScreen";
+import SpecificCrewComponent from "../../screens/SpecificCrewScreen";
 import MyInfoStackNavigation from "./MyInfoStackNavigation";
+
 
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();
@@ -40,22 +45,14 @@ const DrawerNavigation: React.FC = () => {
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
       <Drawer.Screen name="Venues" component={VenueStackNavigation} />
-      <Drawer.Screen
-        name="SignUp"
-        component={SignUpScreen}
-        options={{
-          headerTitle: "Sign up",
-          drawerLabel: "Sign up",
-        }}
-      />
-      <Drawer.Screen
-        name="MyInfo"
-        component={MyInfoStackNavigation}
-        options={{
-          drawerLabel: () => null, // or drawerLabel: '',
-          drawerItemStyle: { display: "none" }, // or other styling as needed
-        }}
-      />
+
+      <Drawer.Screen 
+      name="SignUp"
+      component={SignUpScreen}
+      options={{
+        headerTitle: "Sign up",
+        drawerLabel: 'Sign up'
+      }}/>
       <Drawer.Screen
         name="AuthNav"
         component={AuthStackNavigator}
@@ -67,6 +64,15 @@ const DrawerNavigation: React.FC = () => {
       />
 
       <Drawer.Screen name="Events" component={EventStackNavigator} />
+      <Drawer.Screen
+        name="MyInfo"
+        component={MyInfoStackNavigation}
+        options={{
+          drawerLabel: () => null, // or drawerLabel: '',
+          drawerItemStyle: { display: "none" }, // or other styling as needed
+          headerTitle: "",
+        }}
+      />
     </Drawer.Navigator>
   );
 };

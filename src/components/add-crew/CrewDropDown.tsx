@@ -51,7 +51,11 @@ const CrewDropDown: React.FC = () => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
-        { text: "OK", onPress: () => console.log("OK Pressed") },
+        { text: "OK", onPress: () => {
+          console.log("OK Pressed");
+          navigation.goBack();
+        },
+      },
       ]
     );
     console.log("Form submitted");
@@ -165,6 +169,7 @@ const CrewDropDown: React.FC = () => {
                   <TextInput
                     placeholder="Enter your email"
                     value={field.value}
+                    autoCapitalize="none"
                     onChangeText={field.onChange}
                     style={sharedStyles.input}
                   />

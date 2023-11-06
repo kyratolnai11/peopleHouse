@@ -5,6 +5,7 @@ const myInfoStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.light.primaryBackground,
+    height: '100%',
   },
   userInfoContainer: {},
   userImageContainer: {
