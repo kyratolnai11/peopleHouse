@@ -27,9 +27,26 @@ const PlannerSection: React.FC<PlannerSectionProps> = ({
       <Text style={createEventStyles.secondaryTitle}>Planner</Text>
       <VenueDropDown setValueForCreateEvent={setValue} />
       <View style={createEventStyles.datePickerContainer}>
-        <DatePicker name="Date" type="Date" setEventStartDate={setStartDate} />
-        <DatePicker setEventStartTime={setStartTime} name="From" type="Time" />
-        <DatePicker setEventEndTime={setEndTime} name="to" type="Time" />
+        <View>
+          <Text style={createEventStyles.labelText}>Date</Text>
+          <DatePicker
+            name="Date"
+            type="Date"
+            setEventStartDate={setStartDate}
+          />
+        </View>
+        <View>
+          <Text style={createEventStyles.labelText}>From</Text>
+          <DatePicker
+            setEventStartTime={setStartTime}
+            name="From"
+            type="Time"
+          />
+        </View>
+        <View>
+          <Text style={createEventStyles.labelText}>To</Text>
+          <DatePicker setEventEndTime={setEndTime} name="to" type="Time" />
+        </View>
       </View>
 
       <CustomButton name="Submit date" action={submitDate} />

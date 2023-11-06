@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
@@ -8,6 +9,7 @@ import DatePicker from "./DatePickerLocal";
 import { fetchLoggedInUserID } from "../cognito/UserCognito";
 import { addCrew } from "../../database/CrewDBConnection";
 import { addCrewStyles } from "./StyleSheet";
+import { useNavigation } from "@react-navigation/native";
 
 export type AddCrewForm = {
   firstName: string;
@@ -21,6 +23,8 @@ const CrewDropDown: React.FC = () => {
   const [option, setOption] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [userId, setUserId] = useState("");
+
+  const navigation = useNavigation<any>()
 
   const data = [
     { label: "+ONE", value: "+ONE" },

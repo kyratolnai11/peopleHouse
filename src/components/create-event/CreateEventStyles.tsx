@@ -47,4 +47,8 @@ export const createEventStyles = StyleSheet.create({
     marginLeft: -10,
     paddingTop: 20,
   },
+  labelText: {
+    paddingLeft: 10,
+    paddingBottom: 5,
+  },
 });
