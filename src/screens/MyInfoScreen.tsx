@@ -75,7 +75,7 @@ const MyInfoScreen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={myInfoStyles.container}>
       <ScrollView>
         <View style={myInfoStyles.container}>
           {userInfo ? (

@@ -7,23 +7,21 @@ import { RouteProp } from '@react-navigation/native';
 import LoadingSpinner from '../components/event-screen/LoadingSpinner';
 import { useNavigation } from "@react-navigation/native";
 
-
-export type RootStackParamList ={
-  SpecificCrew: {crewId: string};
+export type RootStackParamList = {
+  SpecificCrew: { crewId: string };
 }
 
 type CrewScreenRouteProp = RouteProp<RootStackParamList, "SpecificCrew">;
 
-type CrewProps ={
+type CrewProps = {
   route: CrewScreenRouteProp;
 }
 
-const SpecificCrewScreen: React.FC<CrewProps>= ({ route }) => {
+const SpecificCrewScreen: React.FC<CrewProps> = ({ route }) => {
   const [specificCrew, setSpecificCrew] = useState<Crew | null>();
   const [loading, setLoading] = useState(true);
-  const {crewId} = route.params;
+  const { crewId } = route.params;
   const navigation = useNavigation(); // Use this to get the navigation prop
-
 
   useEffect(() => {
     const fetchCrew = async () => {
@@ -55,7 +53,7 @@ const SpecificCrewScreen: React.FC<CrewProps>= ({ route }) => {
         {
           text: 'Yes',
           onPress: () => {
-            deleteCrewById(crewId); //Dummy data
+            deleteCrewById(crewId); // Dummy data
             navigation.goBack();
           },
         },
@@ -63,11 +61,9 @@ const SpecificCrewScreen: React.FC<CrewProps>= ({ route }) => {
     );
   };
 
-
   return (
-    <SafeAreaView >
-      
-      <ScrollView >
+    <SafeAreaView style={specificCrewStyles.container}>
+      <ScrollView>
         <View style={specificCrewStyles.container}>
           {loading ? (
             <LoadingSpinner />
@@ -86,33 +82,37 @@ const SpecificCrewScreen: React.FC<CrewProps>= ({ route }) => {
                   </Text>
                 </View>
               </View>
-              <View style={specificCrewStyles.emailContainer}>
-  <Text>Email address:</Text>
-  <TextInput
-    style={specificCrewStyles.emailInput}
-    value={specificCrew.email || 'No email added'}
-    editable={false}
-  />
-</View>
-
-<View style={specificCrewStyles.emailContainer}>
-  <Text>Date of Birth:</Text>
-  <TextInput
-    style={specificCrewStyles.emailInput}
-    value={specificCrew.dateOfBirth ? new Date(specificCrew.dateOfBirth).toISOString().split('T')[0] : 'No birthday added'}
-    editable={false}
-  />
-</View>
-
-<View style={specificCrewStyles.emailContainer}>
-  <Text>User Type:</Text>
-  <TextInput
-    style={specificCrewStyles.userTypeInput}
-    value={specificCrew.familyRole || 'No user type added'}
-    editable={false}
-  />
-</View>
-
+              {specificCrew.email && specificCrew.email.trim() !== '' && (
+                <View style={specificCrewStyles.emailContainer}>
+                  <Text>Email address:</Text>
+                  <TextInput
+                    style={specificCrewStyles.emailInput}
+                    value={specificCrew.email}
+                    autoCapitalize="none"
+                    editable={false}
+                  />
+                </View>
+              )}
+              {specificCrew.dateOfBirth && specificCrew.dateOfBirth.trim() !== '' && (
+                <View style={specificCrewStyles.emailContainer}>
+                  <Text>Date of Birth:</Text>
+                  <TextInput
+                    style={specificCrewStyles.emailInput}
+                    value={specificCrew.dateOfBirth ? new Date(specificCrew.dateOfBirth).toISOString().split('T')[0] : 'No birthday added'}
+                    editable={false}
+                  />
+                </View>
+              )}
+              {specificCrew.familyRole && specificCrew.familyRole.trim() !== '' && (
+                <View style={specificCrewStyles.emailContainer}>
+                  <Text>User Type:</Text>
+                  <TextInput
+                    style={specificCrewStyles.userTypeInput}
+                    value={specificCrew.familyRole}
+                    editable={false}
+                  />
+                </View>
+              )}
             </View>
           ) : (
             <LoadingSpinner />

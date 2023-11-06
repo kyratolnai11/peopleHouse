@@ -169,6 +169,7 @@ const CrewDropDown: React.FC = () => {
                   <TextInput
                     placeholder="Enter your email"
                     value={field.value}
+                    autoCapitalize="none"
                     onChangeText={field.onChange}
                     style={sharedStyles.input}
                   />

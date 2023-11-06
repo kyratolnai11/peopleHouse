@@ -5,6 +5,7 @@ export const specificCrewStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.light.primaryBackground,
+    height: '100%',
   },
   emailContainer: {
     marginTop: 10,
