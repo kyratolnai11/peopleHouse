@@ -14,7 +14,7 @@ import { fetchUserType } from "../components/cognito/UserCognito";
 import CustomButton from "../components/event-screen/CustomButton";
 import { eventStyles } from "../components/event-screen/EventStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 export type RootStackParamList = {
   CreateEvent: undefined;
@@ -26,6 +26,7 @@ const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
   const [dataFetched, setDataFetched] = useState(false);
   const [userType, setUserType] = useState();
+  const isFocused = useIsFocused(); // Get the screen focus state
 
   const navigation = useNavigation<navProp>();
 
@@ -39,8 +40,10 @@ const EventsScreen = () => {
       }
     };
 
-    fetchData();
-  }, []);
+    if (isFocused) {
+      fetchData();
+    }
+  }, [isFocused]);
 
   const [venueId, setVenueId] = useState("");
   const [filteredByVenueID, setFilteredByVenueID] = useState(false);
