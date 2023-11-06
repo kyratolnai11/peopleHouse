@@ -32,7 +32,7 @@ const EventStackNavigator: React.FC = () => {
         name="Availibility"
         component={EventAvailibityScreen as React.FC}
         options={{
-          title: "",
+          title: "Availibility",
           headerBackTitleStyle: { color: Colors.light.textPrimary },
           headerBackImage: () => <CustomBackImage />,
           headerBackTitle: "Back",
@@ -43,7 +43,7 @@ const EventStackNavigator: React.FC = () => {
         name="CreateEvent"
         component={CreateEventScreen}
         options={{
-          title: "",
+          title: "Create event",
           headerBackTitleStyle: { color: Colors.light.textPrimary },
           headerBackImage: () => <CustomBackImage />,
           headerBackTitle: "Back",

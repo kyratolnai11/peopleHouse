@@ -23,7 +23,7 @@ const PlannerSection: React.FC<PlannerSectionProps> = ({
   submitDate,
 }) => {
   return (
-    <View style={{ padding: 20 }}>
+    <View style={createEventStyles.contWithPadding}>
       <Text style={createEventStyles.secondaryTitle}>Planner</Text>
       <VenueDropDown setValueForCreateEvent={setValue} />
       <View style={createEventStyles.datePickerContainer}>

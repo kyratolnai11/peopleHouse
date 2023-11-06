@@ -34,13 +34,7 @@ const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({ control }) => {
             <TextInput
               value={field.value}
               onChangeText={field.onChange}
-              style={[
-                sharedStyles.input,
-                {
-                  backgroundColor: Colors.light.textSecondary,
-                  textAlignVertical: "top",
-                },
-              ]}
+              style={createEventStyles.title}
             />
           )}
         />
@@ -58,14 +52,7 @@ const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({ control }) => {
               onChangeText={field.onChange}
               numberOfLines={4}
               multiline={true}
-              style={[
-                sharedStyles.input,
-                {
-                  backgroundColor: Colors.light.textSecondary,
-                  height: 100,
-                  textAlignVertical: "top",
-                },
-              ]}
+              style={createEventStyles.brief}
             />
           )}
         />

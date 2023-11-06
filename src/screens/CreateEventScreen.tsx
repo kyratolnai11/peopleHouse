@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { View, ScrollView, SafeAreaView, Alert } from "react-native";
-import Colors from "../../utils/theme";
 import { useForm } from "react-hook-form";
 import CustomButton from "../components/event-screen/CustomButton";
-import CreateEventHeader from "../components/create-event/CreateEventHeaders";
+import CreateEventHeader from "../components/create-event/HeaderSection";
 import { formatDateForEvent } from "../constants";
-import PlannerSection from "../components/create-event/CreateEventDateSection";
-import EventDetailsSection from "../components/create-event/EventDetailsSection";
+import PlannerSection from "../components/create-event/PlannerSection";
+import EventDetailsSection from "../components/create-event/DetailsSection";
 import { fetchLoggedInUserID } from "../components/cognito/UserCognito";
 import { addEvent } from "../database/EventDBConnection";
 import { useNavigation } from "@react-navigation/native";
+import { createEventStyles } from "../components/create-event/CreateEventStyles";
 
 export type CreateEventForm = {
   eventTitle: string;
@@ -34,7 +34,7 @@ const CreateEventScreen: React.FC = () => {
 
   useEffect(() => {
     const fetchUserId = async () => {
-      const id = await fetchLoggedInUserID(); // Replace with your actual fetch logic
+      const id = await fetchLoggedInUserID();
       setUserId(id);
     };
 
@@ -74,19 +74,15 @@ const CreateEventScreen: React.FC = () => {
     console.log("Startime: ", formattedStartDate);
     console.log("EndTime: ", formattedEndDate);
 
+    //Setting the fields for dates and host
     setValue("startTime", formattedStartDate);
     setValue("endTime", formattedEndDate);
     setValue("host", userId);
   };
 
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: Colors.light.primaryBackground,
-        height: "100%",
-      }}
-    >
-      <ScrollView style={{ width: "100%" }}>
+    <SafeAreaView style={createEventStyles.whiteBackground}>
+      <ScrollView>
         <CreateEventHeader control={control} />
         <PlannerSection
           setValue={setValue}
@@ -96,7 +92,7 @@ const CreateEventScreen: React.FC = () => {
           submitDate={submitDate}
         />
         <EventDetailsSection control={control} />
-        <View style={{ padding: 20 }}>
+        <View style={createEventStyles.contWithPadding}>
           <CustomButton action={handleSubmit(onSubmit)} name="Add event" />
         </View>
       </ScrollView>

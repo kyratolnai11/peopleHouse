@@ -51,4 +51,43 @@ export const createEventStyles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 5,
   },
+  contWithPadding: {
+    padding: 20,
+  },
+  whiteBackground: {
+    backgroundColor: Colors.light.primaryBackground,
+    height: "100%",
+  },
+  textArea: {
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingLeft: 8,
+    backgroundColor: Colors.light.textSecondary,
+    height: 200,
+    textAlignVertical: "top",
+  },
+  headerSection: {
+    width: "100%",
+    padding: 20,
+    backgroundColor: Colors.light.secondary,
+  },
+  brief: {
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingLeft: 8,
+    backgroundColor: Colors.light.textSecondary,
+    height: 100,
+    textAlignVertical: "top",
+  },
+  title: {
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingLeft: 8,
+    backgroundColor: Colors.light.textSecondary,
+    height: 40,
+    textAlignVertical: "top",
+  },
 });
