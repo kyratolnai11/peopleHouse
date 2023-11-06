@@ -29,7 +29,11 @@ const EventDetailsSection: React.FC<EventDetailsSectionProps> = ({
             multiline={true}
             style={[
               sharedStyles.input,
-              { backgroundColor: Colors.light.textSecondary, height: 200 },
+              {
+                backgroundColor: Colors.light.textSecondary,
+                height: 200,
+                textAlignVertical: "top",
+              },
             ]}
           />
         )}
@@ -46,7 +50,11 @@ const EventDetailsSection: React.FC<EventDetailsSectionProps> = ({
             multiline={true}
             style={[
               sharedStyles.input,
-              { backgroundColor: Colors.light.textSecondary, height: 200 },
+              {
+                backgroundColor: Colors.light.textSecondary,
+                height: 200,
+                textAlignVertical: "top",
+              },
             ]}
           />
         )}
