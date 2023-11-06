@@ -43,7 +43,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
         console.log("EventsData: " + eventsdata);
         if (eventsdata && eventsdata.getEvent) {
           console.log("Get event hahahaa: " + eventsdata.getEvent);
-          setEventData(eventsdata.getEvent);
+          setEventData(eventsdata.getEvent as Event);
           console.log("The specific event is set");
         }
       })
