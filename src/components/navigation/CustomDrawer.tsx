@@ -66,7 +66,7 @@ const CustomDrawer: React.FC<{
         <View style={{ padding: 20 }}>
           <TouchableOpacity onPress={handleUserNameClick}>
             <Image
-              source={require("../../../assets/lego-figure.png")}
+              source={require("../../../assets/my-infomration-sceen/lego-figure.png")}
               style={{
                 height: 80,
                 width: 80,
