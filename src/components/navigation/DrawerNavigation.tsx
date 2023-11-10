@@ -20,7 +20,7 @@ const DrawerNavigation: React.FC = () => {
       initialRouteName="Home"
       drawerContent={CustomDrawer}
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.dark.primary, height: 80 },
+        headerStyle: { backgroundColor: Colors.dark.primary, height: 120 },
         headerTintColor: Colors.dark.primaryBackground,
         drawerActiveBackgroundColor:
           colorScheme === "dark"

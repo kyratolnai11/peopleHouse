@@ -12,12 +12,12 @@ const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
   const [dataFetched, setDataFetched] = useState(false);
   const [venueId, setVenueId] = useState("");
-  const [filteredByVenueID, setFilteredByVenueID] = useState(false);
+  const [filteredByVenueId, setFilteredByVenueID] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
   const [filteredByDate, setFilteredByDate] = useState(false);
 
   useEffect(() => {
-    if (filteredByVenueID !== true) {
+    if (filteredByVenueId !== true) {
       fetchAllEvents()
         .then((eventsdata) => {
           console.log("Events are set");
@@ -81,6 +81,35 @@ const EventsScreen = () => {
     }
   }
 
+  useEffect(() => {
+    console.log("////////////////////////////filtering by date here")
+    if (filteredByDate && dataFetched) {
+      if (events && events.items) {
+        let sortedEvents = events;
+        //sortedEvents.items = [];
+        console.log("//////////////////////////old events:", events);
+        console.log("//////////////////////////new events:", sortedEvents);
+        events.items.forEach(event => {
+          console.log("////////////////////checking event:", event)
+          if (event && event.startDateTime) {
+            console.log("////////////////////checking event:", event)
+            const eventDate = new Date(event.startDateTime);
+            console.log("////////////////////date:", eventDate);
+            if (eventDate.getFullYear() === date.getFullYear() &&
+              eventDate.getMonth() === date.getMonth() &&
+              eventDate.getDay() === date.getDay()) {
+                console.log("//////////////////////////////datematch:",eventDate, date);
+              sortedEvents.items.filter(obj => {return obj !== event});
+            }
+          }
+        });
+
+        console.log("//////////////////////sorted events:", sortedEvents);
+        setEvents(sortedEvents);
+      }
+    }
+  }, [date]);
+
   function filterByDate(date: Date) {
     setFilteredByDate(true);
     setDate(date);
@@ -95,10 +124,12 @@ const EventsScreen = () => {
             Come have fun with us!
           </Text>
           <VenueDropDown filterByVenueId={filterByVenueId} />
-          <DatePicker filterByDate={filterByDate}/>
+          <DatePicker filterByDate={filterByDate} />
           {events && events.items ? (
-            events.items.length === 0 ? (
+            events.items.length === 0 && filteredByVenueId ? (
               <Text style={sharedStyles.centeredText}> No events for this venue. </Text>
+            ) : (events.items.length === 0 && filteredByDate ? (
+              <Text style={sharedStyles.centeredText}> No events for this date. </Text>
             ) : (
               dataFetched &&
               events.items.map((item) => {
@@ -107,7 +138,7 @@ const EventsScreen = () => {
                 }
               })
             )
-          ) : (
+            )) : (
             <LoadingSpinner />
           )}
 
