@@ -1,8 +1,9 @@
 import { Auth } from 'aws-amplify';
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Alert,} from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, Alert, Modal, TouchableHighlight} from 'react-native';
 import { addUser } from '../../database/UserDBConnection';
 import { CreateUserInput, UserType } from '../../API';
+import CustomButton from '../event-screen/CustomButton';
 
 //REMOVE - once system is finished. It is only for our use 
 
@@ -12,6 +13,9 @@ const SignUpScreen = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [selectedUserType, setSelectedUserType] = useState(UserType.NORMAL);
+
 
 
   const clearFields = () => {
@@ -20,6 +24,12 @@ const SignUpScreen = () => {
     setLastName('');
     setEmail('');
     setPassword('');
+    setSelectedUserType(UserType.NORMAL);
+
+  };
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
   };
 
   const handleSignUp = async () => {
@@ -37,7 +47,7 @@ const SignUpScreen = () => {
                   id: userId,
                   firstname: firstName,
                   lastname: lastName,
-                  userType: UserType.NORMAL, // Assuming UserType is an enum
+                  userType: selectedUserType, // Assuming UserType is an enum
                   email: email
                 };
           
@@ -79,7 +89,38 @@ const SignUpScreen = () => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Sign Up" onPress={handleSignUp} />
+      <Button title="Press here to select User Type" onPress={toggleModal} />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+          {Object.values(UserType).map((type) => (
+              <TouchableHighlight
+              key={type}
+              onPress={() => {
+                setSelectedUserType(type);
+                toggleModal();
+              }}
+            >
+              <Text style={styles.modalText}>{type}</Text>
+            </TouchableHighlight>
+            ))}
+          </View>
+        </View>
+      </Modal>
+      <TextInput
+  style={[styles.input, { color: 'black', fontWeight: 'bold', fontSize: 17}]}
+  placeholder={UserType[selectedUserType]}
+  editable={false}
+/>
+      <CustomButton
+            name="Sign Up"
+            action={() => handleSignUp()}
+          />
     </View>
   );
 };
@@ -101,6 +142,28 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 12,
     paddingLeft: 8,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+  },
+  modalText: {
+    fontSize: 16,
+    padding: 10,
+  },
+  selectedUserType: {
+    fontSize: 16,
+    marginBottom: 8,
   },
 });
 
