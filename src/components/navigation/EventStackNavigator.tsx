@@ -4,6 +4,7 @@ import EventsScreen from "../../screens/EventsScreen";
 import Colors from "../../../utils/theme";
 import EventAvailibityScreen from "../event-screen/EventAvailibilityScreen";
 import CustomBackImage from "./CustomBackButton";
+import CreateEventScreen from "../../screens/CreateEventScreen";
 
 const EventStack = createStackNavigator();
 
@@ -31,7 +32,18 @@ const EventStackNavigator: React.FC = () => {
         name="Availibility"
         component={EventAvailibityScreen as React.FC}
         options={{
-          title: "",
+          title: "Availibility",
+          headerBackTitleStyle: { color: Colors.light.textPrimary },
+          headerBackImage: () => <CustomBackImage />,
+          headerBackTitle: "Back",
+          headerBackTitleVisible: true,
+        }}
+      />
+      <EventStack.Screen
+        name="CreateEvent"
+        component={CreateEventScreen}
+        options={{
+          title: "Create event",
           headerBackTitleStyle: { color: Colors.light.textPrimary },
           headerBackImage: () => <CustomBackImage />,
           headerBackTitle: "Back",

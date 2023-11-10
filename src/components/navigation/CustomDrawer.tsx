@@ -7,10 +7,10 @@ import {
 } from "@react-navigation/drawer";
 import Colors from "../../../utils/theme";
 import { Auth } from "aws-amplify";
-import UserCognito from "../cognito/UserCognito";
+import { fetchUserData } from "../cognito/UserCognito";
 import { RootStackParamList } from "../signin-screen/SignInComponent";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { CommonActions, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const CustomDrawer: React.FC<{
   state: any;
@@ -27,7 +27,7 @@ const CustomDrawer: React.FC<{
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = await UserCognito.fetchUserData();
+        const userData = await fetchUserData();
         setUserName(userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -43,12 +43,10 @@ const CustomDrawer: React.FC<{
       console.log("Sign out successful.");
 
       // Navigate to SignInScreen using AuthStackNavigator
-      stackNavigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "SignIn" }],
-        })
-      );
+      stackNavigation.reset({
+        index: 0,
+        routes: [{ name: "SignIn" }],
+      });
     } catch (error) {
       console.error("Error signing out:", error);
     }

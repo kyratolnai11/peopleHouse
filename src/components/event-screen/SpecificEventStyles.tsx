@@ -93,8 +93,8 @@ export const specificEventStyles = StyleSheet.create({
   spinnerContainer: {
     justifyContent: "center",
     alignItems: "center",
-    height: 600,
-    backgroundColor: Colors.dark.white
+    height: "100%",
+    backgroundColor: Colors.dark.white,
   },
   image: {
     width: 500,
