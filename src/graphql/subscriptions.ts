@@ -15,17 +15,8 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     lastname
     userType
     email
-    crews {
-      nextToken
-      __typename
-    }
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
-    eventUserAttendeesId
     __typename
   }
 }
@@ -40,17 +31,8 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     lastname
     userType
     email
-    crews {
-      nextToken
-      __typename
-    }
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
-    eventUserAttendeesId
     __typename
   }
 }
@@ -65,17 +47,8 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     lastname
     userType
     email
-    crews {
-      nextToken
-      __typename
-    }
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
-    eventUserAttendeesId
     __typename
   }
 }
@@ -91,10 +64,6 @@ export const onCreateVenue = /* GraphQL */ `subscription OnCreateVenue($filter: 
     description
     capacity
     openingHours
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -112,10 +81,6 @@ export const onUpdateVenue = /* GraphQL */ `subscription OnUpdateVenue($filter: 
     description
     capacity
     openingHours
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -133,10 +98,6 @@ export const onDeleteVenue = /* GraphQL */ `subscription OnDeleteVenue($filter: 
     description
     capacity
     openingHours
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -157,8 +118,6 @@ export const onCreateCrew = /* GraphQL */ `subscription OnCreateCrew($filter: Mo
     email
     createdAt
     updatedAt
-    userCrewsId
-    eventCrewAttendeesId
     __typename
   }
 }
@@ -177,8 +136,6 @@ export const onUpdateCrew = /* GraphQL */ `subscription OnUpdateCrew($filter: Mo
     email
     createdAt
     updatedAt
-    userCrewsId
-    eventCrewAttendeesId
     __typename
   }
 }
@@ -197,8 +154,6 @@ export const onDeleteCrew = /* GraphQL */ `subscription OnDeleteCrew($filter: Mo
     email
     createdAt
     updatedAt
-    userCrewsId
-    eventCrewAttendeesId
     __typename
   }
 }
@@ -217,19 +172,9 @@ export const onCreateEvent = /* GraphQL */ `subscription OnCreateEvent($filter: 
     endDateTime
     numOfTickets
     host
-    userAttendees {
-      nextToken
-      __typename
-    }
-    crewAttendees {
-      nextToken
-      __typename
-    }
     venueId
     createdAt
     updatedAt
-    userEventsId
-    venueEventsId
     __typename
   }
 }
@@ -248,19 +193,9 @@ export const onUpdateEvent = /* GraphQL */ `subscription OnUpdateEvent($filter: 
     endDateTime
     numOfTickets
     host
-    userAttendees {
-      nextToken
-      __typename
-    }
-    crewAttendees {
-      nextToken
-      __typename
-    }
     venueId
     createdAt
     updatedAt
-    userEventsId
-    venueEventsId
     __typename
   }
 }
@@ -279,23 +214,109 @@ export const onDeleteEvent = /* GraphQL */ `subscription OnDeleteEvent($filter: 
     endDateTime
     numOfTickets
     host
-    userAttendees {
-      nextToken
-      __typename
-    }
-    crewAttendees {
-      nextToken
-      __typename
-    }
     venueId
     createdAt
     updatedAt
-    userEventsId
-    venueEventsId
     __typename
   }
 }
 ` as GeneratedSubscription<
   APITypes.OnDeleteEventSubscriptionVariables,
   APITypes.OnDeleteEventSubscription
+>;
+export const onCreateAttendeeUser = /* GraphQL */ `subscription OnCreateAttendeeUser(
+  $filter: ModelSubscriptionAttendeeUserFilterInput
+) {
+  onCreateAttendeeUser(filter: $filter) {
+    eventId
+    userId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateAttendeeUserSubscriptionVariables,
+  APITypes.OnCreateAttendeeUserSubscription
+>;
+export const onUpdateAttendeeUser = /* GraphQL */ `subscription OnUpdateAttendeeUser(
+  $filter: ModelSubscriptionAttendeeUserFilterInput
+) {
+  onUpdateAttendeeUser(filter: $filter) {
+    eventId
+    userId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAttendeeUserSubscriptionVariables,
+  APITypes.OnUpdateAttendeeUserSubscription
+>;
+export const onDeleteAttendeeUser = /* GraphQL */ `subscription OnDeleteAttendeeUser(
+  $filter: ModelSubscriptionAttendeeUserFilterInput
+) {
+  onDeleteAttendeeUser(filter: $filter) {
+    eventId
+    userId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAttendeeUserSubscriptionVariables,
+  APITypes.OnDeleteAttendeeUserSubscription
+>;
+export const onCreateAttendeeCrew = /* GraphQL */ `subscription OnCreateAttendeeCrew(
+  $filter: ModelSubscriptionAttendeeCrewFilterInput
+) {
+  onCreateAttendeeCrew(filter: $filter) {
+    eventId
+    crewId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateAttendeeCrewSubscriptionVariables,
+  APITypes.OnCreateAttendeeCrewSubscription
+>;
+export const onUpdateAttendeeCrew = /* GraphQL */ `subscription OnUpdateAttendeeCrew(
+  $filter: ModelSubscriptionAttendeeCrewFilterInput
+) {
+  onUpdateAttendeeCrew(filter: $filter) {
+    eventId
+    crewId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAttendeeCrewSubscriptionVariables,
+  APITypes.OnUpdateAttendeeCrewSubscription
+>;
+export const onDeleteAttendeeCrew = /* GraphQL */ `subscription OnDeleteAttendeeCrew(
+  $filter: ModelSubscriptionAttendeeCrewFilterInput
+) {
+  onDeleteAttendeeCrew(filter: $filter) {
+    eventId
+    crewId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAttendeeCrewSubscriptionVariables,
+  APITypes.OnDeleteAttendeeCrewSubscription
 >;

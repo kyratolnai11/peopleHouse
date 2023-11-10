@@ -15,17 +15,8 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     lastname
     userType
     email
-    crews {
-      nextToken
-      __typename
-    }
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
-    eventUserAttendeesId
     __typename
   }
 }
@@ -44,7 +35,6 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       email
       createdAt
       updatedAt
-      eventUserAttendeesId
       __typename
     }
     nextToken
@@ -60,10 +50,6 @@ export const getVenue = /* GraphQL */ `query GetVenue($id: ID!) {
     description
     capacity
     openingHours
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -106,8 +92,6 @@ export const getCrew = /* GraphQL */ `query GetCrew($id: ID!) {
     email
     createdAt
     updatedAt
-    userCrewsId
-    eventCrewAttendeesId
     __typename
   }
 }
@@ -128,8 +112,6 @@ export const listCrews = /* GraphQL */ `query ListCrews(
       email
       createdAt
       updatedAt
-      userCrewsId
-      eventCrewAttendeesId
       __typename
     }
     nextToken
@@ -148,19 +130,9 @@ export const getEvent = /* GraphQL */ `query GetEvent($id: ID!) {
     endDateTime
     numOfTickets
     host
-    userAttendees {
-      nextToken
-      __typename
-    }
-    crewAttendees {
-      nextToken
-      __typename
-    }
     venueId
     createdAt
     updatedAt
-    userEventsId
-    venueEventsId
     __typename
   }
 }
@@ -184,8 +156,6 @@ export const listEvents = /* GraphQL */ `query ListEvents(
       venueId
       createdAt
       updatedAt
-      userEventsId
-      venueEventsId
       __typename
     }
     nextToken
@@ -195,6 +165,78 @@ export const listEvents = /* GraphQL */ `query ListEvents(
 ` as GeneratedQuery<
   APITypes.ListEventsQueryVariables,
   APITypes.ListEventsQuery
+>;
+export const getAttendeeUser = /* GraphQL */ `query GetAttendeeUser($id: ID!) {
+  getAttendeeUser(id: $id) {
+    eventId
+    userId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetAttendeeUserQueryVariables,
+  APITypes.GetAttendeeUserQuery
+>;
+export const listAttendeeUsers = /* GraphQL */ `query ListAttendeeUsers(
+  $filter: ModelAttendeeUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAttendeeUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      eventId
+      userId
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListAttendeeUsersQueryVariables,
+  APITypes.ListAttendeeUsersQuery
+>;
+export const getAttendeeCrew = /* GraphQL */ `query GetAttendeeCrew($id: ID!) {
+  getAttendeeCrew(id: $id) {
+    eventId
+    crewId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetAttendeeCrewQueryVariables,
+  APITypes.GetAttendeeCrewQuery
+>;
+export const listAttendeeCrews = /* GraphQL */ `query ListAttendeeCrews(
+  $filter: ModelAttendeeCrewFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAttendeeCrews(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      eventId
+      crewId
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListAttendeeCrewsQueryVariables,
+  APITypes.ListAttendeeCrewsQuery
 >;
 export const crewsByUserId = /* GraphQL */ `query CrewsByUserId(
   $userId: String!
@@ -220,8 +262,6 @@ export const crewsByUserId = /* GraphQL */ `query CrewsByUserId(
       email
       createdAt
       updatedAt
-      userCrewsId
-      eventCrewAttendeesId
       __typename
     }
     nextToken
@@ -259,8 +299,6 @@ export const eventsByVenueId = /* GraphQL */ `query EventsByVenueId(
       venueId
       createdAt
       updatedAt
-      userEventsId
-      venueEventsId
       __typename
     }
     nextToken
@@ -270,4 +308,94 @@ export const eventsByVenueId = /* GraphQL */ `query EventsByVenueId(
 ` as GeneratedQuery<
   APITypes.EventsByVenueIdQueryVariables,
   APITypes.EventsByVenueIdQuery
+>;
+export const attendeeUsersByEventId = /* GraphQL */ `query AttendeeUsersByEventId(
+  $eventId: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelAttendeeUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  attendeeUsersByEventId(
+    eventId: $eventId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      eventId
+      userId
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.AttendeeUsersByEventIdQueryVariables,
+  APITypes.AttendeeUsersByEventIdQuery
+>;
+export const attendeeUsersByUserId = /* GraphQL */ `query AttendeeUsersByUserId(
+  $userId: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelAttendeeUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  attendeeUsersByUserId(
+    userId: $userId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      eventId
+      userId
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.AttendeeUsersByUserIdQueryVariables,
+  APITypes.AttendeeUsersByUserIdQuery
+>;
+export const attendeeCrewsByEventId = /* GraphQL */ `query AttendeeCrewsByEventId(
+  $eventId: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelAttendeeCrewFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  attendeeCrewsByEventId(
+    eventId: $eventId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      eventId
+      crewId
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.AttendeeCrewsByEventIdQueryVariables,
+  APITypes.AttendeeCrewsByEventIdQuery
 >;
