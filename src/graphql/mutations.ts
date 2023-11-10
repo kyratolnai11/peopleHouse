@@ -18,17 +18,8 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     lastname
     userType
     email
-    crews {
-      nextToken
-      __typename
-    }
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
-    eventUserAttendeesId
     __typename
   }
 }
@@ -46,17 +37,8 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     lastname
     userType
     email
-    crews {
-      nextToken
-      __typename
-    }
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
-    eventUserAttendeesId
     __typename
   }
 }
@@ -74,17 +56,8 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     lastname
     userType
     email
-    crews {
-      nextToken
-      __typename
-    }
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
-    eventUserAttendeesId
     __typename
   }
 }
@@ -103,10 +76,6 @@ export const createVenue = /* GraphQL */ `mutation CreateVenue(
     description
     capacity
     openingHours
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -127,10 +96,6 @@ export const updateVenue = /* GraphQL */ `mutation UpdateVenue(
     description
     capacity
     openingHours
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -151,10 +116,6 @@ export const deleteVenue = /* GraphQL */ `mutation DeleteVenue(
     description
     capacity
     openingHours
-    events {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -178,8 +139,6 @@ export const createCrew = /* GraphQL */ `mutation CreateCrew(
     email
     createdAt
     updatedAt
-    userCrewsId
-    eventCrewAttendeesId
     __typename
   }
 }
@@ -201,8 +160,6 @@ export const updateCrew = /* GraphQL */ `mutation UpdateCrew(
     email
     createdAt
     updatedAt
-    userCrewsId
-    eventCrewAttendeesId
     __typename
   }
 }
@@ -224,8 +181,6 @@ export const deleteCrew = /* GraphQL */ `mutation DeleteCrew(
     email
     createdAt
     updatedAt
-    userCrewsId
-    eventCrewAttendeesId
     __typename
   }
 }
@@ -247,19 +202,9 @@ export const createEvent = /* GraphQL */ `mutation CreateEvent(
     endDateTime
     numOfTickets
     host
-    userAttendees {
-      nextToken
-      __typename
-    }
-    crewAttendees {
-      nextToken
-      __typename
-    }
     venueId
     createdAt
     updatedAt
-    userEventsId
-    venueEventsId
     __typename
   }
 }
@@ -281,19 +226,9 @@ export const updateEvent = /* GraphQL */ `mutation UpdateEvent(
     endDateTime
     numOfTickets
     host
-    userAttendees {
-      nextToken
-      __typename
-    }
-    crewAttendees {
-      nextToken
-      __typename
-    }
     venueId
     createdAt
     updatedAt
-    userEventsId
-    venueEventsId
     __typename
   }
 }
@@ -315,23 +250,115 @@ export const deleteEvent = /* GraphQL */ `mutation DeleteEvent(
     endDateTime
     numOfTickets
     host
-    userAttendees {
-      nextToken
-      __typename
-    }
-    crewAttendees {
-      nextToken
-      __typename
-    }
     venueId
     createdAt
     updatedAt
-    userEventsId
-    venueEventsId
     __typename
   }
 }
 ` as GeneratedMutation<
   APITypes.DeleteEventMutationVariables,
   APITypes.DeleteEventMutation
+>;
+export const createAttendeeUser = /* GraphQL */ `mutation CreateAttendeeUser(
+  $input: CreateAttendeeUserInput!
+  $condition: ModelAttendeeUserConditionInput
+) {
+  createAttendeeUser(input: $input, condition: $condition) {
+    eventId
+    userId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateAttendeeUserMutationVariables,
+  APITypes.CreateAttendeeUserMutation
+>;
+export const updateAttendeeUser = /* GraphQL */ `mutation UpdateAttendeeUser(
+  $input: UpdateAttendeeUserInput!
+  $condition: ModelAttendeeUserConditionInput
+) {
+  updateAttendeeUser(input: $input, condition: $condition) {
+    eventId
+    userId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateAttendeeUserMutationVariables,
+  APITypes.UpdateAttendeeUserMutation
+>;
+export const deleteAttendeeUser = /* GraphQL */ `mutation DeleteAttendeeUser(
+  $input: DeleteAttendeeUserInput!
+  $condition: ModelAttendeeUserConditionInput
+) {
+  deleteAttendeeUser(input: $input, condition: $condition) {
+    eventId
+    userId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteAttendeeUserMutationVariables,
+  APITypes.DeleteAttendeeUserMutation
+>;
+export const createAttendeeCrew = /* GraphQL */ `mutation CreateAttendeeCrew(
+  $input: CreateAttendeeCrewInput!
+  $condition: ModelAttendeeCrewConditionInput
+) {
+  createAttendeeCrew(input: $input, condition: $condition) {
+    eventId
+    crewId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateAttendeeCrewMutationVariables,
+  APITypes.CreateAttendeeCrewMutation
+>;
+export const updateAttendeeCrew = /* GraphQL */ `mutation UpdateAttendeeCrew(
+  $input: UpdateAttendeeCrewInput!
+  $condition: ModelAttendeeCrewConditionInput
+) {
+  updateAttendeeCrew(input: $input, condition: $condition) {
+    eventId
+    crewId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateAttendeeCrewMutationVariables,
+  APITypes.UpdateAttendeeCrewMutation
+>;
+export const deleteAttendeeCrew = /* GraphQL */ `mutation DeleteAttendeeCrew(
+  $input: DeleteAttendeeCrewInput!
+  $condition: ModelAttendeeCrewConditionInput
+) {
+  deleteAttendeeCrew(input: $input, condition: $condition) {
+    eventId
+    crewId
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteAttendeeCrewMutationVariables,
+  APITypes.DeleteAttendeeCrewMutation
 >;
