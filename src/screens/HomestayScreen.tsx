@@ -1,13 +1,17 @@
 import React from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { sharedStyles } from "../../utils/SharedStyles";
+import WelcomeSection from "../components/homestay/WelcomeSection";
+import AccordionSection from "../components/homestay/AccordionSection";
 
 const HomestayScreen: React.FC = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={sharedStyles.safeArea}>
       <ScrollView>
         <View>
-          <Text>Hello</Text>
+          <WelcomeSection />
+          <AccordionSection />
         </View>
       </ScrollView>
     </SafeAreaView>
