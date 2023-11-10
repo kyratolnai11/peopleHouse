@@ -7,6 +7,7 @@ import VenueDropDown from "../components/event-screen/VenueDropDown";
 import { sharedStyles } from "../../utils/SharedStyles";
 import Colors from "../../utils/theme";
 import LoadingSpinner from "../components/event-screen/LoadingSpinner";
+import { useIsFocused } from "@react-navigation/native";
 
 const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
@@ -14,7 +15,9 @@ const EventsScreen = () => {
   const [venueId, setVenueId] = useState("");
   const [filteredByVenueID, setFilteredByVenueID] = useState(false);
 
+
   useEffect(() => {
+      
     if (filteredByVenueID !== true) {
       fetchAllEvents()
         .then((eventsdata) => {
@@ -65,6 +68,7 @@ const EventsScreen = () => {
           console.error("Error fetching events:", error);
         });
     }
+    
   }, [venueId]);
 
   function filterByVenueId(venueID: string) {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { listEvents, eventsByVenueId, getEvent } from "../graphql/queries";
-import { createEvent } from "../graphql/mutations";
+import { createEvent, deleteEvent } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 import { CreateEventInput, GetEventQuery, ModelEventConnection } from "../API";
 
@@ -70,5 +70,15 @@ export async function fetchEventById(
     return events;
   } catch (error) {
     console.log("Error fetching events:", error);
+  }
+}
+
+export const deleteEventById = async (eventId: string) =>{
+  try{
+    console.log('Deleting event by id: '+ eventId);
+    const resp = await API.graphql(graphqlOperation(deleteEvent, {input: {id: eventId}}));
+    console.log('Successfully deleted event! ', resp);
+  } catch (error){
+    console.log('Error deleting event: ', error);
   }
 }

@@ -29,7 +29,7 @@ const MyInfoScreen: React.FC = () => {
   const [userInfo, setUserInfo] = useState<User | undefined>();
   const [userCrews, setUserCrews] = useState<Crew[]>();
   const navigation = useNavigation<navProp>();
-  const isFocused = useIsFocused(); // Get the screen focus state
+  const isFocused = useIsFocused();
 
   const fetchUserInfo = async () => {
     try {
@@ -62,7 +62,6 @@ const MyInfoScreen: React.FC = () => {
     }
   };
 
-  // Fetch data when the screen is focused
   useEffect(() => {
     if (isFocused) {
       fetchUserInfo();
