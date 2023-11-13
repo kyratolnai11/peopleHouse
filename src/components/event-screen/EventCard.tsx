@@ -55,7 +55,6 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
               </Text>
               <Text style={[sharedStyles.text, eventStyles.text]}>{brief}</Text>
               <Text style={eventStyles.dateTimeText}>{formattedDateTime}</Text>
-              <CustomButton name="Sign-up" />
             </View>
           </Card>
         </TouchableOpacity>

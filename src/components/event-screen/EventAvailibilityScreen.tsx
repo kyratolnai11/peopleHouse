@@ -1,4 +1,4 @@
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
   SafeAreaView,
@@ -12,6 +12,7 @@ import EventHeader from "./EventHeader";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import CustomButton from "./CustomButton";
 import { specificEventStyles } from "./SpecificEventStyles";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 type RootStackParamList = {
   Availibility: {
@@ -21,10 +22,23 @@ type RootStackParamList = {
     ticketsLeft: number;
     venueId: string;
     eventBrief: string;
+    eventId: string;
+  };
+
+  EventSignUp:{
+    eventName: string;
+    eventLocation: string;
+    eventTime: string;
+    ticketsLeft: number;
+    venueId: string;
+    eventBrief: string;
+    eventId: string;
   };
 };
 
 type EventScreenRouteProp = RouteProp<RootStackParamList, "Availibility">;
+type navProp = StackNavigationProp<RootStackParamList, "EventSignUp">;
+
 
 type EventScreenProps = {
   route: EventScreenRouteProp;
@@ -38,23 +52,34 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
     ticketsLeft,
     venueId,
     eventBrief,
+    eventId,
   } = route.params;
 
   const ticketText =
     ticketsLeft > 10
-      ? "Tickets avaliable"
+      ? "Tickets avaliable" 
       : ticketsLeft.toString() + " tickets left";
 
-  const button = () => {
-    if (ticketsLeft === 0) {
-      return (
-        <TouchableOpacity style={[specificEventStyles.button]} disabled={true}>
-          <Text style={specificEventStyles.buttonText}>+ Sign up</Text>
-        </TouchableOpacity>
-      );
-    }
-    return <CustomButton name="+ Sing up" />;
-  };
+  
+
+  const navigation = useNavigation<navProp>();
+
+
+  const handlePress = () => {
+
+      console.log("Event button pressed");
+        navigation.navigate("EventSignUp", {
+          eventName: eventName,
+          eventLocation: eventLocation,
+          eventTime: eventTime,
+          ticketsLeft: ticketsLeft,
+          venueId: venueId,
+          eventBrief: eventBrief,
+          eventId: eventId,
+      });
+    };
+
+  
 
   return (
     <SafeAreaView>
@@ -75,7 +100,9 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
                 </Text>
               </View>
               <Text style={specificEventStyles.ticketText}>{ticketText}</Text>
-              {button()}
+              <CustomButton 
+              name="Sign up"
+              action={() => handlePress()}/>
               <Image
                 source={require("../../../assets/event-screen/chair.png")}
                 style={specificEventStyles.chairImage}

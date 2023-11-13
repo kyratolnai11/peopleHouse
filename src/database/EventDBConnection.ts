@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { listEvents, eventsByVenueId, getEvent } from "../graphql/queries";
-import { createEvent, deleteEvent } from "../graphql/mutations";
+import { listEvents, eventsByVenueId, getEvent, getAttendeeUser, getAttendeeCrew } from "../graphql/queries";
+import { createAttendeeCrew, createAttendeeUser, createEvent, deleteAttendeeCrew, deleteAttendeeUser, deleteEvent } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
-import { CreateEventInput, GetEventQuery, ModelEventConnection } from "../API";
+import { AttendeeCrew, AttendeeUser, CreateAttendeeCrewInput, CreateAttendeeUserInput, CreateEventInput, GetEventQuery, ModelEventConnection, User } from "../API";
 import { CreateEventForm } from "../screens/CreateEventScreen";
 
 export async function fetchAllEvents(): Promise<
@@ -81,5 +81,103 @@ export const deleteEventById = async (eventId: string) =>{
     console.log('Successfully deleted event! ', resp);
   } catch (error){
     console.log('Error deleting event: ', error);
+  }
+}
+
+
+export const addUserAttendee = async (eventId: string, userId: string) => {
+  try {
+      console.log('Registering user to event...');
+      const attendeeToAdd: CreateAttendeeUserInput = {
+          eventId: eventId,
+          userId: userId,
+          id: userId
+      };
+
+      const response = await API.graphql(graphqlOperation(createAttendeeUser, { input: attendeeToAdd }));
+
+      console.log('Successfully added attendee');
+      return response; // Return the response
+
+  } catch (error) {
+      console.log('Error registering user to event: ', error);
+      throw error; // Re-throw the error to handle it in the calling function
+  }
+};
+
+
+export const addCrewAttendee =async (eventId:string, crewId: string) => {
+  try{
+    console.log('Registering user to event...');
+    const attendeeToAdd: CreateAttendeeCrewInput ={
+      eventId: eventId,
+      crewId: crewId,
+      id: crewId,
+    };
+    const responnse = await API.graphql(graphqlOperation(createAttendeeCrew, {input: attendeeToAdd}));
+    console.log('Successfully added attendee');
+  } catch (error){
+    console.log('Error registering user to event: ', error); 
+  }
+}
+
+export const deleteUserAttendee = async (attendeeId: string) => {
+  try {
+    console.log('Deleting user attendee');
+    const resp = await API.graphql(
+      graphqlOperation(deleteAttendeeUser, { input: { id: attendeeId} })
+    );
+    
+    console.log('Successfully deleted attendee. ', resp);
+  } catch (error) {
+    console.log('Error deleting attendee: ', error);
+  }
+};
+
+export const deleteCrewAttendee = async (attendeeId: string) => {
+  try {
+    console.log('Deleting user attendee');
+    const resp = await API.graphql(
+      graphqlOperation(deleteAttendeeCrew, {
+        input: { id: attendeeId }
+      })
+    );
+    console.log('Successfully deleted attendee. ', resp);
+  } catch (error) {
+    console.log('Error deleting attendee: ', error);
+  }
+};
+
+
+
+export async function getAttendeeUserByID(
+  id: string
+): Promise<AttendeeUser | undefined> {
+  try {
+    console.log("Getting attendee user " + id);
+    const attendeeData: any = await API.graphql(
+      graphqlOperation(getAttendeeUser, { id: id })
+    );
+    const user: AttendeeUser = attendeeData.data.GetAttendeeUser;
+    console.log("Got attendee:", user);
+    return user;
+  } catch (error) {
+    console.log("Error fetching attendee user:", error);
+  }
+}
+
+export async function getAttendeeCrewrByID(
+  id: string
+): Promise<AttendeeCrew | undefined> {
+  try {
+    console.log("Getting attendee crew " + id);
+    const attendeeData: any = await API.graphql(
+      graphqlOperation(getAttendeeCrew, { id: id })
+    );
+    const user: AttendeeCrew = attendeeData.data.GetAttendeeUser;
+    console.log("Got attendee:", user);
+    return user;
+  } catch (error) {
+    console.log("Error fetching attendee crew:", error);
   }
 }
