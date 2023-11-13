@@ -19,13 +19,15 @@ import CrewCard from "../see-my-information/CrewCard";
 import SignUpForEventStyles from "./SignUpForEventStyles";
 import LoadingSpinner from "./LoadingSpinner";
 import {
-  addCrewAttendee,
   addUserAttendee,
   deleteUserAttendee,
-  deleteCrewAttendee,
   getAttendeeUserByID,
+} from "../../database/AttendeeUserDBConnection";
+import {
+  addCrewAttendee,
+  deleteCrewAttendee,
   getAttendeeCrewrByID,
-} from "../../database/EventDBConnection";
+} from "../../database/AttendeeCrewDBConnection";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Colors from "../../../utils/theme";
 
@@ -34,7 +36,7 @@ type RootStackParamList = {
     eventName: string;
     eventLocation: string;
     eventTime: string;
-    ticketsLeft: number;
+    ticketsAvailable: number;
     venueId: string;
     eventBrief: string;
     eventId: string;
@@ -52,7 +54,7 @@ const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
     eventLocation,
     eventName,
     eventTime,
-    ticketsLeft,
+    ticketsAvailable,
     venueId,
     eventBrief,
     eventId,

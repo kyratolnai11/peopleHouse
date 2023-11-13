@@ -21,7 +21,7 @@ type RootStackParamList = {
     eventName: string;
     eventLocation: string;
     eventTime: string;
-    ticketsLeft: number;
+    ticketsAvailable: number;
     venueId: string;
     eventBrief: string;
     eventId: string,
@@ -94,7 +94,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
       eventName: event.title,
       eventLocation: venueName,
       eventTime: formattedDateTime,
-      ticketsLeft: event.numOfTickets,
+      ticketsAvailable: event.numOfTickets,
       venueId: event.venueId,
       eventBrief: event.brief,
       eventId: event.id,
