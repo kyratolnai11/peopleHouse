@@ -122,29 +122,47 @@ const EventsScreen = () => {
 
   useEffect(() => {
     console.log("////////////////////////////filtering by date here")
+    var newevents = events;
+    if(newevents && newevents.items)
+      //newevents.items.length = 0;
     if (filteredByDate && dataFetched) {
       if (events && events.items) {
-        let sortedEvents = events;
-        //sortedEvents.items = [];
         console.log("//////////////////////////old events:", events);
-        console.log("//////////////////////////new events:", sortedEvents);
         events.items.forEach(event => {
           console.log("////////////////////checking event:", event)
           if (event && event.startDateTime) {
             console.log("////////////////////checking event:", event)
             const eventDate = new Date(event.startDateTime);
             console.log("////////////////////date:", eventDate);
+            if(eventDate < date)
+              {
+                console.log("//////////////////////////////event date before date:", eventDate);
+                events.items.shift();
+              }
             if (eventDate.getFullYear() === date.getFullYear() &&
               eventDate.getMonth() === date.getMonth() &&
-              eventDate.getDay() === date.getDay()) {
-                console.log("//////////////////////////////datematch:",eventDate, date);
-              sortedEvents.items.filter(obj => {return obj !== event});
+              eventDate.getDate() === date.getDate()) {
+              console.log("//////////////////////////////datematch:", eventDate, date);
+              if(newevents && newevents.items)
+              {
+                //newevents.items.push(event);
+              }
+              
             }
           }
         });
-
-        console.log("//////////////////////sorted events:", sortedEvents);
-        setEvents(sortedEvents);
+        // if (newevents && newevents.items) {
+        //   console.log("//////////////////////sorted events:", newevents);
+        //   if(newevents && newevents.items && newevents.nextToken && newevents.items)
+        //     setEvents(newevents);
+        //   setDataFetched(true);
+        // }
+        // else {
+        //   events.items.length = 0;
+        //   console.log("//////////////////////deleted events:", events.items.length);
+        //   setDataFetched(true);
+        // }
+        console.log("//////////////////////////new events:", events);
       }
     }
   }, [date]);
