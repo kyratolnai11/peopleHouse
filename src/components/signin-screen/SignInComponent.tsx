@@ -5,7 +5,8 @@ import { Auth } from "aws-amplify";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import SignInStyles from "./SignInStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { sharedStyles } from '../../../utils/SharedStyles';
+import { sharedStyles } from "../../../utils/SharedStyles";
+import LoadingSpinner from "../event-screen/LoadingSpinner";
 
 export type RootStackParamList = {
   SignIn: undefined;
@@ -20,6 +21,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigation = useNavigation<navProp>();
+  const [loading, isLoading] = useState<boolean>(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -36,6 +38,7 @@ const LoginScreen = () => {
       const user = await Auth.currentAuthenticatedUser({
         bypassCache: false,
       });
+      isLoading(false);
       console.log("Successful login! ", user.attributes);
     } catch (error) {
       console.log(error);
@@ -44,6 +47,7 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
+      isLoading(true);
       await Auth.signIn(email, password);
       console.log("Login pressed:", { email, password });
       currentAuthenticatedUser();
@@ -62,40 +66,49 @@ const LoginScreen = () => {
 
   return (
     <View style={SignInStyles.container}>
-      <Text style={SignInStyles.headerText}>Who are you?</Text>
-      <View style={SignInStyles.inputContainer}>
-        <Text style={SignInStyles.inputTitle}>Email</Text>
-        <TextInput
-          style={sharedStyles.input}
-          keyboardType='email-address'
-          placeholder="Please enter your email address"
-          value={email}
-          onChangeText={(text) => setEmail(text.toLowerCase())}
-        />
-      </View>
-      <View style={SignInStyles.inputContainer}>
-        <Text style={SignInStyles.inputTitle}>Password</Text>
-        <View style={SignInStyles.passwordInput}>
-          <TextInput
-            style={SignInStyles.passwordTextInput}
-            placeholder="Please enter your password"
-            secureTextEntry={!passwordVisible}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-          />
-          <TouchableOpacity onPress={togglePasswordVisibility}>
-            <Ionicons
-              name={passwordVisible ? "eye" : "eye-off"}
-              size={24}
-              color="gray"
-              style={SignInStyles.eye}
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <View>
+          <Text style={SignInStyles.headerText}>Who are you?</Text>
+          <View style={SignInStyles.inputContainer}>
+            <Text style={SignInStyles.inputTitle}>Email</Text>
+            <TextInput
+              style={sharedStyles.input}
+              keyboardType="email-address"
+              placeholder="Please enter your email address"
+              value={email}
+              onChangeText={(text) => setEmail(text.toLowerCase())}
             />
+          </View>
+          <View style={SignInStyles.inputContainer}>
+            <Text style={SignInStyles.inputTitle}>Password</Text>
+            <View style={SignInStyles.passwordInput}>
+              <TextInput
+                style={SignInStyles.passwordTextInput}
+                placeholder="Please enter your password"
+                secureTextEntry={!passwordVisible}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+              />
+              <TouchableOpacity onPress={togglePasswordVisibility}>
+                <Ionicons
+                  name={passwordVisible ? "eye" : "eye-off"}
+                  size={24}
+                  color="gray"
+                  style={SignInStyles.eye}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <TouchableOpacity
+            onPress={handleLogin}
+            style={SignInStyles.loginButton}
+          >
+            <Text style={SignInStyles.loginButtonText}>Log in</Text>
           </TouchableOpacity>
         </View>
-      </View>
-      <TouchableOpacity onPress={handleLogin} style={SignInStyles.loginButton}>
-        <Text style={SignInStyles.loginButtonText}>Log in</Text>
-      </TouchableOpacity>
+      )}
     </View>
   );
 };

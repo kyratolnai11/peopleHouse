@@ -47,7 +47,7 @@ const Colors: ColorPalettes = {
   },
   light: {
     primary: "#FFD400", //Peoplehouse yellow
-    secondary: "#E4E4E4", //Peoplehouse purple
+    secondary: "#9E76B4", //Peoplehouse purple
     tertiary: "#EDBA00", //darker yellow
     textPrimary: sharedColors.black,
     textSecondary: sharedColors.white,

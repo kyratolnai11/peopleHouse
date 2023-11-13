@@ -8,7 +8,6 @@ export type CreateUserInput = {
   lastname: string,
   userType: UserType,
   email: string,
-  eventUserAttendeesId?: string | null,
 };
 
 export enum UserType {
@@ -25,7 +24,6 @@ export type ModelUserConditionInput = {
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
-  eventUserAttendeesId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -73,22 +71,6 @@ export type ModelUserTypeInput = {
   ne?: UserType | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type User = {
   __typename: "User",
   id: string,
@@ -96,64 +78,8 @@ export type User = {
   lastname: string,
   userType: UserType,
   email: string,
-  crews?: ModelCrewConnection | null,
-  events?: ModelEventConnection | null,
   createdAt: string,
   updatedAt: string,
-  eventUserAttendeesId?: string | null,
-};
-
-export type ModelCrewConnection = {
-  __typename: "ModelCrewConnection",
-  items:  Array<Crew | null >,
-  nextToken?: string | null,
-};
-
-export type Crew = {
-  __typename: "Crew",
-  id: string,
-  userId: string,
-  firstname: string,
-  lastname: string,
-  familyRole: string,
-  dateOfBirth?: string | null,
-  email?: string | null,
-  createdAt: string,
-  updatedAt: string,
-  userCrewsId?: string | null,
-  eventCrewAttendeesId?: string | null,
-};
-
-export type ModelEventConnection = {
-  __typename: "ModelEventConnection",
-  items:  Array<Event | null >,
-  nextToken?: string | null,
-};
-
-export type Event = {
-  __typename: "Event",
-  id: string,
-  title: string,
-  brief: string,
-  description: string,
-  agenda: string,
-  startDateTime: string,
-  endDateTime: string,
-  numOfTickets: number,
-  host: string,
-  userAttendees?: ModelUserConnection | null,
-  crewAttendees?: ModelCrewConnection | null,
-  venueId: string,
-  createdAt: string,
-  updatedAt: string,
-  userEventsId?: string | null,
-  venueEventsId?: string | null,
-};
-
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
-  nextToken?: string | null,
 };
 
 export type UpdateUserInput = {
@@ -162,7 +88,6 @@ export type UpdateUserInput = {
   lastname?: string | null,
   userType?: UserType | null,
   email?: string | null,
-  eventUserAttendeesId?: string | null,
 };
 
 export type DeleteUserInput = {
@@ -209,7 +134,6 @@ export type Venue = {
   description: string,
   capacity: number,
   openingHours: string,
-  events?: ModelEventConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -235,8 +159,6 @@ export type CreateCrewInput = {
   familyRole: string,
   dateOfBirth?: string | null,
   email?: string | null,
-  userCrewsId?: string | null,
-  eventCrewAttendeesId?: string | null,
 };
 
 export type ModelCrewConditionInput = {
@@ -249,8 +171,19 @@ export type ModelCrewConditionInput = {
   and?: Array< ModelCrewConditionInput | null > | null,
   or?: Array< ModelCrewConditionInput | null > | null,
   not?: ModelCrewConditionInput | null,
-  userCrewsId?: ModelIDInput | null,
-  eventCrewAttendeesId?: ModelIDInput | null,
+};
+
+export type Crew = {
+  __typename: "Crew",
+  id: string,
+  userId: string,
+  firstname: string,
+  lastname: string,
+  familyRole: string,
+  dateOfBirth?: string | null,
+  email?: string | null,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateCrewInput = {
@@ -261,8 +194,6 @@ export type UpdateCrewInput = {
   familyRole?: string | null,
   dateOfBirth?: string | null,
   email?: string | null,
-  userCrewsId?: string | null,
-  eventCrewAttendeesId?: string | null,
 };
 
 export type DeleteCrewInput = {
@@ -280,8 +211,6 @@ export type CreateEventInput = {
   numOfTickets: number,
   host: string,
   venueId: string,
-  userEventsId?: string | null,
-  venueEventsId?: string | null,
 };
 
 export type ModelEventConditionInput = {
@@ -297,8 +226,22 @@ export type ModelEventConditionInput = {
   and?: Array< ModelEventConditionInput | null > | null,
   or?: Array< ModelEventConditionInput | null > | null,
   not?: ModelEventConditionInput | null,
-  userEventsId?: ModelIDInput | null,
-  venueEventsId?: ModelIDInput | null,
+};
+
+export type Event = {
+  __typename: "Event",
+  id: string,
+  title: string,
+  brief: string,
+  description: string,
+  agenda: string,
+  startDateTime: string,
+  endDateTime: string,
+  numOfTickets: number,
+  host: string,
+  venueId: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateEventInput = {
@@ -312,11 +255,75 @@ export type UpdateEventInput = {
   numOfTickets?: number | null,
   host?: string | null,
   venueId?: string | null,
-  userEventsId?: string | null,
-  venueEventsId?: string | null,
 };
 
 export type DeleteEventInput = {
+  id: string,
+};
+
+export type CreateAttendeeUserInput = {
+  eventId: string,
+  userId: string,
+  id?: string | null,
+};
+
+export type ModelAttendeeUserConditionInput = {
+  eventId?: ModelStringInput | null,
+  userId?: ModelStringInput | null,
+  and?: Array< ModelAttendeeUserConditionInput | null > | null,
+  or?: Array< ModelAttendeeUserConditionInput | null > | null,
+  not?: ModelAttendeeUserConditionInput | null,
+};
+
+export type AttendeeUser = {
+  __typename: "AttendeeUser",
+  eventId: string,
+  userId: string,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateAttendeeUserInput = {
+  eventId?: string | null,
+  userId?: string | null,
+  id: string,
+};
+
+export type DeleteAttendeeUserInput = {
+  id: string,
+};
+
+export type CreateAttendeeCrewInput = {
+  eventId: string,
+  crewId: string,
+  id?: string | null,
+};
+
+export type ModelAttendeeCrewConditionInput = {
+  eventId?: ModelStringInput | null,
+  crewId?: ModelStringInput | null,
+  and?: Array< ModelAttendeeCrewConditionInput | null > | null,
+  or?: Array< ModelAttendeeCrewConditionInput | null > | null,
+  not?: ModelAttendeeCrewConditionInput | null,
+};
+
+export type AttendeeCrew = {
+  __typename: "AttendeeCrew",
+  eventId: string,
+  crewId: string,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateAttendeeCrewInput = {
+  eventId?: string | null,
+  crewId?: string | null,
+  id: string,
+};
+
+export type DeleteAttendeeCrewInput = {
   id: string,
 };
 
@@ -329,7 +336,28 @@ export type ModelUserFilterInput = {
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
-  eventUserAttendeesId?: ModelIDInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User | null >,
+  nextToken?: string | null,
 };
 
 export type ModelVenueFilterInput = {
@@ -361,8 +389,12 @@ export type ModelCrewFilterInput = {
   and?: Array< ModelCrewFilterInput | null > | null,
   or?: Array< ModelCrewFilterInput | null > | null,
   not?: ModelCrewFilterInput | null,
-  userCrewsId?: ModelIDInput | null,
-  eventCrewAttendeesId?: ModelIDInput | null,
+};
+
+export type ModelCrewConnection = {
+  __typename: "ModelCrewConnection",
+  items:  Array<Crew | null >,
+  nextToken?: string | null,
 };
 
 export type ModelEventFilterInput = {
@@ -379,8 +411,40 @@ export type ModelEventFilterInput = {
   and?: Array< ModelEventFilterInput | null > | null,
   or?: Array< ModelEventFilterInput | null > | null,
   not?: ModelEventFilterInput | null,
-  userEventsId?: ModelIDInput | null,
-  venueEventsId?: ModelIDInput | null,
+};
+
+export type ModelEventConnection = {
+  __typename: "ModelEventConnection",
+  items:  Array<Event | null >,
+  nextToken?: string | null,
+};
+
+export type ModelAttendeeUserFilterInput = {
+  eventId?: ModelStringInput | null,
+  userId?: ModelStringInput | null,
+  and?: Array< ModelAttendeeUserFilterInput | null > | null,
+  or?: Array< ModelAttendeeUserFilterInput | null > | null,
+  not?: ModelAttendeeUserFilterInput | null,
+};
+
+export type ModelAttendeeUserConnection = {
+  __typename: "ModelAttendeeUserConnection",
+  items:  Array<AttendeeUser | null >,
+  nextToken?: string | null,
+};
+
+export type ModelAttendeeCrewFilterInput = {
+  eventId?: ModelStringInput | null,
+  crewId?: ModelStringInput | null,
+  and?: Array< ModelAttendeeCrewFilterInput | null > | null,
+  or?: Array< ModelAttendeeCrewFilterInput | null > | null,
+  not?: ModelAttendeeCrewFilterInput | null,
+};
+
+export type ModelAttendeeCrewConnection = {
+  __typename: "ModelAttendeeCrewConnection",
+  items:  Array<AttendeeCrew | null >,
+  nextToken?: string | null,
 };
 
 export enum ModelSortDirection {
@@ -479,6 +543,20 @@ export type ModelSubscriptionEventFilterInput = {
   or?: Array< ModelSubscriptionEventFilterInput | null > | null,
 };
 
+export type ModelSubscriptionAttendeeUserFilterInput = {
+  eventId?: ModelSubscriptionStringInput | null,
+  userId?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAttendeeUserFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAttendeeUserFilterInput | null > | null,
+};
+
+export type ModelSubscriptionAttendeeCrewFilterInput = {
+  eventId?: ModelSubscriptionStringInput | null,
+  crewId?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAttendeeCrewFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAttendeeCrewFilterInput | null > | null,
+};
+
 export type CreateUserMutationVariables = {
   input: CreateUserInput,
   condition?: ModelUserConditionInput | null,
@@ -492,17 +570,8 @@ export type CreateUserMutation = {
     lastname: string,
     userType: UserType,
     email: string,
-    crews?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    eventUserAttendeesId?: string | null,
   } | null,
 };
 
@@ -519,17 +588,8 @@ export type UpdateUserMutation = {
     lastname: string,
     userType: UserType,
     email: string,
-    crews?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    eventUserAttendeesId?: string | null,
   } | null,
 };
 
@@ -546,17 +606,8 @@ export type DeleteUserMutation = {
     lastname: string,
     userType: UserType,
     email: string,
-    crews?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    eventUserAttendeesId?: string | null,
   } | null,
 };
 
@@ -574,10 +625,6 @@ export type CreateVenueMutation = {
     description: string,
     capacity: number,
     openingHours: string,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -597,10 +644,6 @@ export type UpdateVenueMutation = {
     description: string,
     capacity: number,
     openingHours: string,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -620,10 +663,6 @@ export type DeleteVenueMutation = {
     description: string,
     capacity: number,
     openingHours: string,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -646,8 +685,6 @@ export type CreateCrewMutation = {
     email?: string | null,
     createdAt: string,
     updatedAt: string,
-    userCrewsId?: string | null,
-    eventCrewAttendeesId?: string | null,
   } | null,
 };
 
@@ -668,8 +705,6 @@ export type UpdateCrewMutation = {
     email?: string | null,
     createdAt: string,
     updatedAt: string,
-    userCrewsId?: string | null,
-    eventCrewAttendeesId?: string | null,
   } | null,
 };
 
@@ -690,8 +725,6 @@ export type DeleteCrewMutation = {
     email?: string | null,
     createdAt: string,
     updatedAt: string,
-    userCrewsId?: string | null,
-    eventCrewAttendeesId?: string | null,
   } | null,
 };
 
@@ -712,19 +745,9 @@ export type CreateEventMutation = {
     endDateTime: string,
     numOfTickets: number,
     host: string,
-    userAttendees?:  {
-      __typename: "ModelUserConnection",
-      nextToken?: string | null,
-    } | null,
-    crewAttendees?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
     venueId: string,
     createdAt: string,
     updatedAt: string,
-    userEventsId?: string | null,
-    venueEventsId?: string | null,
   } | null,
 };
 
@@ -745,19 +768,9 @@ export type UpdateEventMutation = {
     endDateTime: string,
     numOfTickets: number,
     host: string,
-    userAttendees?:  {
-      __typename: "ModelUserConnection",
-      nextToken?: string | null,
-    } | null,
-    crewAttendees?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
     venueId: string,
     createdAt: string,
     updatedAt: string,
-    userEventsId?: string | null,
-    venueEventsId?: string | null,
   } | null,
 };
 
@@ -778,19 +791,105 @@ export type DeleteEventMutation = {
     endDateTime: string,
     numOfTickets: number,
     host: string,
-    userAttendees?:  {
-      __typename: "ModelUserConnection",
-      nextToken?: string | null,
-    } | null,
-    crewAttendees?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
     venueId: string,
     createdAt: string,
     updatedAt: string,
-    userEventsId?: string | null,
-    venueEventsId?: string | null,
+  } | null,
+};
+
+export type CreateAttendeeUserMutationVariables = {
+  input: CreateAttendeeUserInput,
+  condition?: ModelAttendeeUserConditionInput | null,
+};
+
+export type CreateAttendeeUserMutation = {
+  createAttendeeUser?:  {
+    __typename: "AttendeeUser",
+    eventId: string,
+    userId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateAttendeeUserMutationVariables = {
+  input: UpdateAttendeeUserInput,
+  condition?: ModelAttendeeUserConditionInput | null,
+};
+
+export type UpdateAttendeeUserMutation = {
+  updateAttendeeUser?:  {
+    __typename: "AttendeeUser",
+    eventId: string,
+    userId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteAttendeeUserMutationVariables = {
+  input: DeleteAttendeeUserInput,
+  condition?: ModelAttendeeUserConditionInput | null,
+};
+
+export type DeleteAttendeeUserMutation = {
+  deleteAttendeeUser?:  {
+    __typename: "AttendeeUser",
+    eventId: string,
+    userId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateAttendeeCrewMutationVariables = {
+  input: CreateAttendeeCrewInput,
+  condition?: ModelAttendeeCrewConditionInput | null,
+};
+
+export type CreateAttendeeCrewMutation = {
+  createAttendeeCrew?:  {
+    __typename: "AttendeeCrew",
+    eventId: string,
+    crewId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateAttendeeCrewMutationVariables = {
+  input: UpdateAttendeeCrewInput,
+  condition?: ModelAttendeeCrewConditionInput | null,
+};
+
+export type UpdateAttendeeCrewMutation = {
+  updateAttendeeCrew?:  {
+    __typename: "AttendeeCrew",
+    eventId: string,
+    crewId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteAttendeeCrewMutationVariables = {
+  input: DeleteAttendeeCrewInput,
+  condition?: ModelAttendeeCrewConditionInput | null,
+};
+
+export type DeleteAttendeeCrewMutation = {
+  deleteAttendeeCrew?:  {
+    __typename: "AttendeeCrew",
+    eventId: string,
+    crewId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -806,17 +905,8 @@ export type GetUserQuery = {
     lastname: string,
     userType: UserType,
     email: string,
-    crews?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    eventUserAttendeesId?: string | null,
   } | null,
 };
 
@@ -838,7 +928,6 @@ export type ListUsersQuery = {
       email: string,
       createdAt: string,
       updatedAt: string,
-      eventUserAttendeesId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -857,10 +946,6 @@ export type GetVenueQuery = {
     description: string,
     capacity: number,
     openingHours: string,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -906,8 +991,6 @@ export type GetCrewQuery = {
     email?: string | null,
     createdAt: string,
     updatedAt: string,
-    userCrewsId?: string | null,
-    eventCrewAttendeesId?: string | null,
   } | null,
 };
 
@@ -931,8 +1014,6 @@ export type ListCrewsQuery = {
       email?: string | null,
       createdAt: string,
       updatedAt: string,
-      userCrewsId?: string | null,
-      eventCrewAttendeesId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -954,19 +1035,9 @@ export type GetEventQuery = {
     endDateTime: string,
     numOfTickets: number,
     host: string,
-    userAttendees?:  {
-      __typename: "ModelUserConnection",
-      nextToken?: string | null,
-    } | null,
-    crewAttendees?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
     venueId: string,
     createdAt: string,
     updatedAt: string,
-    userEventsId?: string | null,
-    venueEventsId?: string | null,
   } | null,
 };
 
@@ -993,8 +1064,78 @@ export type ListEventsQuery = {
       venueId: string,
       createdAt: string,
       updatedAt: string,
-      userEventsId?: string | null,
-      venueEventsId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetAttendeeUserQueryVariables = {
+  id: string,
+};
+
+export type GetAttendeeUserQuery = {
+  getAttendeeUser?:  {
+    __typename: "AttendeeUser",
+    eventId: string,
+    userId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListAttendeeUsersQueryVariables = {
+  filter?: ModelAttendeeUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListAttendeeUsersQuery = {
+  listAttendeeUsers?:  {
+    __typename: "ModelAttendeeUserConnection",
+    items:  Array< {
+      __typename: "AttendeeUser",
+      eventId: string,
+      userId: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetAttendeeCrewQueryVariables = {
+  id: string,
+};
+
+export type GetAttendeeCrewQuery = {
+  getAttendeeCrew?:  {
+    __typename: "AttendeeCrew",
+    eventId: string,
+    crewId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListAttendeeCrewsQueryVariables = {
+  filter?: ModelAttendeeCrewFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListAttendeeCrewsQuery = {
+  listAttendeeCrews?:  {
+    __typename: "ModelAttendeeCrewConnection",
+    items:  Array< {
+      __typename: "AttendeeCrew",
+      eventId: string,
+      crewId: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1022,8 +1163,6 @@ export type CrewsByUserIdQuery = {
       email?: string | null,
       createdAt: string,
       updatedAt: string,
-      userCrewsId?: string | null,
-      eventCrewAttendeesId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1054,8 +1193,75 @@ export type EventsByVenueIdQuery = {
       venueId: string,
       createdAt: string,
       updatedAt: string,
-      userEventsId?: string | null,
-      venueEventsId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type AttendeeUsersByEventIdQueryVariables = {
+  eventId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelAttendeeUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type AttendeeUsersByEventIdQuery = {
+  attendeeUsersByEventId?:  {
+    __typename: "ModelAttendeeUserConnection",
+    items:  Array< {
+      __typename: "AttendeeUser",
+      eventId: string,
+      userId: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type AttendeeUsersByUserIdQueryVariables = {
+  userId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelAttendeeUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type AttendeeUsersByUserIdQuery = {
+  attendeeUsersByUserId?:  {
+    __typename: "ModelAttendeeUserConnection",
+    items:  Array< {
+      __typename: "AttendeeUser",
+      eventId: string,
+      userId: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type AttendeeCrewsByEventIdQueryVariables = {
+  eventId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelAttendeeCrewFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type AttendeeCrewsByEventIdQuery = {
+  attendeeCrewsByEventId?:  {
+    __typename: "ModelAttendeeCrewConnection",
+    items:  Array< {
+      __typename: "AttendeeCrew",
+      eventId: string,
+      crewId: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1073,17 +1279,8 @@ export type OnCreateUserSubscription = {
     lastname: string,
     userType: UserType,
     email: string,
-    crews?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    eventUserAttendeesId?: string | null,
   } | null,
 };
 
@@ -1099,17 +1296,8 @@ export type OnUpdateUserSubscription = {
     lastname: string,
     userType: UserType,
     email: string,
-    crews?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    eventUserAttendeesId?: string | null,
   } | null,
 };
 
@@ -1125,17 +1313,8 @@ export type OnDeleteUserSubscription = {
     lastname: string,
     userType: UserType,
     email: string,
-    crews?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    eventUserAttendeesId?: string | null,
   } | null,
 };
 
@@ -1152,10 +1331,6 @@ export type OnCreateVenueSubscription = {
     description: string,
     capacity: number,
     openingHours: string,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1174,10 +1349,6 @@ export type OnUpdateVenueSubscription = {
     description: string,
     capacity: number,
     openingHours: string,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1196,10 +1367,6 @@ export type OnDeleteVenueSubscription = {
     description: string,
     capacity: number,
     openingHours: string,
-    events?:  {
-      __typename: "ModelEventConnection",
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1221,8 +1388,6 @@ export type OnCreateCrewSubscription = {
     email?: string | null,
     createdAt: string,
     updatedAt: string,
-    userCrewsId?: string | null,
-    eventCrewAttendeesId?: string | null,
   } | null,
 };
 
@@ -1242,8 +1407,6 @@ export type OnUpdateCrewSubscription = {
     email?: string | null,
     createdAt: string,
     updatedAt: string,
-    userCrewsId?: string | null,
-    eventCrewAttendeesId?: string | null,
   } | null,
 };
 
@@ -1263,8 +1426,6 @@ export type OnDeleteCrewSubscription = {
     email?: string | null,
     createdAt: string,
     updatedAt: string,
-    userCrewsId?: string | null,
-    eventCrewAttendeesId?: string | null,
   } | null,
 };
 
@@ -1284,19 +1445,9 @@ export type OnCreateEventSubscription = {
     endDateTime: string,
     numOfTickets: number,
     host: string,
-    userAttendees?:  {
-      __typename: "ModelUserConnection",
-      nextToken?: string | null,
-    } | null,
-    crewAttendees?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
     venueId: string,
     createdAt: string,
     updatedAt: string,
-    userEventsId?: string | null,
-    venueEventsId?: string | null,
   } | null,
 };
 
@@ -1316,19 +1467,9 @@ export type OnUpdateEventSubscription = {
     endDateTime: string,
     numOfTickets: number,
     host: string,
-    userAttendees?:  {
-      __typename: "ModelUserConnection",
-      nextToken?: string | null,
-    } | null,
-    crewAttendees?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
     venueId: string,
     createdAt: string,
     updatedAt: string,
-    userEventsId?: string | null,
-    venueEventsId?: string | null,
   } | null,
 };
 
@@ -1348,18 +1489,98 @@ export type OnDeleteEventSubscription = {
     endDateTime: string,
     numOfTickets: number,
     host: string,
-    userAttendees?:  {
-      __typename: "ModelUserConnection",
-      nextToken?: string | null,
-    } | null,
-    crewAttendees?:  {
-      __typename: "ModelCrewConnection",
-      nextToken?: string | null,
-    } | null,
     venueId: string,
     createdAt: string,
     updatedAt: string,
-    userEventsId?: string | null,
-    venueEventsId?: string | null,
+  } | null,
+};
+
+export type OnCreateAttendeeUserSubscriptionVariables = {
+  filter?: ModelSubscriptionAttendeeUserFilterInput | null,
+};
+
+export type OnCreateAttendeeUserSubscription = {
+  onCreateAttendeeUser?:  {
+    __typename: "AttendeeUser",
+    eventId: string,
+    userId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateAttendeeUserSubscriptionVariables = {
+  filter?: ModelSubscriptionAttendeeUserFilterInput | null,
+};
+
+export type OnUpdateAttendeeUserSubscription = {
+  onUpdateAttendeeUser?:  {
+    __typename: "AttendeeUser",
+    eventId: string,
+    userId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteAttendeeUserSubscriptionVariables = {
+  filter?: ModelSubscriptionAttendeeUserFilterInput | null,
+};
+
+export type OnDeleteAttendeeUserSubscription = {
+  onDeleteAttendeeUser?:  {
+    __typename: "AttendeeUser",
+    eventId: string,
+    userId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateAttendeeCrewSubscriptionVariables = {
+  filter?: ModelSubscriptionAttendeeCrewFilterInput | null,
+};
+
+export type OnCreateAttendeeCrewSubscription = {
+  onCreateAttendeeCrew?:  {
+    __typename: "AttendeeCrew",
+    eventId: string,
+    crewId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateAttendeeCrewSubscriptionVariables = {
+  filter?: ModelSubscriptionAttendeeCrewFilterInput | null,
+};
+
+export type OnUpdateAttendeeCrewSubscription = {
+  onUpdateAttendeeCrew?:  {
+    __typename: "AttendeeCrew",
+    eventId: string,
+    crewId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteAttendeeCrewSubscriptionVariables = {
+  filter?: ModelSubscriptionAttendeeCrewFilterInput | null,
+};
+
+export type OnDeleteAttendeeCrewSubscription = {
+  onDeleteAttendeeCrew?:  {
+    __typename: "AttendeeCrew",
+    eventId: string,
+    crewId: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };

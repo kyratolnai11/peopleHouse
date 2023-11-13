@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
@@ -8,8 +9,7 @@ import DatePicker from "./DatePickerLocal";
 import { fetchLoggedInUserID } from "../cognito/UserCognito";
 import { addCrew } from "../../database/CrewDBConnection";
 import { addCrewStyles } from "./StyleSheet";
-import { CommonActions, useNavigation } from '@react-navigation/native';
-
+import { useNavigation } from "@react-navigation/native";
 
 export type AddCrewForm = {
   firstName: string;
@@ -23,8 +23,8 @@ const CrewDropDown: React.FC = () => {
   const [option, setOption] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [userId, setUserId] = useState("");
-  const navigation = useNavigation<any>();
 
+  const navigation = useNavigation<any>()
 
   const data = [
     { label: "+ONE", value: "+ONE" },
@@ -38,7 +38,6 @@ const CrewDropDown: React.FC = () => {
     fetchLoggedInUserID().then((id) => setUserId(id));
   }, []);
 
-  
   const onSubmit = async (data: AddCrewForm) => {
     await addCrew(userId, data);
     reset();
@@ -51,7 +50,11 @@ const CrewDropDown: React.FC = () => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
-        { text: "OK", onPress: () => console.log("OK Pressed") },
+        { text: "OK", onPress: () => {
+          console.log("OK Pressed");
+          navigation.goBack();
+        },
+      },
       ]
     );
     console.log("Form submitted");
@@ -165,6 +168,7 @@ const CrewDropDown: React.FC = () => {
                   <TextInput
                     placeholder="Enter your email"
                     value={field.value}
+                    autoCapitalize="none"
                     onChangeText={field.onChange}
                     style={sharedStyles.input}
                   />
@@ -175,7 +179,7 @@ const CrewDropDown: React.FC = () => {
           {option === "Child" && (
             <View>
               <Text style={sharedStyles.text}>Date of Birth:</Text>
-              <DatePicker setValue={setValue} name="Date of birth" />
+              <DatePicker setValueCrew={setValue} name="Date of birth" />
             </View>
           )}
 

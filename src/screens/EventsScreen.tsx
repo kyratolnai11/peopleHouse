@@ -1,16 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, Text, ScrollView } from "react-native";
-import { fetchAllEvents, fetchEventsByVenueId } from "../database/EventDBConnection";
-import { ModelEventConnection } from "../API";
+import { SafeAreaView, View, ScrollView, Text, Image } from "react-native";
+import {
+  fetchAllEvents,
+  fetchEventsByVenueId,
+} from "../database/EventDBConnection";
+import { ModelEventConnection, UserType } from "../API";
 import EventCard from "../components/event-screen/EventCard";
 import VenueDropDown from "../components/event-screen/VenueDropDown";
 import { sharedStyles } from "../../utils/SharedStyles";
 import LoadingSpinner from "../components/event-screen/LoadingSpinner";
+import { fetchUserType } from "../components/cognito/UserCognito";
+import CustomButton from "../components/event-screen/CustomButton";
+import { eventStyles } from "../components/event-screen/EventStyles";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+
+export type RootStackParamList = {
+  CreateEvent: undefined;
+};
+
+type navProp = StackNavigationProp<RootStackParamList, "CreateEvent">;
 import DatePicker from "../components/event-screen/DatePicker";
+import Colors from "../../utils/theme";
 
 const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
   const [dataFetched, setDataFetched] = useState(false);
+  const [userType, setUserType] = useState();
+  const isFocused = useIsFocused(); // Get the screen focus state
+
+  const navigation = useNavigation<navProp>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await fetchUserType();
+        setUserType(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    if (isFocused) {
+      fetchData();
+    }
+  }, [isFocused]);
+
   const [venueId, setVenueId] = useState("");
   const [filteredByVenueId, setFilteredByVenueID] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
@@ -40,8 +75,7 @@ const EventsScreen = () => {
         .catch((error) => {
           console.error("Error fetching events:", error);
         });
-    }
-    else {
+    } else {
       fetchEventsByVenueId(venueId)
         .then((eventsdata) => {
           console.log("Events are set and filtered by venue: ", venueId);
@@ -72,14 +106,19 @@ const EventsScreen = () => {
   function filterByVenueId(venueID: string) {
     setDataFetched(false);
     setEvents(undefined);
-    if (venueID !== '0') {
+    if (venueID !== "0") {
       setFilteredByVenueID(true);
       setVenueId(venueID);
     } else {
       setFilteredByVenueID(false);
-      setVenueId('-1');
+      setVenueId("-1");
     }
   }
+
+  const handleButtonpress = () => {
+    console.log("Cards pressed");
+    navigation.navigate("CreateEvent");
+  };
 
   useEffect(() => {
     console.log("////////////////////////////filtering by date here")
@@ -119,10 +158,24 @@ const EventsScreen = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View style={sharedStyles.mainContainer}>
-          <Text style={sharedStyles.screenTitle}>
-            Come have fun with us!
-          </Text>
+        <View
+          style={[
+            sharedStyles.mainContainer,
+            { backgroundColor: Colors.light.primaryBackground },
+          ]}
+        >
+          <Text style={sharedStyles.screenTitle}>Come have fun with us!</Text>
+          {userType === UserType.COMMUNITY_BUILDER && (
+            <View style={eventStyles.cmContainer}>
+              <Text style={eventStyles.cmText}>For Community Builders</Text>
+              <Image
+                style={eventStyles.cmImage}
+                source={require("../../assets/event-screen/pencil.png")}
+              />
+              <CustomButton name="Create event" action={handleButtonpress} />
+            </View>
+          )}
+
           <VenueDropDown filterByVenueId={filterByVenueId} />
           <DatePicker filterByDate={filterByDate} />
           {events && events.items ? (
@@ -141,7 +194,6 @@ const EventsScreen = () => {
             )) : (
             <LoadingSpinner />
           )}
-
         </View>
       </ScrollView>
     </SafeAreaView>

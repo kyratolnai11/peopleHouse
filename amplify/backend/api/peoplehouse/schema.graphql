@@ -9,8 +9,6 @@ type User @model {
   lastname: String!
   userType: UserType!
   email: String!
-  crews: [Crew] @hasMany
-  events: [Event] @hasMany
 }
 
 type Venue @model {
@@ -20,7 +18,6 @@ type Venue @model {
   description: String!
   capacity: Int!
   openingHours: String!
-  events: [Event] @hasMany
 }
 
 type Crew @model {
@@ -43,9 +40,17 @@ type Event @model {
   endDateTime: AWSDateTime!
   numOfTickets: Int!
   host: String!
-  userAttendees: [User] @hasMany
-  crewAttendees: [Crew] @hasMany
   venueId: String! @index(name: "byVenueId")
+}
+
+type AttendeeUser @model {
+  eventId: String! @index(name: "byEventId")
+  userId: String! @index(name: "byUserId")
+}
+
+type AttendeeCrew @model {
+  eventId: String! @index(name: "byEventId")
+  crewId: String!
 }
 
 enum UserType {

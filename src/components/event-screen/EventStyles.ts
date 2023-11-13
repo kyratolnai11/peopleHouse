@@ -44,4 +44,25 @@ export const eventStyles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
   },
+  cmContainer: {
+    backgroundColor: Colors.light.secondary,
+    width: "100%",
+    marginHorizontal: 20,
+    paddingVertical: 20,
+    marginBottom: 20,
+    borderRadius: 10,
+  },
+  cmText: {
+    fontSize: 20,
+    color: Colors.light.textSecondary,
+    fontWeight: "bold",
+    paddingBottom: 20,
+    paddingHorizontal: 10,
+  },
+  cmImage: {
+    height: 80,
+    width: 130,
+    transform: [{ rotate: "50deg" }],
+    alignSelf: "center",
+  },
 });

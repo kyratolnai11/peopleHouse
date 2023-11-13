@@ -3,7 +3,7 @@ import Colors from "../../../utils/theme";
 import CustomBackImage from "./CustomBackButton";
 import AddCrewScreen from "../../screens/AddCrewScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
-
+import SpecificCrewScreen from "../../screens/SpecificCrewScreen";
 const MyInfoStack = createStackNavigator();
 
 const MyInfoStackNavigation: React.FC = () => {
@@ -19,6 +19,17 @@ const MyInfoStackNavigation: React.FC = () => {
         component={AddCrewScreen}
         options={{
           title: "",
+          headerBackTitleStyle: { color: Colors.light.textPrimary },
+          headerBackImage: () => <CustomBackImage />,
+          headerBackTitle: "Back",
+          headerBackTitleVisible: true,
+        }}
+      />
+      <MyInfoStack.Screen
+        name="SpecificCrew"
+        component={SpecificCrewScreen as React.FC}
+        options={{
+          title: "Crew Details",
           headerBackTitleStyle: { color: Colors.light.textPrimary },
           headerBackImage: () => <CustomBackImage />,
           headerBackTitle: "Back",

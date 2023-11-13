@@ -17,6 +17,7 @@ import { fetchCrewsByUser } from "../database/CrewDBConnection";
 import { useNavigation } from "@react-navigation/native";
 import LoadingSpinner from "../components/event-screen/LoadingSpinner";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
 
 export type RootStackParamList = {
   AddCrew: undefined;
@@ -25,43 +26,47 @@ export type RootStackParamList = {
 type navProp = StackNavigationProp<RootStackParamList, "AddCrew">;
 
 const MyInfoScreen: React.FC = () => {
-  const [userInfo, setUserInfo] = useState<User | undefined>(undefined);
+  const [userInfo, setUserInfo] = useState<User | undefined>();
   const [userCrews, setUserCrews] = useState<Crew[]>();
   const navigation = useNavigation<navProp>();
+  const isFocused = useIsFocused();
+
+  const fetchUserInfo = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser({
+        bypassCache: false,
+      });
+
+      const databaseUser = await fetchUserById(user.attributes.sub);
+      const databaseCrews = await fetchCrewsByUser(user.attributes.sub);
+
+      setUserInfo(databaseUser);
+
+      if (databaseCrews) {
+        if (databaseCrews.items) {
+          // Filter out null values and cast the result to Crew[]
+          const crewItems: Crew[] = databaseCrews.items.filter(
+            (item) => item !== null
+          ) as Crew[];
+          setUserCrews(crewItems);
+        } else {
+          console.log(
+            "Invalid data format for userCrewsData: Missing 'items' field"
+          );
+        }
+      } else {
+        console.log("No crews data received or data format is invalid.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    async function fetchUserInfo() {
-      try {
-        const user = await Auth.currentAuthenticatedUser({
-          bypassCache: false,
-        });
-
-        const databaseUser = await fetchUserById(user.attributes.sub);
-        const databaseCrews = await fetchCrewsByUser(user.attributes.sub);
-
-        setUserInfo(databaseUser);
-
-        if (databaseCrews) {
-          if (databaseCrews.items) {
-            // Filter out null values and cast the result to Crew[]
-            const crewItems: Crew[] = databaseCrews.items.filter(
-              (item) => item !== null
-            ) as Crew[];
-            setUserCrews(crewItems);
-          } else {
-            console.log(
-              "Invalid data format for userCrewsData: Missing 'items' field"
-            );
-          }
-        } else {
-          console.log("No crews data received or data format is invalid.");
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    if (isFocused) {
+      fetchUserInfo();
     }
-    fetchUserInfo();
-  }, []);
+  }, [isFocused]);
 
   const handleAddCrew = async () => {
     console.log("Add crew pressed");
@@ -69,14 +74,14 @@ const MyInfoScreen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={myInfoStyles.container}>
       <ScrollView>
         <View style={myInfoStyles.container}>
           {userInfo ? (
             <View style={myInfoStyles.userInfoContainer}>
               <View style={myInfoStyles.userImageContainer}>
                 <Image
-                  source={require("../../assets/lego-figure.png")}
+                  source={require("../../assets/my-infomration-sceen/lego-figure.png")}
                   style={myInfoStyles.userImage}
                 />
               </View>
