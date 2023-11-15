@@ -18,4 +18,18 @@ export const conferenceStyles = StyleSheet.create({
     height: 130,
     marginBottom: 20,
   },
+  yellowCircle: {
+    backgroundColor: Colors.light.tertiary,
+    padding: 25,
+    borderRadius: 300,
+    marginBottom: 20,
+    marginTop:25,
+  },
+  providerText: {
+    fontSize: 18,
+    paddingBottom: 10,
+    lineHeight: 28,
+    color: Colors.light.white,
+    textAlign: "center",
+  },
 });

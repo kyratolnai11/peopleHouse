@@ -7,7 +7,7 @@ const DescriptionSection: React.FC = () => {
   return (
     <View style={conferenceStyles.sectionContainer}>
       <Text style={[conferenceStyles.title, { paddingTop: 40 }]}>
-        Welcome to LEGO® Homestay!
+        Amazing state-of-the-art meeting and conference facilities
       </Text>
       <Image
         source={require("../../../assets/conference/sofas.png")}
