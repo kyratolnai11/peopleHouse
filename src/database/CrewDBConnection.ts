@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CreateCrewInput,  Crew,  ModelCrewConnection} from "../API";
 import { AddCrewForm } from "../components/add-crew/CrewDropDown";
 import { createCrew, deleteCrew } from "../graphql/mutations";
