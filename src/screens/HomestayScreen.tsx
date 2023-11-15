@@ -6,6 +6,7 @@ import WelcomeSection from "../components/homestay/WelcomeSection";
 import AccordionSection from "../components/homestay/AccordionSection";
 import FacilitiesSection from "../components/homestay/FacilitiesSection";
 import UponArrivalSection from "../components/homestay/UponArrivalSection";
+import GallerySection from "../components/homestay/GallerySection";
 
 const HomestayScreen: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const HomestayScreen: React.FC = () => {
           <AccordionSection />
           <FacilitiesSection />
           <UponArrivalSection />
+          <GallerySection />
         </View>
       </ScrollView>
     </SafeAreaView>

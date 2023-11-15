@@ -45,4 +45,8 @@ export const homestayStyles = StyleSheet.create({
     height: 120,
     marginBottom: 20,
   },
+  galleryImage: {
+    width: 300,
+    marginTop: 10,
+  },
 });
