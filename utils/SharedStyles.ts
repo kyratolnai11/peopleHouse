@@ -44,6 +44,10 @@ export const sharedStyles = StyleSheet.create({
     marginBottom: 12,
     paddingLeft: 8,
   },
+  safeArea: {
+    backgroundColor: Colors.light.primaryBackground,
+    height: "100%",
+  },
 });
 
 //Practices:

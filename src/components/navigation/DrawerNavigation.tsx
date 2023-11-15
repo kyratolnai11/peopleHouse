@@ -9,11 +9,8 @@ import Colors from "../../../utils/theme";
 import EventStackNavigator from "./EventStackNavigator";
 import VenueStackNavigation from "./VenueStackNavigation";
 import AuthStackNavigator from "./AuthNavigator";
-import AddCrewScreen from "../../screens/AddCrewScreen";
-import EventsScreen from "../../screens/EventsScreen";
-import MyInfoScreen from "../../screens/MyInfoScreen";
-import SpecificCrewComponent from "../../screens/SpecificCrewScreen";
 import MyInfoStackNavigation from "./MyInfoStackNavigation";
+import ConferenceScreen from "../../screens/ConferenceScreen";
 
 
 const DrawerNavigation: React.FC = () => {
@@ -44,6 +41,7 @@ const DrawerNavigation: React.FC = () => {
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
+      <Drawer.Screen name="Conference" component={ConferenceScreen} />
       <Drawer.Screen name="Venues" component={VenueStackNavigation} />
 
       <Drawer.Screen 
