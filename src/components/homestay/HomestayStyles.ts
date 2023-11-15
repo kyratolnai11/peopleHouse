@@ -25,4 +25,24 @@ export const homestayStyles = StyleSheet.create({
     width: 300,
     resizeMode: "contain",
   },
+  yellowContainer: {
+    backgroundColor: Colors.light.tertiary,
+    alignItems: "center",
+    width: 300,
+    height: 360,
+    padding: 20,
+    marginVertical: 10,
+  },
+  dashedUnderline: {
+    borderBottomColor: Colors.light.black,
+    borderBottomWidth: 2,
+    borderStyle: "solid",
+    width: "100%",
+  },
+  logo: { width: 38, height: 38, zIndex: 10, marginBottom: 10 },
+  airplane: {
+    width: 200,
+    height: 120,
+    marginBottom: 20,
+  },
 });
