@@ -9,12 +9,8 @@ import Colors from "../../../utils/theme";
 import EventStackNavigator from "./EventStackNavigator";
 import VenueStackNavigation from "./VenueStackNavigation";
 import AuthStackNavigator from "./AuthNavigator";
-import AddCrewScreen from "../../screens/AddCrewScreen";
-import EventsScreen from "../../screens/EventsScreen";
-import MyInfoScreen from "../../screens/MyInfoScreen";
-import SpecificCrewComponent from "../../screens/SpecificCrewScreen";
 import MyInfoStackNavigation from "./MyInfoStackNavigation";
-
+import HomestayScreen from "../../screens/HomestayScreen";
 
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();
@@ -43,16 +39,19 @@ const DrawerNavigation: React.FC = () => {
       }}
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Info" component={InfoScreen} />
+      <Drawer.Screen name="Events" component={EventStackNavigator} />
       <Drawer.Screen name="Venues" component={VenueStackNavigation} />
+      <Drawer.Screen name="Homestay" component={HomestayScreen} />
+      <Drawer.Screen name="Info" component={InfoScreen} />
 
-      <Drawer.Screen 
-      name="SignUp"
-      component={SignUpScreen}
-      options={{
-        headerTitle: "Sign up",
-        drawerLabel: 'Sign up'
-      }}/>
+      <Drawer.Screen
+        name="SignUp"
+        component={SignUpScreen}
+        options={{
+          headerTitle: "Sign up",
+          drawerLabel: "Sign up",
+        }}
+      />
       <Drawer.Screen
         name="AuthNav"
         component={AuthStackNavigator}
@@ -63,7 +62,6 @@ const DrawerNavigation: React.FC = () => {
         }}
       />
 
-      <Drawer.Screen name="Events" component={EventStackNavigator} />
       <Drawer.Screen
         name="MyInfo"
         component={MyInfoStackNavigation}

@@ -3,8 +3,7 @@ name: merge-to-main
 
 # This example workflow assumes that the default branch for your repository is `main`. If the default branch has a different name, edit this example and add your repository's default branch.
 on:
-  push:
-    branches: [main]
+  - pull_request
 
 #
 jobs:
@@ -29,9 +28,6 @@ jobs:
       - name: Run grep to catch wild TODOs
         run: |
           ! grep -PRn --include '*.ts' --include '*.tsx' '^.*\/\/.*TODO[ :]*(?:(?!DIGIWORK-[0-9]+).)*$' src
-      #we need to do eslint check for the project
-      - name: Fix auto fixable eslint errors
-        run: npm run lint:fix
 
       - name: Double check for eslint errors
         run: npm run lint
