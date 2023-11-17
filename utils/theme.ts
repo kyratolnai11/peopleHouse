@@ -15,8 +15,9 @@ const sharedColors = {
   white: "#FFFFFF",
   grey: "#b2b2b0",
   lightGrey: "#EDF2F7",
-  darkGrey: "#969694",
   mediumGrey: "#708299",
+  extraLightGrey: "#F1F1F1",
+  darkGrey: "#969694",
 };
 
 const extraColors = {
