@@ -14,7 +14,6 @@ const GreyTextSection: React.FC<GreyTextSection> = ({
   subTitle,
   description,
 }) => {
-  
   return (
     <View style={conferenceStyles.greyContainer}>
       <Text
@@ -28,8 +27,10 @@ const GreyTextSection: React.FC<GreyTextSection> = ({
         {subTitle}
       </Text>
 
-      {description.map((i) => (
-        <Text style={conferenceStyles.greyText}>- {i}</Text>
+      {description.map((item, i) => (
+        <Text key={i} style={conferenceStyles.greyText}>
+          - {item}
+        </Text>
       ))}
     </View>
   );

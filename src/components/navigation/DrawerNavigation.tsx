@@ -11,8 +11,8 @@ import VenueStackNavigation from "./VenueStackNavigation";
 import AuthStackNavigator from "./AuthNavigator";
 import MyInfoStackNavigation from "./MyInfoStackNavigation";
 import ConferenceScreen from "../../screens/ConferenceScreen";
-
 import HomestayScreen from "../../screens/HomestayScreen";
+import HomeStayNavigation from "./HomestayNavigation";
 
 const DrawerNavigation: React.FC = () => {
   const colorScheme = Appearance.getColorScheme();
@@ -42,11 +42,9 @@ const DrawerNavigation: React.FC = () => {
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Info" component={InfoScreen} />
-      <Drawer.Screen name="Conference" component={ConferenceScreen} />
       <Drawer.Screen name="Events" component={EventStackNavigator} />
       <Drawer.Screen name="Venues" component={VenueStackNavigation} />
-      <Drawer.Screen name="Homestay" component={HomestayScreen} />
-      <Drawer.Screen name="Info" component={InfoScreen} />
+      <Drawer.Screen name="Homestay" component={HomeStayNavigation} />
 
       <Drawer.Screen
         name="SignUp"
