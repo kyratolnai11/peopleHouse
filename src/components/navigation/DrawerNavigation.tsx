@@ -10,8 +10,6 @@ import EventStackNavigator from "./EventStackNavigator";
 import VenueStackNavigation from "./VenueStackNavigation";
 import AuthStackNavigator from "./AuthNavigator";
 import MyInfoStackNavigation from "./MyInfoStackNavigation";
-import ConferenceScreen from "../../screens/ConferenceScreen";
-import HomestayScreen from "../../screens/HomestayScreen";
 import HomeStayNavigation from "./HomestayNavigation";
 
 const DrawerNavigation: React.FC = () => {
