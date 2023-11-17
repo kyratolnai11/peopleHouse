@@ -23,7 +23,7 @@ export const conferenceStyles = StyleSheet.create({
     padding: 25,
     borderRadius: 300,
     marginBottom: 20,
-    marginTop:25,
+    marginTop: 25,
   },
   providerText: {
     fontSize: 18,
@@ -31,5 +31,16 @@ export const conferenceStyles = StyleSheet.create({
     lineHeight: 28,
     color: Colors.light.white,
     textAlign: "center",
+  },
+  greyContainer: {
+    backgroundColor: Colors.light.extraLightGrey,
+    width: 300,
+    paddingVertical: 30,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  greyText: {
+    fontSize: 16,
+    paddingBottom: 10,
   },
 });

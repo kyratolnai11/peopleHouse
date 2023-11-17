@@ -4,6 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { sharedStyles } from "../../utils/SharedStyles";
 import DescriptionSection from "../components/conference/DescriptionSection";
 import ProvideSection from "../components/conference/ProvideSection";
+import ForMeetingsSection from "../components/conference/ForMeetingsSection";
 
 const ConferenceScreen: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const ConferenceScreen: React.FC = () => {
         <View>
           <DescriptionSection />
           <ProvideSection />
+          <ForMeetingsSection />
         </View>
       </ScrollView>
     </SafeAreaView>
