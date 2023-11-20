@@ -81,7 +81,9 @@ const MyBookingsScreen: React.FC = () => {
               dataFetched &&
               events.map((item) => {
                 if (item) {
-                  return <EventCard key={item.id} event={item} />;
+                  return (
+                    <EventCard key={item.id} event={item} type="Booking" />
+                  );
                 }
               })
             )
