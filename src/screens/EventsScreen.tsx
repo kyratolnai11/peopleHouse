@@ -86,32 +86,6 @@ const EventsScreen = () => {
     }
   }, [venueId, date]);
 
-  // useEffect(() => {
-  //   if (filteredByDate && dataFetched) {
-  //     if (events && events.items) {
-  //       fetchAllEvents().then((eventsdata) => {
-  //         if (eventsdata && eventsdata.items) {
-  //           const startOfDay = new Date(date);
-  //           startOfDay.setHours(1, 0, 0, 0);
-
-  //           const endOfDay = new Date(date);
-  //           endOfDay.setHours(23, 59, 59, 59);
-
-  //           const newEvents = eventsdata.items.filter((item) => {
-  //             let eventDate = new Date();
-  //             if (item && item.startDateTime) {
-  //               eventDate = new Date(item.startDateTime);
-  //             }
-  //             return eventDate > startOfDay && eventDate < endOfDay;
-  //           });
-
-  //           setEvents({ ...eventsdata, items: newEvents });
-  //         }
-  //       });
-  //     }
-  //   }
-  // }, [date]);
-
   function sortByDateAndSetEvents(eventsdata: ModelEventConnection | undefined) {
     const startOfDay = new Date(date);
     startOfDay.setHours(1, 0, 0, 0);
