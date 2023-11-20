@@ -26,21 +26,34 @@ const MyBookingsScreen: React.FC = () => {
     const eventIds = attendeeUsers?.items.map((item) => item?.eventId);
     console.log("These are the eventIds: ", eventIds);
 
-    const eventsReturned = await eventIds?.map((id) => {
+    const eventsReturned = eventIds?.map(async (id) => {
       if (id) {
-        const event = fetchEventById(id);
+        const event = await fetchEventById(id);
         console.log("This is ONE event: ", event);
+        return event?.getEvent;
       }
       return Promise.resolve(null);
     });
 
-    console.log("these are the events return")
+    console.log("these are the events return");
 
     const resolvedEvents = await Promise.all<GetEventQuery | null | undefined>(
       eventsReturned as Array<Promise<GetEventQuery | null | undefined>>
     );
 
-    setEvents(resolvedEvents.filter((event) => event !== null) as Event[]);
+    const filteredEvents = resolvedEvents.filter(
+      (event) => event !== null
+    ) as Event[];
+
+    const sortedEvents = filteredEvents.sort((a, b) => {
+      if (a && a.startDateTime && b && b.startDateTime) {
+        const date1 = new Date(a.startDateTime);
+        const date2 = new Date(b.startDateTime);
+        return date1.getTime() - date2.getTime();
+      }
+      return 0;
+    });
+    setEvents(sortedEvents);
     console.log("The events are: ", events);
     setDataFetched(true);
   };
@@ -58,7 +71,6 @@ const MyBookingsScreen: React.FC = () => {
     >
       <ScrollView>
         <View style={sharedStyles.mainContainer}>
-          <Text>Hello</Text>
           {events ? (
             events.length === 0 ? (
               <Text style={sharedStyles.centeredText}>
