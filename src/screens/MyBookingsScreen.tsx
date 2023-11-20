@@ -21,21 +21,16 @@ const MyBookingsScreen: React.FC = () => {
     });
 
     const attendeeUsers = await getEventFromAttendeeUser(user.attributes.sub);
-    console.log("I am in the fetch", attendeeUsers);
 
     const eventIds = attendeeUsers?.items.map((item) => item?.eventId);
-    console.log("These are the eventIds: ", eventIds);
 
     const eventsReturned = eventIds?.map(async (id) => {
       if (id) {
         const event = await fetchEventById(id);
-        console.log("This is ONE event: ", event);
         return event?.getEvent;
       }
       return Promise.resolve(null);
     });
-
-    console.log("these are the events return");
 
     const resolvedEvents = await Promise.all<GetEventQuery | null | undefined>(
       eventsReturned as Array<Promise<GetEventQuery | null | undefined>>
