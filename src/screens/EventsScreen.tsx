@@ -121,56 +121,49 @@ const EventsScreen = () => {
   };
 
   useEffect(() => {
-    console.log("////////////////////////////filtering by date here")
-    var newevents = events;
-    if(newevents && newevents.items)
-      //newevents.items.length = 0;
+    console.log("////////////////////////////filtering by date here", date)
     if (filteredByDate && dataFetched) {
       if (events && events.items) {
-        console.log("//////////////////////////old events:", events);
-        events.items.forEach(event => {
-          console.log("////////////////////checking event:", event)
-          if (event && event.startDateTime) {
-            console.log("////////////////////checking event:", event)
-            const eventDate = new Date(event.startDateTime);
-            console.log("////////////////////date:", eventDate);
-            if(eventDate < date)
-              {
-                console.log("//////////////////////////////event date before date:", eventDate);
-                events.items.shift();
+        fetchAllEvents().then((eventsdata) => {
+          if (eventsdata && eventsdata.items) {
+            console.log("//////////////////////////old events:", eventsdata.items.length);
+
+            const startOfDay = new Date(date)
+            console.log("//////////////////////////startOfDay 1:", startOfDay);
+            startOfDay.setHours(1, 0, 0, 0);
+            console.log("//////////////////////////startOfDay:", startOfDay);
+
+            const endOfDay = new Date(date)
+            console.log("//////////////////////////endOfDay 1:", endOfDay);
+            endOfDay.setHours(23, 59, 59, 59);
+            console.log("//////////////////////////endOfDay:", endOfDay);
+
+            const newevents = eventsdata.items.filter((item) => {
+              let eventDate = new Date();
+              if (item && item.startDateTime) {
+                eventDate = new Date(item.startDateTime);
               }
-            if (eventDate.getFullYear() === date.getFullYear() &&
-              eventDate.getMonth() === date.getMonth() &&
-              eventDate.getDate() === date.getDate()) {
-              console.log("//////////////////////////////datematch:", eventDate, date);
-              if(newevents && newevents.items)
-              {
-                //newevents.items.push(event);
-              }
-              
-            }
+              console.log("//////////////////////////item:", eventDate, eventDate > startOfDay && eventDate < endOfDay);
+
+              return eventDate > startOfDay && eventDate < endOfDay;
+            });
+
+            events.items = newevents;
           }
-        });
-        // if (newevents && newevents.items) {
-        //   console.log("//////////////////////sorted events:", newevents);
-        //   if(newevents && newevents.items && newevents.nextToken && newevents.items)
-        //     setEvents(newevents);
-        //   setDataFetched(true);
-        // }
-        // else {
-        //   events.items.length = 0;
-        //   console.log("//////////////////////deleted events:", events.items.length);
-        //   setDataFetched(true);
-        // }
-        console.log("//////////////////////////new events:", events);
+        })
       }
     }
   }, [date]);
 
-  function filterByDate(date: Date) {
-    setFilteredByDate(true);
-    setDate(date);
-    console.log("Selected date (events screen): ", date)
+  function filterByDate(newDate: Date) {
+    if (newDate.getFullYear() !== date.getFullYear()
+      || newDate.getMonth() !== date.getMonth()
+      || newDate.getDate() !== date.getDate()
+    ) {
+      setDate(newDate);
+      setFilteredByDate(true);
+      console.log("Selected date (events screen): ", newDate)
+    }
   }
 
   return (
