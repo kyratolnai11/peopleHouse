@@ -28,6 +28,11 @@ const EventsScreen = () => {
   const [dataFetched, setDataFetched] = useState(false);
   const [userType, setUserType] = useState();
   const isFocused = useIsFocused(); // Get the screen focus state
+  const [venueId, setVenueId] = useState("");
+  const [filteredByVenueId, setFilteredByVenueID] = useState(false);
+  const [date, setDate] = useState<Date>(new Date());
+  const [filteredByDate, setFilteredByDate] = useState(false);
+  const [filteredEvents, setFilteredEvents] = useState<ModelEventConnection>();
 
   const navigation = useNavigation<navProp>();
 
@@ -46,31 +51,13 @@ const EventsScreen = () => {
     }
   }, [isFocused]);
 
-  const [venueId, setVenueId] = useState("");
-  const [filteredByVenueId, setFilteredByVenueID] = useState(false);
-  const [date, setDate] = useState<Date>(new Date());
-  const [filteredByDate, setFilteredByDate] = useState(false);
-
   useEffect(() => {
     if (filteredByVenueId !== true) {
       fetchAllEvents()
         .then((eventsdata) => {
           console.log("Events are set");
 
-          //sort events in chronological order
-          if (eventsdata && eventsdata.items) {
-            eventsdata.items.sort((a, b) => {
-              if (a && a.startDateTime && b && b.startDateTime) {
-                const date1 = new Date(a.startDateTime);
-                const date2 = new Date(b.startDateTime);
-                return date1.getTime() - date2.getTime();
-              }
-              return 0;
-            });
-          }
-
-          setEvents(eventsdata);
-          setDataFetched(true);
+          sortAndSetEvents(eventsdata);
         })
         .catch((error) => {
           console.error("Error fetching events:", error);
@@ -80,20 +67,7 @@ const EventsScreen = () => {
         .then((eventsdata) => {
           console.log("Events are set and filtered by venue: ", venueId);
 
-          //sort events in chronological order
-          if (eventsdata && eventsdata.items) {
-            eventsdata.items.sort((a, b) => {
-              if (a && a.startDateTime && b && b.startDateTime) {
-                const date1 = new Date(a.startDateTime);
-                const date2 = new Date(b.startDateTime);
-                return date1.getTime() - date2.getTime();
-              }
-              return 0;
-            });
-          }
-
-          setEvents(eventsdata);
-          setDataFetched(true);
+          sortAndSetEvents(eventsdata);
 
           console.log(eventsdata);
         })
@@ -102,6 +76,48 @@ const EventsScreen = () => {
         });
     }
   }, [venueId]);
+
+  useEffect(() => {
+    if (filteredByDate && dataFetched) {
+      if (events && events.items) {
+        fetchAllEvents().then((eventsdata) => {
+          if (eventsdata && eventsdata.items) {
+            const startOfDay = new Date(date);
+            startOfDay.setHours(1, 0, 0, 0);
+
+            const endOfDay = new Date(date);
+            endOfDay.setHours(23, 59, 59, 59);
+
+            const newEvents = eventsdata.items.filter((item) => {
+              let eventDate = new Date();
+              if (item && item.startDateTime) {
+                eventDate = new Date(item.startDateTime);
+              }
+              return eventDate > startOfDay && eventDate < endOfDay;
+            });
+
+            setFilteredEvents({ ...eventsdata, items: newEvents });
+          }
+        });
+      }
+    }
+  }, [date]);
+
+  function sortAndSetEvents(eventsdata: ModelEventConnection | undefined) {
+    if (eventsdata && eventsdata.items) {
+      eventsdata.items.sort((a, b) => {
+        if (a && a.startDateTime && b && b.startDateTime) {
+          const date1 = new Date(a.startDateTime);
+          const date2 = new Date(b.startDateTime);
+          return date1.getTime() - date2.getTime();
+        }
+        return 0;
+      });
+    }
+
+    setEvents(eventsdata);
+    setDataFetched(true);
+  }
 
   function filterByVenueId(venueID: string) {
     setDataFetched(false);
@@ -120,49 +136,15 @@ const EventsScreen = () => {
     navigation.navigate("CreateEvent");
   };
 
-  useEffect(() => {
-    console.log("////////////////////////////filtering by date here", date)
-    if (filteredByDate && dataFetched) {
-      if (events && events.items) {
-        fetchAllEvents().then((eventsdata) => {
-          if (eventsdata && eventsdata.items) {
-            console.log("//////////////////////////old events:", eventsdata.items.length);
-
-            const startOfDay = new Date(date)
-            console.log("//////////////////////////startOfDay 1:", startOfDay);
-            startOfDay.setHours(1, 0, 0, 0);
-            console.log("//////////////////////////startOfDay:", startOfDay);
-
-            const endOfDay = new Date(date)
-            console.log("//////////////////////////endOfDay 1:", endOfDay);
-            endOfDay.setHours(23, 59, 59, 59);
-            console.log("//////////////////////////endOfDay:", endOfDay);
-
-            const newevents = eventsdata.items.filter((item) => {
-              let eventDate = new Date();
-              if (item && item.startDateTime) {
-                eventDate = new Date(item.startDateTime);
-              }
-              console.log("//////////////////////////item:", eventDate, eventDate > startOfDay && eventDate < endOfDay);
-
-              return eventDate > startOfDay && eventDate < endOfDay;
-            });
-
-            events.items = newevents;
-          }
-        })
-      }
-    }
-  }, [date]);
-
   function filterByDate(newDate: Date) {
-    if (newDate.getFullYear() !== date.getFullYear()
-      || newDate.getMonth() !== date.getMonth()
-      || newDate.getDate() !== date.getDate()
+    if (
+      newDate.getFullYear() !== date.getFullYear() ||
+      newDate.getMonth() !== date.getMonth() ||
+      newDate.getDate() !== date.getDate()
     ) {
       setDate(newDate);
       setFilteredByDate(true);
-      console.log("Selected date (events screen): ", newDate)
+      console.log("Selected date (events screen): ", newDate);
     }
   }
 
@@ -189,20 +171,33 @@ const EventsScreen = () => {
 
           <VenueDropDown filterByVenueId={filterByVenueId} />
           <DatePicker filterByDate={filterByDate} />
+          {filteredEvents &&
+            filteredEvents.items &&
+            filteredEvents.items.map((item) => {
+              if (item) {
+                return <EventCard key={item.id} event={item} />;
+              }
+            })}
+          <Text>Seperator</Text>
           {events && events.items ? (
             events.items.length === 0 && filteredByVenueId ? (
-              <Text style={sharedStyles.centeredText}> No events for this venue. </Text>
-            ) : (events.items.length === 0 && filteredByDate ? (
-              <Text style={sharedStyles.centeredText}> No events for this date. </Text>
+              <Text style={sharedStyles.centeredText}>
+                {" "}
+                No events for this venue.{" "}
+              </Text>
+            ) : events.items.length === 0 && filteredByDate ? (
+              <Text style={sharedStyles.centeredText}>
+                {" "}
+                No events for this date.{" "}
+              </Text>
             ) : (
-              dataFetched &&
               events.items.map((item) => {
                 if (item) {
                   return <EventCard key={item.id} event={item} />;
                 }
               })
             )
-            )) : (
+          ) : (
             <LoadingSpinner />
           )}
         </View>
