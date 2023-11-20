@@ -32,7 +32,6 @@ const EventsScreen = () => {
   const [filteredByVenueId, setFilteredByVenueID] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
   const [filteredByDate, setFilteredByDate] = useState(false);
-  const [filteredEvents, setFilteredEvents] = useState<ModelEventConnection>();
 
   const navigation = useNavigation<navProp>();
 
@@ -96,7 +95,7 @@ const EventsScreen = () => {
               return eventDate > startOfDay && eventDate < endOfDay;
             });
 
-            setFilteredEvents({ ...eventsdata, items: newEvents });
+            setEvents({ ...eventsdata, items: newEvents });
           }
         });
       }
@@ -171,14 +170,6 @@ const EventsScreen = () => {
 
           <VenueDropDown filterByVenueId={filterByVenueId} />
           <DatePicker filterByDate={filterByDate} />
-          {filteredEvents &&
-            filteredEvents.items &&
-            filteredEvents.items.map((item) => {
-              if (item) {
-                return <EventCard key={item.id} event={item} />;
-              }
-            })}
-          <Text>Seperator</Text>
           {events && events.items ? (
             events.items.length === 0 && filteredByVenueId ? (
               <Text style={sharedStyles.centeredText}>
