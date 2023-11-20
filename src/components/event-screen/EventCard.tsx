@@ -17,16 +17,19 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 export type RootStackParamList = {
-  Event: { eventId: string };
+  Event: { eventId: string; sourceScreen?: string };
+  MyBookings: { eventId: string; sourceScreen?: string };
 };
 
 type EventCardProps = {
   event: Event;
+  type?: "Booking" | "Event";
 };
 
 type navProp = StackNavigationProp<RootStackParamList, "Event">;
+type napPropBooking = StackNavigationProp<RootStackParamList, "MyBookings">;
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, type }) => {
   const venueID = event.venueId;
   const description = event.title;
   const brief = event.brief;
@@ -37,10 +40,21 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const imageFile = getEventHeaderImages(venueID);
 
   const navigation = useNavigation<navProp>();
+  const navigationBooking = useNavigation<napPropBooking>();
 
   const handleOpenURL = () => {
     console.log("Cards pressed");
-    navigation.navigate("Event", { eventId: event.id });
+    if (type === "Booking") {
+      navigationBooking.navigate("Event", {
+        eventId: event.id,
+        sourceScreen: "MyBookings",
+      });
+    } else {
+      navigation.navigate("Event", {
+        eventId: event.id,
+        sourceScreen: "EventScreen",
+      });
+    }
   };
 
   return (
