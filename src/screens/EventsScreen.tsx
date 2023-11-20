@@ -27,7 +27,7 @@ const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
   const [dataFetched, setDataFetched] = useState(false);
   const [userType, setUserType] = useState();
-  const isFocused = useIsFocused(); // Get the screen focus state
+  const isFocused = useIsFocused();
   const [venueId, setVenueId] = useState("");
   const [filteredByVenueId, setFilteredByVenueID] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
@@ -55,8 +55,14 @@ const EventsScreen = () => {
       fetchAllEvents()
         .then((eventsdata) => {
           console.log("Events are set");
+          sortEvents(eventsdata);
 
-          sortAndSetEvents(eventsdata);
+          if (filteredByDate) {
+            sortByDateAndSetEvents(eventsdata);
+          } else {
+            setEvents(eventsdata);
+            setDataFetched(true);
+          }
         })
         .catch((error) => {
           console.error("Error fetching events:", error);
@@ -65,44 +71,69 @@ const EventsScreen = () => {
       fetchEventsByVenueId(venueId)
         .then((eventsdata) => {
           console.log("Events are set and filtered by venue: ", venueId);
+          sortEvents(eventsdata);
 
-          sortAndSetEvents(eventsdata);
-
-          console.log(eventsdata);
+          if (filteredByDate) {
+            sortByDateAndSetEvents(eventsdata);
+          } else {
+            setEvents(eventsdata);
+            setDataFetched(true);
+          }
         })
         .catch((error) => {
           console.error("Error fetching events:", error);
         });
     }
-  }, [venueId]);
+  }, [venueId, date]);
 
-  useEffect(() => {
-    if (filteredByDate && dataFetched) {
-      if (events && events.items) {
-        fetchAllEvents().then((eventsdata) => {
-          if (eventsdata && eventsdata.items) {
-            const startOfDay = new Date(date);
-            startOfDay.setHours(1, 0, 0, 0);
+  // useEffect(() => {
+  //   if (filteredByDate && dataFetched) {
+  //     if (events && events.items) {
+  //       fetchAllEvents().then((eventsdata) => {
+  //         if (eventsdata && eventsdata.items) {
+  //           const startOfDay = new Date(date);
+  //           startOfDay.setHours(1, 0, 0, 0);
 
-            const endOfDay = new Date(date);
-            endOfDay.setHours(23, 59, 59, 59);
+  //           const endOfDay = new Date(date);
+  //           endOfDay.setHours(23, 59, 59, 59);
 
-            const newEvents = eventsdata.items.filter((item) => {
-              let eventDate = new Date();
-              if (item && item.startDateTime) {
-                eventDate = new Date(item.startDateTime);
-              }
-              return eventDate > startOfDay && eventDate < endOfDay;
-            });
+  //           const newEvents = eventsdata.items.filter((item) => {
+  //             let eventDate = new Date();
+  //             if (item && item.startDateTime) {
+  //               eventDate = new Date(item.startDateTime);
+  //             }
+  //             return eventDate > startOfDay && eventDate < endOfDay;
+  //           });
 
-            setEvents({ ...eventsdata, items: newEvents });
-          }
-        });
-      }
+  //           setEvents({ ...eventsdata, items: newEvents });
+  //         }
+  //       });
+  //     }
+  //   }
+  // }, [date]);
+
+  function sortByDateAndSetEvents(eventsdata: ModelEventConnection | undefined) {
+    const startOfDay = new Date(date);
+    startOfDay.setHours(1, 0, 0, 0);
+
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 59);
+
+    if (eventsdata && eventsdata.items) {
+      const newEvents = eventsdata.items.filter((item) => {
+        let eventDate = new Date();
+        if (item && item.startDateTime) {
+          eventDate = new Date(item.startDateTime);
+        }
+        return eventDate > startOfDay && eventDate < endOfDay;
+      });
+
+      setEvents({ ...eventsdata, items: newEvents });
+      setDataFetched(true);
     }
-  }, [date]);
+  }
 
-  function sortAndSetEvents(eventsdata: ModelEventConnection | undefined) {
+  function sortEvents(eventsdata: ModelEventConnection | undefined) {
     if (eventsdata && eventsdata.items) {
       eventsdata.items.sort((a, b) => {
         if (a && a.startDateTime && b && b.startDateTime) {
@@ -113,9 +144,6 @@ const EventsScreen = () => {
         return 0;
       });
     }
-
-    setEvents(eventsdata);
-    setDataFetched(true);
   }
 
   function filterByVenueId(venueID: string) {
