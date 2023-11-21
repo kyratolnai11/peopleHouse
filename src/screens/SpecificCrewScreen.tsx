@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCrewById, deleteCrewById } from '../database/CrewDBConnection';
 import { Crew } from '../API';
-import { SafeAreaView, ScrollView, View, Text, Button, TouchableOpacity, Alert, TextInput, Image } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, Alert, TextInput, Image } from 'react-native';
 import { specificCrewStyles } from '../components/specific-crew/SpecificCrewStyle';
 import { RouteProp } from '@react-navigation/native';
 import LoadingSpinner from '../components/event-screen/LoadingSpinner';

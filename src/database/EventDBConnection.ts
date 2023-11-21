@@ -1,8 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { listEvents, eventsByVenueId, getEvent } from "../graphql/queries";
+import {
+  listEvents,
+  eventsByVenueId,
+  getEvent,
+  attendeeUsersByUserId,
+} from "../graphql/queries";
 import { createEvent, deleteEvent } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
-import { CreateEventInput, GetEventQuery, ModelEventConnection } from "../API";
+import {
+  CreateEventInput,
+  GetEventQuery,
+  ModelAttendeeUserConnection,
+  ModelEventConnection,
+} from "../API";
 import { CreateEventForm } from "../screens/CreateEventScreen";
 
 export async function fetchAllEvents(): Promise<
@@ -74,12 +84,30 @@ export async function fetchEventById(
   }
 }
 
-export const deleteEventById = async (eventId: string) =>{
-  try{
-    console.log('Deleting event by id: '+ eventId);
-    const resp = await API.graphql(graphqlOperation(deleteEvent, {input: {id: eventId}}));
-    console.log('Successfully deleted event! ', resp);
-  } catch (error){
-    console.log('Error deleting event: ', error);
+export const deleteEventById = async (eventId: string) => {
+  try {
+    console.log("Deleting event by id: " + eventId);
+    const resp = await API.graphql(
+      graphqlOperation(deleteEvent, { input: { id: eventId } })
+    );
+    console.log("Successfully deleted event! ", resp);
+  } catch (error) {
+    console.log("Error deleting event: ", error);
   }
-}
+};
+
+export const getEventFromAttendeeUser = async (
+  userId: string
+): Promise<ModelAttendeeUserConnection | undefined> => {
+  try {
+    console.log("Getting eventIds for user: " + userId);
+    const resp: any = await API.graphql(
+      graphqlOperation(attendeeUsersByUserId, { userId: userId })
+    );
+    const events = resp.data.attendeeUsersByUserId;
+    console.log("Got events by id:", events);
+    return events;
+  } catch (error) {
+    console.log("Error getting event: ", error);
+  }
+};

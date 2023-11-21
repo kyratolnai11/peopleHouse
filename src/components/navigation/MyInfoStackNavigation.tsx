@@ -12,7 +12,7 @@ const MyInfoStackNavigation: React.FC = () => {
       <MyInfoStack.Screen
         name="My Info"
         component={MyInfoScreen}
-        options={{ title: "" }}
+        options={{ headerShown: false }}
       />
       <MyInfoStack.Screen
         name="AddCrew"

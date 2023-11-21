@@ -187,3 +187,20 @@ export const formatDateForEvent = (date: Date, time: Date) => {
 
   return new Date(year, month, day, hours, minutes);
 };
+
+export const getHomestayLogos = (name: string) => {
+  switch (name) {
+    case "Room":
+      return require("../assets/homestay/bed.png");
+    case "Kitchen":
+      return require("../assets/homestay/kitchen.png");
+    case "Laundry room":
+      return require("../assets/homestay/washing_machine.png");
+    case "Vending machine":
+      return require("../assets/homestay/vending_matchine.png");
+    case "Activities":
+      return require("../assets/homestay/balloon-bold.png");
+    default:
+      return null;
+  }
+};

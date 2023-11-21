@@ -72,7 +72,7 @@ export const infoStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: 350,
+    width: 300,
     paddingBottom: 3,
   },
   title: {

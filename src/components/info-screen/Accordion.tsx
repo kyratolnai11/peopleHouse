@@ -5,9 +5,14 @@ import { infoStyles } from "./StyleSheet";
 interface AccordionProps {
   title: string;
   content: ReactNode;
+  titleColor?: string;
 }
 
-const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
+const Accordion: React.FC<AccordionProps> = ({
+  title,
+  content,
+  titleColor,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleAccordion = () => {
@@ -18,8 +23,19 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
     <View style={infoStyles.container}>
       <TouchableOpacity onPress={toggleAccordion}>
         <View style={infoStyles.header}>
-          <Text style={infoStyles.title}>{title}</Text>
-          <Text>{isExpanded ? "-" : "+"}</Text>
+          {titleColor ? (
+            <Text style={[infoStyles.title, { color: titleColor }]}>
+              {title}
+            </Text>
+          ) : (
+            <Text style={infoStyles.title}>{title}</Text>
+          )}
+
+          {titleColor ? (
+            <Text style={{ color: titleColor }}>{isExpanded ? "-" : "+"}</Text>
+          ) : (
+            <Text>{isExpanded ? "-" : "+"}</Text>
+          )}
         </View>
       </TouchableOpacity>
       {isExpanded && <View style={infoStyles.content}>{content}</View>}

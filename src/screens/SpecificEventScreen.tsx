@@ -16,7 +16,7 @@ import { fetchUserById } from "../database/UserDBConnection";
 import { Auth } from "aws-amplify";
 
 type RootStackParamList = {
-  Event: { eventId: string };
+  Event: { eventId: string; sourceScreen?: string };
   Availibility: {
     eventName: string;
     eventLocation: string;
@@ -25,20 +25,21 @@ type RootStackParamList = {
     venueId: string;
     eventBrief: string;
   };
+  MyBookings: { eventId: string; sourceScreen?: string };
 };
 
 type EventScreenRouteProp = RouteProp<RootStackParamList, "Event">;
+type MyBookingsScreenRouteProp = RouteProp<RootStackParamList, "MyBookings">;
 type navProp = StackNavigationProp<RootStackParamList, "Availibility">;
 
 type EventScreenProps = {
-  route: EventScreenRouteProp;
+  route: EventScreenRouteProp | MyBookingsScreenRouteProp;
 };
 
 const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
   const { eventId } = route.params;
   const [event, setEventData] = useState<Event>();
   const [userInfo, setUserInfo] = useState<User | undefined>();
-
 
   useEffect(() => {
     fetchEventById(eventId)
@@ -53,23 +54,21 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
       .catch((error) => {
         console.error("Error fetching events:", error);
       });
-      fetchUserInfo();
-
+    fetchUserInfo();
   }, []);
 
-  const fetchUserInfo =async () => {
-    try{
+  const fetchUserInfo = async () => {
+    try {
       const user = await Auth.currentAuthenticatedUser({
         bypassCache: false,
       });
 
       const databaseUser = await fetchUserById(user.attributes.sub);
       setUserInfo(databaseUser);
+    } catch (error) {
+      console.log(error);
     }
-   catch (error) {
-    console.log(error);
-  }
-  }
+  };
 
   if (event === undefined) {
     return <LoadingSpinner />;
@@ -100,23 +99,19 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      'Confirmation',
-      'Are you sure you want to delete this event?',
-      [
-        {
-          text: 'No',
-          style: 'cancel',
+    Alert.alert("Confirmation", "Are you sure you want to delete this event?", [
+      {
+        text: "No",
+        style: "cancel",
+      },
+      {
+        text: "Yes",
+        onPress: () => {
+          deleteEventById(eventId); // Dummy data
+          navigation.goBack();
         },
-        {
-          text: 'Yes',
-          onPress: () => {
-            deleteEventById(eventId); // Dummy data
-            navigation.goBack();
-          },
-        },
-      ]
-    );
+      },
+    ]);
   };
 
   return (
@@ -152,11 +147,8 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
             action={() => handlePress()}
           />
           {userInfo?.userType === "COMMUNITY_BUILDER" && (
-          <CustomButton
-            name="Delete Event"
-            action={() => handleDelete()}
-          />
-        )}
+            <CustomButton name="Delete Event" action={() => handleDelete()} />
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
