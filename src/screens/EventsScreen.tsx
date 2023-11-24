@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, ScrollView, Text, Image } from "react-native";
+import { SafeAreaView, View, ScrollView, Text, Image, RefreshControl } from "react-native";
 import {
   fetchAllEvents,
   fetchEventsByVenueId,
@@ -133,8 +133,16 @@ const EventsScreen = () => {
   }
 
   const handleButtonpress = () => {
-    console.log("Cards pressed");
+    console.log("Create event pressed");
     navigation.navigate("CreateEvent");
+  };
+
+  const clearFiltersButtonOnPress = () => {
+    console.log("Clear filters here");
+    setFilteredByVenueID(false);
+    setVenueId("-1");
+    setDate(new Date());
+    setFilteredByDate(false);
   };
 
   function filterByDate(newDate: Date) {
@@ -169,9 +177,9 @@ const EventsScreen = () => {
               <CustomButton name="Create event" action={handleButtonpress} />
             </View>
           )}
-
           <VenueDropDown filterByVenueId={filterByVenueId} />
           <DatePicker filterByDate={filterByDate} />
+          <CustomButton name="Clear filters" action={clearFiltersButtonOnPress} />
           {events && events.items ? (
             events.items.length === 0 && filteredByVenueId ? (
               <Text style={sharedStyles.centeredText}>
