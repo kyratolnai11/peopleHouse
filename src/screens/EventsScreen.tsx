@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  View,
-  ScrollView,
-  Text,
-  Image,
-} from "react-native";
+import { SafeAreaView, View, ScrollView, Text, Image } from "react-native";
 import {
   fetchAllEvents,
   fetchEventsByVenueId,
@@ -31,7 +25,6 @@ import Colors from "../../utils/theme";
 
 const EventsScreen = () => {
   const [events, setEvents] = useState<ModelEventConnection>();
-  const [dataFetched, setDataFetched] = useState(false);
   const [userType, setUserType] = useState();
   const isFocused = useIsFocused();
   const [venueId, setVenueId] = useState("");
@@ -71,7 +64,6 @@ const EventsScreen = () => {
             sortByDateAndSetEvents(eventsdata);
           } else {
             setEvents(eventsdata);
-            setDataFetched(true);
           }
         })
         .catch((error) => {
@@ -87,7 +79,6 @@ const EventsScreen = () => {
             sortByDateAndSetEvents(eventsdata);
           } else {
             setEvents(eventsdata);
-            setDataFetched(true);
           }
         })
         .catch((error) => {
@@ -115,7 +106,6 @@ const EventsScreen = () => {
       });
 
       setEvents({ ...eventsdata, items: newEvents });
-      setDataFetched(true);
     }
   }
 
@@ -133,7 +123,6 @@ const EventsScreen = () => {
   }
 
   function filterByVenueId(venueID: string) {
-    setDataFetched(false);
     setEvents(undefined);
     if (venueID !== "0") {
       setFilteredByVenueID(true);
