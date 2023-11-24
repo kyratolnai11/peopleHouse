@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, ScrollView, Text, Image, RefreshControl } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  ScrollView,
+  Text,
+  Image,
+} from "react-native";
 import {
   fetchAllEvents,
   fetchEventsByVenueId,
@@ -32,6 +38,10 @@ const EventsScreen = () => {
   const [filteredByVenueId, setFilteredByVenueID] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
   const [filteredByDate, setFilteredByDate] = useState(false);
+
+  //Used to reset the values in the venue select and datepicker
+  const [venueKey, setVenueKey] = useState(0);
+  const [datePickerKey, setDatePickerKey] = useState(0);
 
   const navigation = useNavigation<navProp>();
 
@@ -86,7 +96,9 @@ const EventsScreen = () => {
     }
   }, [venueId, date]);
 
-  function sortByDateAndSetEvents(eventsdata: ModelEventConnection | undefined) {
+  function sortByDateAndSetEvents(
+    eventsdata: ModelEventConnection | undefined
+  ) {
     const startOfDay = new Date(date);
     startOfDay.setHours(1, 0, 0, 0);
 
@@ -140,9 +152,14 @@ const EventsScreen = () => {
   const clearFiltersButtonOnPress = () => {
     console.log("Clear filters here");
     setFilteredByVenueID(false);
-    setVenueId("-1");
-    setDate(new Date());
+
     setFilteredByDate(false);
+    setDate(new Date());
+
+    setVenueId("0");
+
+    setVenueKey((prevKey) => prevKey + 1);
+    setDatePickerKey((prevKey) => prevKey + 1);
   };
 
   function filterByDate(newDate: Date) {
@@ -177,9 +194,18 @@ const EventsScreen = () => {
               <CustomButton name="Create event" action={handleButtonpress} />
             </View>
           )}
-          <VenueDropDown filterByVenueId={filterByVenueId} />
-          <DatePicker filterByDate={filterByDate} />
-          <CustomButton name="Clear filters" action={clearFiltersButtonOnPress} />
+          <VenueDropDown
+            filterByVenueId={filterByVenueId}
+            venueKey={venueKey}
+          />
+          <DatePicker
+            filterByDate={filterByDate}
+            datePickerKey={datePickerKey}
+          />
+          <CustomButton
+            name="Clear filters"
+            action={clearFiltersButtonOnPress}
+          />
           {events && events.items ? (
             events.items.length === 0 && filteredByVenueId ? (
               <Text style={sharedStyles.centeredText}>
