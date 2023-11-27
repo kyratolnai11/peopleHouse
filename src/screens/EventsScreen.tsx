@@ -14,13 +14,13 @@ import CustomButton from "../components/event-screen/CustomButton";
 import { eventStyles } from "../components/event-screen/EventStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
+import DatePicker from "../components/event-screen/DatePicker";
 
 export type RootStackParamList = {
   CreateEvent: undefined;
 };
 
 type navProp = StackNavigationProp<RootStackParamList, "CreateEvent">;
-import DatePicker from "../components/event-screen/DatePicker";
 import Colors from "../../utils/theme";
 
 const EventsScreen = () => {
