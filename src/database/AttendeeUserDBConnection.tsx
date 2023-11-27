@@ -73,14 +73,14 @@ export async function getAttendeeUsersByUserID(
   };
 
   export const deleteUserAttendee = async (attendeeId: string) => {
-    try {
-      console.log('Deleting user attendee');
-      const resp = await API.graphql(
-        graphqlOperation(deleteAttendeeUser, { input: { id: attendeeId} })
-      );
-      
-      console.log('Successfully deleted user attendee. ', resp);
-    } catch (error) {
-      console.log('Error deleting attendee: ', error);
-    }
-  };
+  try {
+    console.log('Deleting user attendee');
+    const resp = await API.graphql(
+      graphqlOperation(deleteAttendeeUser, { input: { id: attendeeId} })
+    );
+    
+    console.log('Successfully deleted user attendee. ', resp);
+  } catch (error) {
+    console.log('Error deleting attendee: ', error);
+  }
+};
