@@ -4,6 +4,7 @@ import Colors from "../../../utils/theme";
 import EventAvailibityScreen from "../event-screen/EventAvailibilityScreen";
 import CustomBackImage from "./CustomBackButton";
 import MyBookingsScreen from "../../screens/MyBookingsScreen";
+import SignDownFromEventScreen from "../../screens/SignDownScreen";
 
 const MyBookingsStack = createStackNavigator();
 
@@ -34,6 +35,17 @@ const MyBookingsNavigation: React.FC = () => {
         component={EventAvailibityScreen as React.FC}
         options={{
           title: "Availibility",
+          headerBackTitleStyle: { color: Colors.light.textPrimary },
+          headerBackImage: () => <CustomBackImage />,
+          headerBackTitle: "Back",
+          headerBackTitleVisible: true,
+        }}
+      />
+      <MyBookingsStack.Screen
+        name="EventSignDown"
+        component={SignDownFromEventScreen as React.FC}
+        options={{
+          title: "Sign up for event",
           headerBackTitleStyle: { color: Colors.light.textPrimary },
           headerBackImage: () => <CustomBackImage />,
           headerBackTitle: "Back",
