@@ -12,7 +12,7 @@ const VenueStackNavigation: React.FC = () => {
       <VenueStack.Screen
         name="VenuesScreen"
         component={VenuesScreen}
-        options={{ title: "" }}
+        options={{ headerShown: false }}
       />
       <VenueStack.Screen
         name="SpecificVenue"

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, ScrollView, Text } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { venueDropDownStyles } from "./VenueDropDownStyles";
@@ -9,14 +9,21 @@ import { sharedStyles } from "../../../utils/SharedStyles.ts";
 type VenueDropDownProps = {
   filterByVenueId?: Function;
   setValueForCreateEvent?: Function;
+  venueKey?: number;
 };
 
 const VenueDropDown: React.FC<VenueDropDownProps> = ({
   filterByVenueId,
   setValueForCreateEvent,
+  venueKey,
 }) => {
   const [value, setValue] = useState("");
   const [isFocus, setIsFocus] = useState(false);
+
+  useEffect(() => {
+    console.log("rerendering");
+    setValue("0");
+  }, [venueKey]);
 
   return (
     <ScrollView>
@@ -45,7 +52,8 @@ const VenueDropDown: React.FC<VenueDropDownProps> = ({
             console.log("Venue selected: ", item.label, item.value);
             setIsFocus(false);
             filterByVenueId && filterByVenueId(item.value);
-            setValueForCreateEvent && setValueForCreateEvent("venueId",item.value);
+            setValueForCreateEvent &&
+              setValueForCreateEvent("venueId", item.value);
           }}
         />
       </View>

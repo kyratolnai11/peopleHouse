@@ -1,8 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { listEvents, eventsByVenueId, getEvent, getAttendeeUser, getAttendeeCrew, attendeeUsersByUserId, attendeeCrewsByEventId, attendeeUsersByEventId } from "../graphql/queries";
+import {
+  listEvents,
+  eventsByVenueId,
+  getEvent, getAttendeeUser, getAttendeeCrew, attendeeUsersByUserId, attendeeCrewsByEventId, attendeeUsersByEventId,
+} from "../graphql/queries";
 import { createAttendeeCrew, createAttendeeUser, createEvent, deleteAttendeeCrew, deleteAttendeeUser, deleteEvent } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
-import { AttendeeCrew, AttendeeUser, CreateAttendeeCrewInput, CreateAttendeeUserInput, CreateEventInput, GetEventQuery, ModelAttendeeCrewConnection, ModelAttendeeUserConnection, ModelEventConnection, User } from "../API";
+import { AttendeeCrew, AttendeeUser, CreateAttendeeCrewInput, CreateAttendeeUserInput,
+  CreateEventInput,
+  GetEventQuery, ModelAttendeeCrewConnection, ModelAttendeeUserConnection,
+  ModelEventConnection, User,
+} from "../API";
 import { CreateEventForm } from "../screens/CreateEventScreen";
 
 export async function fetchAllEvents(): Promise<
@@ -74,15 +82,35 @@ export async function fetchEventById(
   }
 }
 
-export const deleteEventById = async (eventId: string) =>{
-  try{
-    console.log('Deleting event by id: '+ eventId);
-    const resp = await API.graphql(graphqlOperation(deleteEvent, {input: {id: eventId}}));
-    console.log('Successfully deleted event! ', resp);
-  } catch (error){
-    console.log('Error deleting event: ', error);
+export const deleteEventById = async (eventId: string) => {
+  try {
+    console.log("Deleting event by id: " + eventId);
+    const resp = await API.graphql(
+      graphqlOperation(deleteEvent, { input: { id: eventId } })
+    );
+    console.log("Successfully deleted event! ", resp);
+  } catch (error) {
+    console.log("Error deleting event: ", error);
   }
 };
+
+export const getEventFromAttendeeUser = async (
+  userId: string
+): Promise<ModelAttendeeUserConnection | undefined> => {
+  try {
+    console.log("Getting eventIds for user: " + userId);
+    const resp: any = await API.graphql(
+      graphqlOperation(attendeeUsersByUserId, { userId: userId })
+    );
+    const events = resp.data.attendeeUsersByUserId;
+    console.log("Got events by id:", events);
+    return events;
+  } catch (error) {
+    console.log("Error getting event: ", error);
+  }
+};
+
+
 
 
 export const addUserAttendee = async (eventId: string, userId: string) => {
