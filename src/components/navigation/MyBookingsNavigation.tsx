@@ -31,7 +31,7 @@ const MyBookingsNavigation: React.FC = () => {
         }}
       />
       <MyBookingsStack.Screen
-        name="Availibility"
+        name="Availibility2"
         component={EventAvailibityScreen as React.FC}
         options={{
           title: "Availibility",
