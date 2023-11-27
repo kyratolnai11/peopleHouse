@@ -24,6 +24,7 @@ type RootStackParamList = {
     ticketsLeft: number;
     venueId: string;
     eventBrief: string;
+    eventId: string,
   };
   MyBookings: { eventId: string; sourceScreen?: string };
 };
@@ -95,6 +96,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
       ticketsLeft: event.numOfTickets,
       venueId: event.venueId,
       eventBrief: event.brief,
+      eventId: event.id,
     });
   };
 
