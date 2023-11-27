@@ -61,8 +61,8 @@ const EventsScreen = () => {
         .then((eventsdata) => {
           console.log("Events are set");
 
-          sortEvents(eventsdata).then((sortedEvents)=>{
-            if(filteredByDate){
+          sortEvents(eventsdata).then((sortedEvents) => {
+            if (filteredByDate) {
               sortByDateAndSetEvents(sortedEvents);
             }
             else {
@@ -77,9 +77,9 @@ const EventsScreen = () => {
       fetchEventsByVenueId(venueId)
         .then((eventsdata) => {
           console.log("Events are set and filtered by venue: ", venueId);
-          
-          sortEvents(eventsdata).then((sortedEvents)=>{
-            if(filteredByDate){
+
+          sortEvents(eventsdata).then((sortedEvents) => {
+            if (filteredByDate) {
               sortByDateAndSetEvents(sortedEvents);
             }
             else {
@@ -113,50 +113,50 @@ const EventsScreen = () => {
 
       setEvents({ ...eventsdata, items: newEvents });
     }
-      }
+  }
 
-  function sortEvents(eventsdata: ModelEventConnection | undefined) : Promise<ModelEventConnection | undefined> {
+  function sortEvents(eventsdata: ModelEventConnection | undefined): Promise<ModelEventConnection | undefined> {
     return new Promise((resolve, reject) => {
-    Auth.currentAuthenticatedUser({
-      bypassCache: false,
-    }).then((user) => {
-      getEventFromAttendeeUser(user.attributes.sub).then((attendeeUsers) => {
-        if (attendeeUsers) {
-          const eventIds = attendeeUsers.items.map((item) => item?.eventId);
+      Auth.currentAuthenticatedUser({
+        bypassCache: false,
+      }).then((user) => {
+        getEventFromAttendeeUser(user.attributes.sub).then((attendeeUsers) => {
+          if (attendeeUsers) {
+            const eventIds = attendeeUsers.items.map((item) => item?.eventId);
 
-          if (eventsdata && eventsdata.items) {
-            let newEvents = eventsdata.items;
+            if (eventsdata && eventsdata.items) {
+              let newEvents = eventsdata.items;
 
-            eventIds.forEach(eventId => {
-              newEvents = newEvents.filter((item) => {
-                return !(item?.id === eventId);
+              eventIds.forEach(eventId => {
+                newEvents = newEvents.filter((item) => {
+                  return !(item?.id === eventId);
+                });
               });
-            });
 
-            newEvents.sort((a, b) => {
-              if (a && a.startDateTime && b && b.startDateTime) {
-                const date1 = new Date(a.startDateTime);
-                const date2 = new Date(b.startDateTime);
-                return date1.getTime() - date2.getTime();
-              }
-              return 0;
-            });
+              newEvents.sort((a, b) => {
+                if (a && a.startDateTime && b && b.startDateTime) {
+                  const date1 = new Date(a.startDateTime);
+                  const date2 = new Date(b.startDateTime);
+                  return date1.getTime() - date2.getTime();
+                }
+                return 0;
+              });
 
-            resolve({ ...eventsdata, items: newEvents });
-          }
-          else {
+              resolve({ ...eventsdata, items: newEvents });
+            }
+            else {
+              resolve(eventsdata);
+            }
+          } else {
             resolve(eventsdata);
           }
-        } else {
-          resolve(eventsdata);
-        }
+        }).catch((error) => {
+          reject(error);
+        });
       }).catch((error) => {
         reject(error);
       });
-    }).catch((error) => {
-      reject(error); // Reject if any of the promises fail
     });
-  });
   }
 
   function filterByVenueId(venueID: string) {
