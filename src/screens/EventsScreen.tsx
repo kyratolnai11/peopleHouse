@@ -3,6 +3,7 @@ import { SafeAreaView, View, ScrollView, Text, Image } from "react-native";
 import {
   fetchAllEvents,
   fetchEventsByVenueId,
+  getEventFromAttendeeUser
 } from "../database/EventDBConnection";
 import { ModelEventConnection, UserType } from "../API";
 import EventCard from "../components/event-screen/EventCard";
@@ -14,6 +15,7 @@ import CustomButton from "../components/event-screen/CustomButton";
 import { eventStyles } from "../components/event-screen/EventStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { Auth } from "aws-amplify";
 
 export type RootStackParamList = {
   CreateEvent: undefined;
@@ -58,13 +60,15 @@ const EventsScreen = () => {
       fetchAllEvents()
         .then((eventsdata) => {
           console.log("Events are set");
-          sortEvents(eventsdata);
 
-          if (filteredByDate) {
-            sortByDateAndSetEvents(eventsdata);
-          } else {
-            setEvents(eventsdata);
-          }
+          sortEvents(eventsdata).then((sortedEvents) => {
+            if (filteredByDate) {
+              sortByDateAndSetEvents(sortedEvents);
+            }
+            else {
+              setEvents(sortedEvents);
+            }
+          })
         })
         .catch((error) => {
           console.error("Error fetching events:", error);
@@ -73,13 +77,15 @@ const EventsScreen = () => {
       fetchEventsByVenueId(venueId)
         .then((eventsdata) => {
           console.log("Events are set and filtered by venue: ", venueId);
-          sortEvents(eventsdata);
 
-          if (filteredByDate) {
-            sortByDateAndSetEvents(eventsdata);
-          } else {
-            setEvents(eventsdata);
-          }
+          sortEvents(eventsdata).then((sortedEvents) => {
+            if (filteredByDate) {
+              sortByDateAndSetEvents(sortedEvents);
+            }
+            else {
+              setEvents(sortedEvents);
+            }
+          })
         })
         .catch((error) => {
           console.error("Error fetching events:", error);
@@ -109,17 +115,48 @@ const EventsScreen = () => {
     }
   }
 
-  function sortEvents(eventsdata: ModelEventConnection | undefined) {
-    if (eventsdata && eventsdata.items) {
-      eventsdata.items.sort((a, b) => {
-        if (a && a.startDateTime && b && b.startDateTime) {
-          const date1 = new Date(a.startDateTime);
-          const date2 = new Date(b.startDateTime);
-          return date1.getTime() - date2.getTime();
-        }
-        return 0;
+  function sortEvents(eventsdata: ModelEventConnection | undefined): Promise<ModelEventConnection | undefined> {
+    return new Promise((resolve, reject) => {
+      Auth.currentAuthenticatedUser({
+        bypassCache: false,
+      }).then((user) => {
+        getEventFromAttendeeUser(user.attributes.sub).then((attendeeUsers) => {
+          if (attendeeUsers) {
+            const eventIds = attendeeUsers.items.map((item) => item?.eventId);
+
+            if (eventsdata && eventsdata.items) {
+              let newEvents = eventsdata.items;
+
+              eventIds.forEach(eventId => {
+                newEvents = newEvents.filter((item) => {
+                  return !(item?.id === eventId);
+                });
+              });
+
+              newEvents.sort((a, b) => {
+                if (a && a.startDateTime && b && b.startDateTime) {
+                  const date1 = new Date(a.startDateTime);
+                  const date2 = new Date(b.startDateTime);
+                  return date1.getTime() - date2.getTime();
+                }
+                return 0;
+              });
+
+              resolve({ ...eventsdata, items: newEvents });
+            }
+            else {
+              resolve(eventsdata);
+            }
+          } else {
+            resolve(eventsdata);
+          }
+        }).catch((error) => {
+          reject(error);
+        });
+      }).catch((error) => {
+        reject(error);
       });
-    }
+    });
   }
 
   function filterByVenueId(venueID: string) {
