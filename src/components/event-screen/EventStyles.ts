@@ -32,6 +32,14 @@ export const eventStyles = StyleSheet.create({
     width: 200,
     alignSelf: "center",
   },
+  disabledButton: {
+    backgroundColor: Colors.light.darkGrey,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    width: 200,
+    alignSelf: "center",
+  },
   buttonText: {
     color: "black",
     textAlign: "center",

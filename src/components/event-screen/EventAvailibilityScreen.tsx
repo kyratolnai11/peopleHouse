@@ -1,34 +1,33 @@
-import { RouteProp, useNavigation } from "@react-navigation/native";
-import React from "react";
 import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-} from "react-native";
+  RouteProp,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, View, Text, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import EventHeader from "./EventHeader";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import CustomButton from "./CustomButton";
 import { specificEventStyles } from "./SpecificEventStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { getAttendeeUserByEventID } from "../../database/EventDBConnection";
 
 type RootStackParamList = {
   Availibility: {
     eventName: string;
     eventLocation: string;
     eventTime: string;
-    ticketsLeft: number;
+    numOfTickets: number;
     venueId: string;
     eventBrief: string;
     eventId: string;
   };
-
-  EventSignUp:{
+  EventSignUp: {
     eventName: string;
     eventLocation: string;
     eventTime: string;
-    ticketsLeft: number;
+    numOfTickets: number;
     venueId: string;
     eventBrief: string;
     eventId: string;
@@ -37,7 +36,6 @@ type RootStackParamList = {
 
 type EventScreenRouteProp = RouteProp<RootStackParamList, "Availibility">;
 type navProp = StackNavigationProp<RootStackParamList, "EventSignUp">;
-
 
 type EventScreenProps = {
   route: EventScreenRouteProp;
@@ -48,37 +46,53 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
     eventLocation,
     eventName,
     eventTime,
-    ticketsLeft,
+    numOfTickets,
     venueId,
     eventBrief,
     eventId,
   } = route.params;
 
-  const ticketText =
-    ticketsLeft > 10
-      ? "Tickets avaliable" 
-      : ticketsLeft.toString() + " tickets left";
-
-  
+  const isFocused = useIsFocused();
+  const [ticketsLeft, setTicketsLeft] = useState(0);
 
   const navigation = useNavigation<navProp>();
 
-
   const handlePress = () => {
+    console.log("Event button pressed");
+    navigation.navigate("EventSignUp", {
+      eventName: eventName,
+      eventLocation: eventLocation,
+      eventTime: eventTime,
+      numOfTickets: numOfTickets,
+      venueId: venueId,
+      eventBrief: eventBrief,
+      eventId: eventId,
+    });
+  };
 
-      console.log("Event button pressed");
-        navigation.navigate("EventSignUp", {
-          eventName: eventName,
-          eventLocation: eventLocation,
-          eventTime: eventTime,
-          ticketsLeft: ticketsLeft,
-          venueId: venueId,
-          eventBrief: eventBrief,
-          eventId: eventId,
+  useEffect(() => {
+    if (isFocused) {
+      getAttendeeUserByEventID(eventId).then((attendees) => {
+        if (attendees && attendees.attendeeUsersByEventId) {
+          setTicketsLeft(
+            numOfTickets - attendees.attendeeUsersByEventId?.items.length
+          );
+        }
       });
-    };
+    }
+  }, [isFocused]);
 
-  
+  const ticketTextCalculator = () => {
+    if (ticketsLeft > 10) {
+      return "Tickets avaliable";
+    } else if (ticketsLeft < 0) {
+      return "SOLD OUT";
+    } else {
+      ticketsLeft.toString() + " tickets left";
+    }
+  };
+
+  const ticketText = ticketTextCalculator();
 
   return (
     <SafeAreaView>
@@ -99,9 +113,11 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
                 </Text>
               </View>
               <Text style={specificEventStyles.ticketText}>{ticketText}</Text>
-              <CustomButton 
-              name="Sign up"
-              action={() => handlePress()}/>
+              <CustomButton
+                name="Sign up"
+                action={() => handlePress()}
+                isDisabled={ticketText === "SOLD OUT"}
+              />
               <Image
                 source={require("../../../assets/event-screen/chair.png")}
                 style={specificEventStyles.chairImage}
