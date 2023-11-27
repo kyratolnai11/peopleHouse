@@ -67,17 +67,6 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
     });
   };
 
-  // const button = () => {
-  //   if (ticketsLeft === 0) {
-  //     return (
-  //       <TouchableOpacity style={[specificEventStyles.button]} disabled={true}>
-  //         <Text style={specificEventStyles.buttonText}>+ Sign up</Text>
-  //       </TouchableOpacity>
-  //     );
-  //   }
-  //   return <CustomButton name="+ Sing up" />;
-  // };
-
   return (
     <SafeAreaView>
       <ScrollView>

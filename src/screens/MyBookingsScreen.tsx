@@ -58,10 +58,6 @@ const MyBookingsScreen: React.FC = () => {
         resolvedEvents[0]?.event?.getEvent?.description
     );
 
-    // const filteredEvents = resolvedEvents.filter(
-    //   (item) => item && item.event !== null
-    // ) as { event: Event; attendeeUserId: string }[];
-
     const filteredEvents: { event: Event; attendeeUserId: string }[] =
       resolvedEvents
         .map((item) => {

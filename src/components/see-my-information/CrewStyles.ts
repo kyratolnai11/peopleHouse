@@ -6,6 +6,7 @@ export const crewStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 12,
+    backgroundColor: Colors.light.primaryBackground,
   },
   card: {
     borderColor: Colors.dark.primary, // Background color of the card

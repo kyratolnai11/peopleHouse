@@ -7,34 +7,6 @@ const signDownFromEventStyles = StyleSheet.create({
     backgroundColor: Colors.light.primaryBackground,
     height: "100%",
   },
-  crewsection: {
-    marginTop: 25,
-    fontSize: 17,
-    marginLeft: 15,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  noCrewText: {
-    marginTop: 10,
-    fontSize: 17,
-    marginLeft: 15,
-    marginBottom: 5,
-  },
-  crewGrid: {
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    margin: -2,
-  },
-  crewCards: {
-    width: "45%",
-    margin: "1%",
-  },
-  textTEST: {
-    marginTop: -10,
-    alignSelf: "center",
-  },
   button: {
     backgroundColor: Colors.light.buttonBackground,
     padding: 10,
@@ -61,9 +33,9 @@ const signDownFromEventStyles = StyleSheet.create({
   },
   userNameContainer: {
     alignItems: "center",
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     marginTop: 10,
-    height:400,
+    height: 400,
   },
   infoItem: {
     fontSize: 20,

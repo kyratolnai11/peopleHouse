@@ -71,7 +71,6 @@ const MyBookingSpecificEvent: React.FC<EventScreenProps> = ({ route }) => {
     event.endDateTime
   );
 
-  //navigation to Availability screen
   const navigation = useNavigation<navProp>();
 
   const handlePress = () => {
