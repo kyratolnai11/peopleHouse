@@ -35,12 +35,39 @@ crewsection: {
     marginTop: -10,
     alignSelf: 'center',
   },
-  button: {
+  button_select: {
     backgroundColor: Colors.light.buttonBackground,
     padding: 10,
     borderRadius: 10,
     marginTop: -10,
     width: 120,
+    alignSelf: "center",
+  },
+
+  button_selected: {
+    backgroundColor: "grey",
+    padding: 10,
+    borderRadius: 10,
+    marginTop: -10,
+    width: 120,
+    alignSelf: "center",
+  },
+
+  button2: {
+    backgroundColor: "grey",
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    width: 200,
+    alignSelf: "center",
+  },
+
+  button3: {
+    backgroundColor: Colors.light.buttonBackground,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    width: 200,
     alignSelf: "center",
   },
   buttonText:{
@@ -49,7 +76,9 @@ crewsection: {
     fontWeight: "bold",
     fontSize: 16,
   },
-  userInfoContainer: {},
+  userInfoContainer: {
+
+  },
   userImageContainer: {
     alignItems: 'center',
     marginTop: 20,
@@ -58,10 +87,12 @@ crewsection: {
     width: 100,
     height: 100,
     resizeMode: 'contain',
+  
   },
   userNameContainer: {
     alignItems: 'center',
     marginTop: 10,
+    justifyContent: "flex-start",
   },
   infoItem: {
     fontSize: 20,
