@@ -5,7 +5,6 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import EventHeader from "./EventHeader";

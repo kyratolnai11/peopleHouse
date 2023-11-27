@@ -53,7 +53,6 @@ const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
     eventLocation,
     eventName,
     eventTime,
-    ticketsLeft,
     venueId,
     eventBrief,
     eventId,
@@ -126,7 +125,7 @@ const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
 
   useEffect(() => {
 
-    fetchUserInfo().then((response) => {
+    fetchUserInfo().then(() => {
       setIsLoading(false);
               
       });

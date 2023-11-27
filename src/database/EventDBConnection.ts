@@ -2,14 +2,14 @@
 import {
   listEvents,
   eventsByVenueId,
-  getEvent, getAttendeeUser, getAttendeeCrew, attendeeUsersByUserId, attendeeCrewsByEventId, attendeeUsersByEventId,
+  getEvent,  attendeeUsersByUserId, attendeeCrewsByEventId, attendeeUsersByEventId,
 } from "../graphql/queries";
 import { createAttendeeCrew, createAttendeeUser, createEvent, deleteAttendeeCrew, deleteAttendeeUser, deleteEvent } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
-import { AttendeeCrew, AttendeeUser, CreateAttendeeCrewInput, CreateAttendeeUserInput,
+import {  AttendeeUser, CreateAttendeeCrewInput, CreateAttendeeUserInput,
   CreateEventInput,
   GetEventQuery, ModelAttendeeCrewConnection, ModelAttendeeUserConnection,
-  ModelEventConnection, User,
+  ModelEventConnection, 
 } from "../API";
 import { CreateEventForm } from "../screens/CreateEventScreen";
 
@@ -141,7 +141,7 @@ export const addCrewAttendee =async (eventId:string, crewId: string) => {
       crewId: crewId,
     };
     const responnse = await API.graphql(graphqlOperation(createAttendeeCrew, {input: attendeeToAdd}));
-    console.log('Successfully added crew attendee');
+    console.log('Successfully added crew attendee', responnse);
   } catch (error){
     console.log('Error registering user to event: ', error); 
   }
