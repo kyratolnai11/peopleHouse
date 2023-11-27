@@ -1,6 +1,11 @@
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import React from "react";
-import { SafeAreaView, View, Text, Image } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Image,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import EventHeader from "./EventHeader";
 import { sharedStyles } from "../../../utils/SharedStyles";
@@ -18,7 +23,8 @@ type RootStackParamList = {
     eventBrief: string;
     eventId: string;
   };
-  EventSignDown: {
+
+  EventSignUp:{
     eventName: string;
     eventLocation: string;
     eventTime: string;
@@ -30,7 +36,8 @@ type RootStackParamList = {
 };
 
 type EventScreenRouteProp = RouteProp<RootStackParamList, "Availibility">;
-type navProp = StackNavigationProp<RootStackParamList, "EventSignDown">;
+type navProp = StackNavigationProp<RootStackParamList, "EventSignUp">;
+
 
 type EventScreenProps = {
   route: EventScreenRouteProp;
@@ -49,23 +56,29 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
 
   const ticketText =
     ticketsLeft > 10
-      ? "Tickets avaliable"
+      ? "Tickets avaliable" 
       : ticketsLeft.toString() + " tickets left";
+
+  
 
   const navigation = useNavigation<navProp>();
 
+
   const handlePress = () => {
-    console.log("Event button pressed");
-    navigation.navigate("EventSignDown", {
-      eventName: eventName,
-      eventLocation: eventLocation,
-      eventTime: eventTime,
-      ticketsLeft: ticketsLeft,
-      venueId: venueId,
-      eventBrief: eventBrief,
-      eventId: eventId,
-    });
-  };
+
+      console.log("Event button pressed");
+        navigation.navigate("EventSignUp", {
+          eventName: eventName,
+          eventLocation: eventLocation,
+          eventTime: eventTime,
+          ticketsLeft: ticketsLeft,
+          venueId: venueId,
+          eventBrief: eventBrief,
+          eventId: eventId,
+      });
+    };
+
+  
 
   return (
     <SafeAreaView>
@@ -86,7 +99,9 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
                 </Text>
               </View>
               <Text style={specificEventStyles.ticketText}>{ticketText}</Text>
-              <CustomButton name="Sign up" action={() => handlePress()} />
+              <CustomButton 
+              name="Sign up"
+              action={() => handlePress()}/>
               <Image
                 source={require("../../../assets/event-screen/chair.png")}
                 style={specificEventStyles.chairImage}

@@ -12,7 +12,6 @@ import { Event } from "../../API";
 import { getEventHeaderImages, getFormattedDate } from "../../constants";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import { eventStyles } from "./EventStyles";
-import CustomButton from "./CustomButton.tsx";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
@@ -80,7 +79,6 @@ const EventCard: React.FC<EventCardProps> = ({
               </Text>
               <Text style={[sharedStyles.text, eventStyles.text]}>{brief}</Text>
               <Text style={eventStyles.dateTimeText}>{formattedDateTime}</Text>
-              <CustomButton name="Sign-up" />
             </View>
           </Card>
         </TouchableOpacity>
