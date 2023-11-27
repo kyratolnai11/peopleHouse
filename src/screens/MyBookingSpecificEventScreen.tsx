@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, Text, Image, Alert } from "react-native";
+import { SafeAreaView, View, Text, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { sharedStyles } from "../../utils/SharedStyles";
 import { RouteProp, useNavigation } from "@react-navigation/native";
