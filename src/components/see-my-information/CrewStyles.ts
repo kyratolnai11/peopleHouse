@@ -10,8 +10,8 @@ export const crewStyles = StyleSheet.create({
   },
   card: {
     borderColor: Colors.dark.primary, // Background color of the card
-    borderRadius: 1,    
-    borderWidth: 3,  // Border radius (adjust as needed)
+    borderRadius: 1,
+    borderWidth: 3, // Border radius (adjust as needed)
   },
   image: {
     width: 150,

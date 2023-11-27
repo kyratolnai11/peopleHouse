@@ -18,17 +18,27 @@ import { StackNavigationProp } from "@react-navigation/stack";
 export type RootStackParamList = {
   Event: { eventId: string; sourceScreen?: string };
   MyBookings: { eventId: string; sourceScreen?: string };
+  MyBookingEvent: {
+    eventId: string;
+    sourceScreen?: string;
+    attendeeUserId?: string;
+  };
 };
 
 type EventCardProps = {
   event: Event;
+  attendeeUserId?: string;
   type?: "Booking" | "Event";
 };
 
 type navProp = StackNavigationProp<RootStackParamList, "Event">;
 type napPropBooking = StackNavigationProp<RootStackParamList, "MyBookings">;
 
-const EventCard: React.FC<EventCardProps> = ({ event, type }) => {
+const EventCard: React.FC<EventCardProps> = ({
+  event,
+  type,
+  attendeeUserId,
+}) => {
   const venueID = event.venueId;
   const description = event.title;
   const brief = event.brief;
@@ -44,9 +54,10 @@ const EventCard: React.FC<EventCardProps> = ({ event, type }) => {
   const handleOpenURL = () => {
     console.log("Cards pressed");
     if (type === "Booking") {
-      navigationBooking.navigate("Event", {
+      navigationBooking.navigate("MyBookingEvent", {
         eventId: event.id,
         sourceScreen: "MyBookings",
+        attendeeUserId: attendeeUserId,
       });
     } else {
       navigation.navigate("Event", {

@@ -10,10 +10,17 @@ import {
 import { Auth } from "aws-amplify";
 import EventCard from "../components/event-screen/EventCard";
 import LoadingSpinner from "../components/event-screen/LoadingSpinner";
+import { useIsFocused } from "@react-navigation/native";
 
 const MyBookingsScreen: React.FC = () => {
-  const [events, setEvents] = useState<Event[] | undefined>(undefined);
+  const [events, setEvents] = useState<
+    {
+      event: Event;
+      attendeeUserId: string;
+    }[]
+  >();
   const [dataFetched, setDataFetched] = useState(false);
+  const isFocused = useIsFocused();
 
   const fetchEvents = async () => {
     const user = await Auth.currentAuthenticatedUser({
@@ -22,40 +29,73 @@ const MyBookingsScreen: React.FC = () => {
 
     const attendeeUsers = await getEventFromAttendeeUser(user.attributes.sub);
 
-    const eventIds = attendeeUsers?.items.map((item) => item?.eventId);
+    const eventIdsWithAttendeeUserId =
+      attendeeUsers?.items.map((item) => {
+        return {
+          eventId: item?.eventId || "",
+          attendeeUserId: item?.id || "",
+        };
+      }) || [];
 
-    const eventsReturned = eventIds?.map(async (id) => {
-      if (id) {
-        const event = await fetchEventById(id);
-        return event?.getEvent;
+    const eventsReturned = eventIdsWithAttendeeUserId?.map(async (item) => {
+      if (item) {
+        const event = await fetchEventById(item.eventId);
+        return { event: event, attendeeUserId: item.attendeeUserId };
       }
       return Promise.resolve(null);
     });
 
-    const resolvedEvents = await Promise.all<GetEventQuery | null | undefined>(
-      eventsReturned as Array<Promise<GetEventQuery | null | undefined>>
+    const resolvedEvents = await Promise.all(
+      eventsReturned as Array<
+        Promise<{
+          event: GetEventQuery | undefined;
+          attendeeUserId: string;
+        } | null>
+      >
+    );
+    console.log(
+      "The resolved events are:" +
+        resolvedEvents[0]?.event?.getEvent?.description
     );
 
-    const filteredEvents = resolvedEvents.filter(
-      (event) => event !== null
-    ) as Event[];
+    const filteredEvents: { event: Event; attendeeUserId: string }[] =
+      resolvedEvents
+        .map((item) => {
+          if (
+            item &&
+            item.event &&
+            Object.keys(item.event).length > 0 &&
+            item.attendeeUserId
+          ) {
+            return {
+              event: item.event.getEvent as Event,
+              attendeeUserId: item.attendeeUserId,
+            };
+          }
+        })
+        .filter(
+          (item): item is { event: Event; attendeeUserId: string } => !!item
+        );
 
-    const sortedEvents = filteredEvents.sort((a, b) => {
-      if (a && a.startDateTime && b && b.startDateTime) {
-        const date1 = new Date(a.startDateTime);
-        const date2 = new Date(b.startDateTime);
+    const sortedEvents = filteredEvents
+      .filter((item) => item && item.event && item.event.startDateTime)
+      .sort((a, b) => {
+        const date1 = new Date(a?.event?.startDateTime || 0);
+        const date2 = new Date(b?.event?.startDateTime || 0);
+
         return date1.getTime() - date2.getTime();
-      }
-      return 0;
-    });
+      });
+
     setEvents(sortedEvents);
-    console.log("The events are: ", events);
+    console.log("The events are: ", sortedEvents);
     setDataFetched(true);
   };
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    if (isFocused) {
+      fetchEvents();
+    }
+  }, [isFocused]);
 
   return (
     <SafeAreaView
@@ -77,7 +117,12 @@ const MyBookingsScreen: React.FC = () => {
               events.map((item) => {
                 if (item) {
                   return (
-                    <EventCard key={item.id} event={item} type="Booking" />
+                    <EventCard
+                      key={item.event.id}
+                      event={item.event}
+                      type="Booking"
+                      attendeeUserId={item.attendeeUserId}
+                    />
                   );
                 }
               })

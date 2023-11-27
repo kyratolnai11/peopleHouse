@@ -38,6 +38,22 @@ export const eventStyles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  signDownButton: {
+    backgroundColor: Colors.light.buttonBackground,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    width: 130,
+    alignSelf: "center",
+  },
+  buttonClicked: {
+    backgroundColor: Colors.light.darkGrey,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    width: 130,
+    alignSelf: "center",
+  },
   dateTimeText: {
     color: Colors.dark.secondary,
     fontWeight: "bold",

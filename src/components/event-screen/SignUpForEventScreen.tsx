@@ -161,7 +161,7 @@ const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
                 </Text>
                 
                 <CustomButton
-                name={"Register User"}
+                name={"Register"}
                 action={() => HandleRegisterAll()}
               />
                 
