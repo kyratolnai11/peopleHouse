@@ -1,12 +1,6 @@
-import { RouteProp, useIsFocused } from "@react-navigation/native";
+import { RouteProp } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { SafeAreaView, View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { AttendeeCrew, AttendeeUser, Crew, User } from "../API";
 import { Auth } from "aws-amplify";
@@ -15,19 +9,14 @@ import { fetchCrewsByUser } from "../database/CrewDBConnection";
 import EventHeader from "../components/event-screen/EventHeader";
 import { sharedStyles } from "../../utils/SharedStyles";
 import signDownFromEventStyles from "../components/event-screen/SignDownFromEventStyles";
-import CustomButton from "../components/event-screen/CustomButton";
+
 import LoadingSpinner from "../components/event-screen/LoadingSpinner";
 import CrewCard from "../components/see-my-information/CrewCard";
 import {
-  addUserAttendee,
-  deleteUserAttendee,
   getAttendeeCrewsByEventID,
   getAttendeeUsersByUserID,
 } from "../database/AttendeeUserDBConnection";
-import {
-  addCrewAttendee,
-  deleteCrewAttendee,
-} from "../database/AttendeeCrewDBConnection";
+import SignDownButton from "../components/event-screen/SignDownButton";
 
 type RootStackParamList = {
   EventSignDown: {
@@ -152,23 +141,23 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
           );
         }
       }
-      if (attendeeUsers && attendeeUsers.length > 0) {
-        // Check if the current user's ID is in the list of attendees
-        const isRegistered = attendeeUsers.some(
-          (user) => user.eventId === eventId
-        );
-        console.log("Is user registered?: ", isRegistered);
+      //   if (attendeeUsers && attendeeUsers.length > 0) {
+      //     // Check if the current user's ID is in the list of attendees
+      //     const isRegistered = attendeeUsers.some(
+      //       (user) => user.eventId === eventId
+      //     );
+      //     console.log("Is user registered?: ", isRegistered);
 
-        if (isRegistered) {
-          const attendeeUserId = attendeeUsers.find(
-            (user) => user.eventId === eventId
-          )?.id;
-          if (attendeeUserId) {
-            deleteUserAttendee(attendeeUserId);
-            setIsUserRegistered(false);
-          }
-        }
-      }
+      //     if (isRegistered) {
+      //       const attendeeUserId = attendeeUsers.find(
+      //         (user) => user.eventId === eventId
+      //       )?.id;
+      //       if (attendeeUserId) {
+      //         deleteUserAttendee(attendeeUserId);
+      //         setIsUserRegistered(false);
+      //       }
+      //     }
+      //   }
     }
   };
 
@@ -231,19 +220,19 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
         );
         console.log("Is crew registered?: ", isCrewRegistered);
 
-        if (isCrewRegistered) {
-          const attendeeCrewID = attendeeCrews.find(
-            (crew) => crew.crewId === crewID
-          )?.id;
-          if (attendeeCrewID) {
-            deleteCrewAttendee(attendeeCrewID);
-            setIsCrewRegistered((prevState) => ({
-              ...prevState,
-              [crewID]: false,
-            }));
-            console.log("Deleting crew attendee: " + crewID);
-          }
-        }
+        // if (isCrewRegistered) {
+        //   const attendeeCrewID = attendeeCrews.find(
+        //     (crew) => crew.crewId === crewID
+        //   )?.id;
+        //   if (attendeeCrewID) {
+        //     deleteCrewAttendee(attendeeCrewID);
+        //     setIsCrewRegistered((prevState) => ({
+        //       ...prevState,
+        //       [crewID]: false,
+        //     }));
+        //     console.log("Deleting crew attendee: " + crewID);
+        //   }
+        // }
       }
     }
   };
@@ -251,10 +240,8 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
   useEffect(() => {
     fetchUserInfo().then((response) => {
       setIsLoading(false);
-    
 
       checkUserRegistrationStatus().then(() => {
-
         if (userCrews && userCrews.length > 0) {
           for (const crew of userCrews) {
             checkCrewRegistrationStatus(crew.id).then(() => {
@@ -270,6 +257,42 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
     console.log("Is loading change");
     console.log(isLoading);
   }, [isLoading]);
+
+  const [signedUpCrewMembers, setSignedUpCrewMembers] = useState<Crew[]>([]);
+
+  useEffect(() => {
+    const fetchSignedUpCrewMembers = async () => {
+      try {
+        if (!userInfo?.id || !userCrews) {
+          return [];
+        }
+
+        const signedUpCrewMembers: Crew[] = [];
+
+        if (attendeeCrews) {
+          console.log("I am in the lopp");
+          for (const userAttendee of attendeeCrews) {
+            if (userAttendee && userAttendee.eventId === eventId) {
+              console.log("I added user ha");
+              const crew = userCrews.find(
+                (crew) => crew.id === userAttendee.crewId
+              );
+              if (crew) {
+                console.log("I added user NOW");
+                signedUpCrewMembers.push(crew);
+              }
+            }
+          }
+        }
+
+        setSignedUpCrewMembers(signedUpCrewMembers);
+      } catch (error) {
+        console.error("Error fetching signed-up crew members:", error);
+      }
+    };
+
+    fetchSignedUpCrewMembers();
+  }, [userInfo?.id, userCrews, eventId]);
 
   return (
     <SafeAreaView>
@@ -290,40 +313,33 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
                 <Text style={signDownFromEventStyles.infoItem}>
                   {userInfo?.firstname} {userInfo?.lastname}
                 </Text>
-                <CustomButton
-                  name={"Unregister"}
+                <SignDownButton
+                  name={"Select"}
                   action={() => handleUnRegisterUser()}
+                  changeLook={true}
+                  changeToText="Selected"
                 />
               </View>
               <Text style={signDownFromEventStyles.crewsection}>My crew:</Text>
               {userCrews && userCrews ? (
                 userCrews.length === 0 ? (
                   <Text style={signDownFromEventStyles.noCrewText}>
-                    Currently you have no crew.
+                    Currently, you have no crew.
                   </Text>
                 ) : (
                   <View style={signDownFromEventStyles.crewGrid}>
-                    {userCrews.map(
+                    {signedUpCrewMembers.map(
                       (item) =>
                         item && (
-                          <View
-                            style={signDownFromEventStyles.crewCards}
-                            key={item.id}
-                          >
+                          <View key={item.id}>
                             <CrewCard crew={item} />
 
-                            
-                              <TouchableOpacity
-                                style={[signDownFromEventStyles.button]}
-                                onPress={() => handleUnRegisterCrew(item.id)}
-                              >
-                                <Text
-                                  style={signDownFromEventStyles.buttonText}
-                                >
-                                  Unregister
-                                </Text>
-                              </TouchableOpacity>
-                            
+                            <SignDownButton
+                              name={"Select"}
+                              action={() => handleUnRegisterCrew(item.id)}
+                              changeLook={true}
+                              changeToText="Selected"
+                            />
                           </View>
                         )
                     )}
