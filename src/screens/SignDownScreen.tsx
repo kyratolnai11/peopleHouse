@@ -3,7 +3,7 @@ import { RouteProp, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, View, Text, Image, Alert } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { AttendeeUser, User } from "../API";
+import { User } from "../API";
 import { Auth } from "aws-amplify";
 import { fetchUserById } from "../database/UserDBConnection";
 import EventHeader from "../components/event-screen/EventHeader";
