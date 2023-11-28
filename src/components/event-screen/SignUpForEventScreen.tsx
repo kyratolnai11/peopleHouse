@@ -27,7 +27,7 @@ type RootStackParamList = {
     eventName: string;
     eventLocation: string;
     eventTime: string;
-    ticketsLeft: number;
+    numOfTickets: number;
     venueId: string;
     eventBrief: string;
     eventId: string;
