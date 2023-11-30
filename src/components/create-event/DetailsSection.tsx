@@ -20,14 +20,22 @@ const EventDetailsSection: React.FC<EventDetailsSectionProps> = ({
       <Controller
         name="description"
         control={control}
-        render={({ field }) => (
-          <TextInput
-            value={field.value}
-            onChangeText={field.onChange}
-            numberOfLines={70}
-            multiline={true}
-            style={createEventStyles.textArea}
-          />
+        rules={{ required: "The description is required!" }}
+        render={({ field, fieldState }) => (
+          <View>
+            <TextInput
+              value={field.value}
+              onChangeText={field.onChange}
+              numberOfLines={70}
+              multiline={true}
+              style={createEventStyles.textArea}
+            />
+            {fieldState.error && (
+              <Text style={createEventStyles.errorText}>
+                {fieldState.error.message}
+              </Text>
+            )}
+          </View>
         )}
       />
       <Text style={[sharedStyles.text]}>Agenda (optional)</Text>

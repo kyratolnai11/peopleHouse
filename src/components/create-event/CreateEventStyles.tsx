@@ -21,14 +21,14 @@ export const createEventStyles = StyleSheet.create({
     borderColor: Colors.light.textPrimary,
     backgroundColor: Colors.light.white,
     width: 350,
-    height: 255,
+    height: 300,
     borderRadius: 20,
     position: "relative",
     alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 30,
   },
   ticketText: {
-    marginTop: 50,
     fontSize: 20,
   },
   chairImage: {
@@ -89,5 +89,12 @@ export const createEventStyles = StyleSheet.create({
     backgroundColor: Colors.light.textSecondary,
     height: 40,
     textAlignVertical: "top",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 14,
+    paddingTop: 1,
+    paddingBottom: 5,
+    fontWeight: "bold",
   },
 });

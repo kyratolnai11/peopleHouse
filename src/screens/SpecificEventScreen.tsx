@@ -134,7 +134,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
                 style={[sharedStyles.text, specificEventStyles.communityText]}
               >
                 <Text style={specificEventStyles.byText}>By: </Text>
-                {event.host}
+                Comunity Builder Team
               </Text>
             </View>
           </View>
