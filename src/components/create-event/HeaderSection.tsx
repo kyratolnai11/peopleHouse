@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, UseFormSetValue } from "react-hook-form";
 import { Text, TextInput, View, Image } from "react-native";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import Colors from "../../../utils/theme";
@@ -9,9 +9,14 @@ import { createEventStyles } from "./CreateEventStyles";
 
 type CreateEventHeaderProps = {
   control: Control<CreateEventForm, any>;
+  setValue: UseFormSetValue<CreateEventForm>;
 };
 
-const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({ control }) => {
+const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({
+  control,
+  setValue,
+}) => {
+  setValue("nuOfTickets", 10);
   return (
     <View>
       <Text style={sharedStyles.screenTitle}>Create event</Text>
@@ -68,10 +73,11 @@ const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({ control }) => {
             control={control}
             render={({ field }) => (
               <TextInput
-                placeholder="1"
+                placeholder="10"
                 returnKeyType="done"
-                value={field.value ? field.value.toString() : ""}
+                value={field.value ? field.value.toString() : "10"}
                 keyboardType="numeric"
+                inputMode="numeric"
                 onChangeText={field.onChange}
                 style={[sharedStyles.input, { width: 150 }]}
               />
