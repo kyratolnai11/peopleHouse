@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, View, ScrollView, Text, Image } from "react-native";
 import {
   fetchAllEvents,
   fetchEventsByVenueId,
-  getEventFromAttendeeUser
+  getEventFromAttendeeUser,
 } from "../database/EventDBConnection";
 import { ModelEventConnection, UserType } from "../API";
 import EventCard from "../components/event-screen/EventCard";
@@ -33,6 +33,7 @@ const EventsScreen = () => {
   const [filteredByVenueId, setFilteredByVenueID] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
   const [filteredByDate, setFilteredByDate] = useState(false);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   //Used to reset the values in the venue select and datepicker
   const [venueKey, setVenueKey] = useState(0);
@@ -53,7 +54,23 @@ const EventsScreen = () => {
     if (isFocused) {
       fetchData();
     }
-  }, [isFocused]);
+
+    const unsubscribeFocus = navigation.addListener("focus", () => {
+      fetchData();
+      setFilteredByVenueID(false);
+      setFilteredByDate(false);
+      setDate(new Date());
+      setVenueId("0");
+      setVenueKey((prevKey) => prevKey + 1);
+      setDatePickerKey((prevKey) => prevKey + 1);
+    });
+
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    }
+
+    return unsubscribeFocus;
+  }, [isFocused, navigation]);
 
   useEffect(() => {
     if (filteredByVenueId !== true) {
@@ -64,11 +81,10 @@ const EventsScreen = () => {
           sortEvents(eventsdata).then((sortedEvents) => {
             if (filteredByDate) {
               sortByDateAndSetEvents(sortedEvents);
-            }
-            else {
+            } else {
               setEvents(sortedEvents);
             }
-          })
+          });
         })
         .catch((error) => {
           console.error("Error fetching events:", error);
@@ -81,11 +97,10 @@ const EventsScreen = () => {
           sortEvents(eventsdata).then((sortedEvents) => {
             if (filteredByDate) {
               sortByDateAndSetEvents(sortedEvents);
-            }
-            else {
+            } else {
               setEvents(sortedEvents);
             }
-          })
+          });
         })
         .catch((error) => {
           console.error("Error fetching events:", error);
@@ -115,47 +130,54 @@ const EventsScreen = () => {
     }
   }
 
-  function sortEvents(eventsdata: ModelEventConnection | undefined): Promise<ModelEventConnection | undefined> {
+  function sortEvents(
+    eventsdata: ModelEventConnection | undefined
+  ): Promise<ModelEventConnection | undefined> {
     return new Promise((resolve, reject) => {
       Auth.currentAuthenticatedUser({
         bypassCache: false,
-      }).then((user) => {
-        getEventFromAttendeeUser(user.attributes.sub).then((attendeeUsers) => {
-          if (attendeeUsers) {
-            const eventIds = attendeeUsers.items.map((item) => item?.eventId);
+      })
+        .then((user) => {
+          getEventFromAttendeeUser(user.attributes.sub)
+            .then((attendeeUsers) => {
+              if (attendeeUsers) {
+                const eventIds = attendeeUsers.items.map(
+                  (item) => item?.eventId
+                );
 
-            if (eventsdata && eventsdata.items) {
-              let newEvents = eventsdata.items;
+                if (eventsdata && eventsdata.items) {
+                  let newEvents = eventsdata.items;
 
-              eventIds.forEach(eventId => {
-                newEvents = newEvents.filter((item) => {
-                  return !(item?.id === eventId);
-                });
-              });
+                  eventIds.forEach((eventId) => {
+                    newEvents = newEvents.filter((item) => {
+                      return !(item?.id === eventId);
+                    });
+                  });
 
-              newEvents.sort((a, b) => {
-                if (a && a.startDateTime && b && b.startDateTime) {
-                  const date1 = new Date(a.startDateTime);
-                  const date2 = new Date(b.startDateTime);
-                  return date1.getTime() - date2.getTime();
+                  newEvents.sort((a, b) => {
+                    if (a && a.startDateTime && b && b.startDateTime) {
+                      const date1 = new Date(a.startDateTime);
+                      const date2 = new Date(b.startDateTime);
+                      return date1.getTime() - date2.getTime();
+                    }
+                    return 0;
+                  });
+
+                  resolve({ ...eventsdata, items: newEvents });
+                } else {
+                  resolve(eventsdata);
                 }
-                return 0;
-              });
-
-              resolve({ ...eventsdata, items: newEvents });
-            }
-            else {
-              resolve(eventsdata);
-            }
-          } else {
-            resolve(eventsdata);
-          }
-        }).catch((error) => {
+              } else {
+                resolve(eventsdata);
+              }
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        })
+        .catch((error) => {
           reject(error);
         });
-      }).catch((error) => {
-        reject(error);
-      });
     });
   }
 

@@ -61,6 +61,11 @@ export async function fetchEventsByVenueId(
 export const addEvent = async (event: CreateEventForm) => {
   try {
     console.log("Try to add event...");
+
+    if (event.venueId === undefined) {
+      throw new Error("Venue ID is required."); // or use a more specific error type
+    }
+
     const eventToAdd: CreateEventInput = {
       title: event.eventTitle,
       brief: event.brief,
@@ -72,12 +77,14 @@ export const addEvent = async (event: CreateEventForm) => {
       host: event.host,
       venueId: event.venueId,
     };
+
     const response = await API.graphql(
       graphqlOperation(createEvent, { input: eventToAdd })
     );
     console.log("Response:", response);
   } catch (error) {
     console.log("Error creating event:", error);
+    throw error;
   }
 };
 
