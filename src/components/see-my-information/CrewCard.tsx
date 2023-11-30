@@ -12,26 +12,23 @@ import { crewStyles } from "./CrewStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 
-export type RootStackParamList={
-  SpecificCrew: {crewId: string};
-}
+export type RootStackParamList = {
+  SpecificCrew: { crewId: string };
+};
 
 type navProp = StackNavigationProp<RootStackParamList, "SpecificCrew">;
 
-type CrewCardProps={
+type CrewCardProps = {
   crew: Crew;
-}
-
+};
 
 const CrewCard: React.FC<CrewCardProps> = ({ crew }) => {
-  const id = crew.id; 
-  const name = crew.firstname +' '+ crew.lastname; 
+  const id = crew.id;
+  const name = crew.firstname + " " + crew.lastname;
   const imageFile = "../../../assets/my-infomration-sceen/crewImage.png";
-  const navigation = useNavigation<navProp>(); 
-
+  const navigation = useNavigation<navProp>();
 
   const handleOpenURL = () => {
-    console.log("Crew card pressed");
     navigation.navigate("SpecificCrew", { crewId: id });
   };
 
@@ -42,9 +39,7 @@ const CrewCard: React.FC<CrewCardProps> = ({ crew }) => {
           <Card style={crewStyles.card}>
             <Image source={require(imageFile)} style={crewStyles.image} />
             <View style={crewStyles.textContainer}>
-              <Text style={crewStyles.secondaryTitle}>
-                {name}
-              </Text>
+              <Text style={crewStyles.secondaryTitle}>{name}</Text>
             </View>
           </Card>
         </TouchableOpacity>

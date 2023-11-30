@@ -31,10 +31,10 @@ export const venueDetailsStyles = StyleSheet.create({
     justifyContent: "space-between",
   },
   openingHoursSection: {
-    width: 175, // Set a fixed width for the "Opening Hours" section
-    whiteSpace: "nowrap", // Prevent text from wrapping to the next line
-    textOverflow: "ellipsis", // Add an ellipsis (...) for text that overflows
-    overflow: "hidden", // Hide overflowed text
+    width: 175,
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
   },
   venueNameBackground: {
     backgroundColor: "#2e2d2d",
@@ -65,15 +65,15 @@ export const venueDetailsStyles = StyleSheet.create({
     fontSize: 18,
     paddingBottom: 20,
     color: "white",
-    textAlign: "justify", // Add text justification
+    textAlign: "justify",
   },
   thirdSectionText: {
     fontSize: 15,
   },
   decorativeLine: {
-    height: 1, // Adjust the height as needed
-    backgroundColor: "F6F1EE", // Set the color of the line
-    marginVertical: 10, // Add margin to control the spacing above and below the line
+    height: 1,
+    backgroundColor: "F6F1EE",
+    marginVertical: 10,
     marginBottom: 20,
   },
 });
