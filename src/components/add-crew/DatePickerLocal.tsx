@@ -19,7 +19,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
   setEventEndTime,
   setEventStartDate,
   setEventStartTime,
-
   type,
 }) => {
   const [date, setDate] = useState(new Date());
