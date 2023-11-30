@@ -35,12 +35,20 @@ const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({
         <Controller
           name="eventTitle"
           control={control}
-          render={({ field }) => (
-            <TextInput
-              value={field.value}
-              onChangeText={field.onChange}
-              style={createEventStyles.title}
-            />
+          rules={{ required: "The title is required!" }}
+          render={({ field, fieldState }) => (
+            <View>
+              <TextInput
+                value={field.value}
+                onChangeText={field.onChange}
+                style={createEventStyles.title}
+              />
+              {fieldState.error && (
+                <Text style={createEventStyles.errorText}>
+                  {fieldState.error.message}
+                </Text>
+              )}
+            </View>
           )}
         />
         <Text
@@ -51,14 +59,22 @@ const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({
         <Controller
           name="brief"
           control={control}
-          render={({ field }) => (
-            <TextInput
-              value={field.value}
-              onChangeText={field.onChange}
-              numberOfLines={4}
-              multiline={true}
-              style={createEventStyles.brief}
-            />
+          rules={{ required: "The brief is required!" }}
+          render={({ field, fieldState }) => (
+            <View>
+              <TextInput
+                value={field.value}
+                onChangeText={field.onChange}
+                numberOfLines={4}
+                multiline={true}
+                style={createEventStyles.brief}
+              />
+              {fieldState.error && (
+                <Text style={createEventStyles.errorText}>
+                  {fieldState.error.message}
+                </Text>
+              )}
+            </View>
           )}
         />
         <View style={createEventStyles.ticketContainer}>
