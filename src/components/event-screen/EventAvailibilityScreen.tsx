@@ -11,7 +11,7 @@ import { sharedStyles } from "../../../utils/SharedStyles";
 import CustomButton from "./CustomButton";
 import { specificEventStyles } from "./SpecificEventStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { getAttendeeUserByEventID } from "../../database/EventDBConnection";
+import { getAttendeeUserByEventID } from "../../database/AttendeeUserDBConnection";
 
 type RootStackParamList = {
   Availibility: {

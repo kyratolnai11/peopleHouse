@@ -14,9 +14,9 @@ import { User } from "../../API";
 import { fetchUserById } from "../../database/UserDBConnection";
 import SignUpForEventStyles from "./SignUpForEventStyles";
 import LoadingSpinner from "./LoadingSpinner";
-import { addUserAttendee } from "../../database/EventDBConnection";
 import Colors from "../../../utils/theme";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { addUserAttendee } from "../../database/AttendeeUserDBConnection";
 
 type RootStackParamList = {
   EventSignUp: {
