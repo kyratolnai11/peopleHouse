@@ -1,31 +1,36 @@
-import { Auth } from 'aws-amplify';
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Alert, Modal, TouchableHighlight} from 'react-native';
-import { addUser } from '../../database/UserDBConnection';
-import { CreateUserInput, UserType } from '../../API';
-import CustomButton from '../event-screen/CustomButton';
+import { Auth } from "aws-amplify";
+import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  Text,
+  Alert,
+  Modal,
+  TouchableHighlight,
+} from "react-native";
+import { addUser } from "../../database/UserDBConnection";
+import { CreateUserInput, UserType } from "../../API";
+import CustomButton from "../event-screen/CustomButton";
 
-//REMOVE - once system is finished. It is only for our use 
-
+//REMOVE - once system is finished. It is only for our use
 
 const SignUpScreen = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedUserType, setSelectedUserType] = useState(UserType.NORMAL);
 
-
-
   const clearFields = () => {
     // Clear input fields
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPassword('');
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
     setSelectedUserType(UserType.NORMAL);
-
   };
 
   const toggleModal = () => {
@@ -33,33 +38,38 @@ const SignUpScreen = () => {
   };
 
   const handleSignUp = async () => {
-        try{
-          const signUpResponse = await Auth.signUp({username: email, password, attributes: {
-                'custom:firstName': firstName, 'custom:lastName': lastName, email: email}});
+    try {
+      const signUpResponse = await Auth.signUp({
+        username: email,
+        password,
+        attributes: {
+          "custom:firstName": firstName,
+          "custom:lastName": lastName,
+          email: email,
+        },
+      });
 
-                console.log('Sign-up pressed:', { firstName, lastName, email, password });
-                console.log('User signed up, verification needed!');
+      const userId = signUpResponse.userSub;
 
-                const userId = signUpResponse.userSub;
+      const userToAdd: CreateUserInput = {
+        id: userId,
+        firstname: firstName,
+        lastname: lastName,
+        userType: selectedUserType,
+        email: email,
+      };
 
+      await addUser(userToAdd);
 
-                const userToAdd: CreateUserInput = {
-                  id: userId,
-                  firstname: firstName,
-                  lastname: lastName,
-                  userType: selectedUserType, // Assuming UserType is an enum
-                  email: email
-                };
-          
-                await addUser(userToAdd);
-
-                Alert.alert('Success', 'Sign-up successful, please verify account in Amplify', [{ text: 'OK', onPress: clearFields }]);
-        } catch (error){
-                console.error('Error signing up: ', error);
-        }
+      Alert.alert(
+        "Success",
+        "Sign-up successful, please verify account in Amplify",
+        [{ text: "OK", onPress: clearFields }]
+      );
+    } catch (error) {
+      console.error("Error signing up: ", error);
+    }
   };
-
-
 
   return (
     <View style={styles.container}>
@@ -79,8 +89,8 @@ const SignUpScreen = () => {
       <TextInput
         style={styles.input}
         placeholder="Email"
-        keyboardType='email-address'
-        autoCapitalize='none'
+        keyboardType="email-address"
+        autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
       />
@@ -100,29 +110,29 @@ const SignUpScreen = () => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-          {Object.values(UserType).map((type) => (
+            {Object.values(UserType).map((type) => (
               <TouchableHighlight
-              key={type}
-              onPress={() => {
-                setSelectedUserType(type);
-                toggleModal();
-              }}
-            >
-              <Text style={styles.modalText}>{type}</Text>
-            </TouchableHighlight>
+                key={type}
+                onPress={() => {
+                  setSelectedUserType(type);
+                  toggleModal();
+                }}
+              >
+                <Text style={styles.modalText}>{type}</Text>
+              </TouchableHighlight>
             ))}
           </View>
         </View>
       </Modal>
       <TextInput
-  style={[styles.input, { color: 'black', fontWeight: 'bold', fontSize: 17}]}
-  placeholder={UserType[selectedUserType]}
-  editable={false}
-/>
-      <CustomButton
-            name="Sign Up"
-            action={() => handleSignUp()}
-          />
+        style={[
+          styles.input,
+          { color: "black", fontWeight: "bold", fontSize: 17 },
+        ]}
+        placeholder={UserType[selectedUserType]}
+        editable={false}
+      />
+      <CustomButton name="Sign Up" action={() => handleSignUp()} />
     </View>
   );
 };
@@ -131,16 +141,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 12,
     paddingLeft: 8,
@@ -151,11 +161,11 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 20,
   },

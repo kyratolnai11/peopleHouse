@@ -35,13 +35,12 @@ const LoginScreen = () => {
 
   async function currentAuthenticatedUser() {
     try {
-      const user = await Auth.currentAuthenticatedUser({
+      await Auth.currentAuthenticatedUser({
         bypassCache: false,
       });
       isLoading(false);
-      console.log("Successful login! ", user.attributes);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -49,45 +48,47 @@ const LoginScreen = () => {
     try {
       isLoading(true);
       await Auth.signIn(email, password);
-      console.log("Login pressed:", { email, password });
       currentAuthenticatedUser();
       return true;
-    
     } catch (error) {
       isLoading(false);
-      //console.error("Error signing in:", error);
-      Alert.alert('Error', 'Email address or password is incorrect. Please try again', [{ text: 'OK', onPress: clearFields }]);
+      Alert.alert(
+        "Error",
+        "Email address or password is incorrect. Please try again",
+        [{ text: "OK", onPress: clearFields }]
+      );
       return false;
     }
-
-    
   };
 
-  const checkFields =async () => {
-    
-    if (email === null || email === '' || password === null || password === '') {
-      Alert.alert('Error', 'One or more fields are empty, please fill in all the information', [{ text: 'OK', onPress: clearFields }]);
-
-    }
-    else{
-      
+  const checkFields = async () => {
+    if (
+      email === null ||
+      email === "" ||
+      password === null ||
+      password === ""
+    ) {
+      Alert.alert(
+        "Error",
+        "One or more fields are empty, please fill in all the information",
+        [{ text: "OK", onPress: clearFields }]
+      );
+    } else {
       const loginSuccess = await handleLogin();
-      
-      if (loginSuccess){
+
+      if (loginSuccess) {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
             routes: [{ name: "HomeScreen" }],
           })
         );
-    
+
         clearFields();
       }
-
     }
-  }
+  };
 
- 
   return (
     <View style={SignInStyles.container}>
       {loading ? (

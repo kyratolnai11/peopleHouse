@@ -33,8 +33,6 @@ const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   const navigation = useNavigation<navProp>(); // Initialize navigation
 
   const handleOpenURL = () => {
-    console.log("Cards pressed", { venueId: id });
-
     navigation.navigate("SpecificVenue", { venueId: id });
   };
 
