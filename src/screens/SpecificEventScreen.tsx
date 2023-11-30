@@ -45,11 +45,8 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
   useEffect(() => {
     fetchEventById(eventId)
       .then((eventsdata) => {
-        console.log("EventsData: " + eventsdata);
         if (eventsdata && eventsdata.getEvent) {
-          console.log("Get event hahahaa: " + eventsdata.getEvent);
           setEventData(eventsdata.getEvent as Event);
-          console.log("The specific event is set");
         }
       })
       .catch((error) => {
@@ -67,7 +64,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
       const databaseUser = await fetchUserById(user.attributes.sub);
       setUserInfo(databaseUser);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -88,7 +85,6 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
   const navigation = useNavigation<navProp>();
 
   const handlePress = () => {
-    console.log("Event button pressed");
     navigation.navigate("Availibility", {
       eventName: event.title,
       eventLocation: venueName,
@@ -109,7 +105,7 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
       {
         text: "Yes",
         onPress: () => {
-          deleteEventById(eventId); // Dummy data
+          deleteEventById(eventId);
           navigation.goBack();
         },
       },
