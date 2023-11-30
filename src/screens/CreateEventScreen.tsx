@@ -49,12 +49,12 @@ const CreateEventScreen: React.FC = () => {
     console.log(data);
     try {
       await addEvent(data);
-      // reset();
+      reset();
       Alert.alert("Event added", "You have successfully added a new event!", [
         {
           text: "OK",
           onPress: () => {
-            // navigation.goBack();
+            navigation.goBack();
             console.log("OK Pressed");
           },
         },
@@ -64,9 +64,13 @@ const CreateEventScreen: React.FC = () => {
       if (error.message.includes("toISOString")) {
         Alert.alert(
           "Error",
-          "Please remember to set the date and time! Press the Add date button",
+          "Please remember to set the date and time by clicking the 'Submit date' button!",
           [{ text: "OK" }]
         );
+      } else if (error.message.includes("Venue ID is required.")) {
+        Alert.alert("Error", "Please remember to select the venue!", [
+          { text: "OK" },
+        ]);
       } else {
         Alert.alert("Error", "Some of the fields are empty!", [{ text: "OK" }]);
       }
