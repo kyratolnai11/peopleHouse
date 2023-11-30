@@ -51,12 +51,13 @@ const LoginScreen = () => {
       await Auth.signIn(email, password);
       console.log("Login pressed:", { email, password });
       currentAuthenticatedUser();
-
+      return true;
     
     } catch (error) {
       isLoading(false);
       //console.error("Error signing in:", error);
       Alert.alert('Error', 'Email address or password is incorrect. Please try again', [{ text: 'OK', onPress: clearFields }]);
+      return false;
     }
 
     
@@ -69,7 +70,10 @@ const LoginScreen = () => {
 
     }
     else{
-      handleLogin().then(()=>{
+      
+      const loginSuccess = await handleLogin();
+      
+      if (loginSuccess){
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
@@ -78,15 +82,11 @@ const LoginScreen = () => {
         );
     
         clearFields();
-      });
+      }
 
     }
   }
 
-  const savingStuff =async () => {
-    
-    
-  }
  
   return (
     <View style={SignInStyles.container}>

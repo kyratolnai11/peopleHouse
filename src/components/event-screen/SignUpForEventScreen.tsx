@@ -41,10 +41,10 @@ type EventScreenProps = {
 };
 
 export type RootStackParamLis2t = {
-  MyBookings: undefined;
+  EventScreen: undefined;
 };
 
-type navProp = StackNavigationProp<RootStackParamLis2t, "MyBookings">;
+type navProp = StackNavigationProp<RootStackParamLis2t, "EventScreen">;
 
 const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
   const {
@@ -108,7 +108,7 @@ const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
             navigation.dispatch(
               CommonActions.reset({
                 index: 0,
-                routes: [{ name: "MyBookings" }],
+                routes: [{ name: "EventScreen" }],
               })
             );
             handleRegisterUser();
