@@ -15,7 +15,6 @@ const CustomButton: React.FC<CustomButtonProp> = ({
   isDisabled,
 }) => {
   const handlePress = () => {
-    console.log("Button is pressed");
     if (action) action();
   };
   return (
@@ -37,5 +36,3 @@ const CustomButton: React.FC<CustomButtonProp> = ({
 };
 
 export default CustomButton;
-
-//I think we should place this component in a more general place and use it everywhere we need a button (used styling from Milan's button)

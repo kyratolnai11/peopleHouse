@@ -52,7 +52,6 @@ const EventCard: React.FC<EventCardProps> = ({
   const navigationBooking = useNavigation<napPropBooking>();
 
   const handleOpenURL = () => {
-    console.log("Cards pressed");
     if (type === "Booking") {
       navigationBooking.navigate("MyBookingEvent", {
         eventId: event.id,

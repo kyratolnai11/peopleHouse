@@ -7,7 +7,6 @@ export const specificEventStyles = StyleSheet.create({
     color: Colors.light.textPrimary,
     fontWeight: "bold",
   },
-
   ticketsHeader: {
     backgroundColor: Colors.light.primary,
     transform: "rotate(-1deg)",

@@ -1,24 +1,20 @@
-import { CommonActions, RouteProp, useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
 import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  Alert,
-} from "react-native";
+  CommonActions,
+  RouteProp,
+  useNavigation,
+} from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, View, Text, Image, Alert } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import EventHeader from "./EventHeader";
 import { sharedStyles } from "../../../utils/SharedStyles";
 import CustomButton from "./CustomButton";
 import { Auth } from "aws-amplify";
-import {User } from "../../API";
+import { User } from "../../API";
 import { fetchUserById } from "../../database/UserDBConnection";
 import SignUpForEventStyles from "./SignUpForEventStyles";
 import LoadingSpinner from "./LoadingSpinner";
-import {
-  addUserAttendee,
-} from "../../database/EventDBConnection";
+import { addUserAttendee } from "../../database/EventDBConnection";
 import Colors from "../../../utils/theme";
 import { StackNavigationProp } from "@react-navigation/stack";
 
@@ -47,63 +43,40 @@ export type RootStackParamLis2t = {
 type navProp = StackNavigationProp<RootStackParamLis2t, "EventScreen">;
 
 const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
-  const {
-    eventLocation,
-    eventName,
-    eventTime,
-    venueId,
-    eventBrief,
-    eventId,
-  } = route.params;
+  const { eventLocation, eventName, eventTime, venueId, eventBrief, eventId } =
+    route.params;
 
   const [userInfo, setUserInfo] = useState<User | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation<navProp>();
 
-
-
   const fetchUserInfo = async () => {
-    
-      try {
-        console.log("Start fetching user info...");
-
-        Auth.currentAuthenticatedUser({
-          bypassCache: false,
-        }).then((user) => {
-
-          console.log("User authenticated:", user);
-
-          fetchUserById(user.attributes.sub).then((dataBaseUser) => {
-
-            console.log("Database user:", dataBaseUser);
-            setUserInfo(dataBaseUser);
-          });
+    try {
+      Auth.currentAuthenticatedUser({
+        bypassCache: false,
+      }).then((user) => {
+        fetchUserById(user.attributes.sub).then((dataBaseUser) => {
+          setUserInfo(dataBaseUser);
         });
-      } catch (error) {
-        console.log("Error during fetchUserInfo:", error);
-      }
-    
-  };
-
-
-
-  const handleRegisterUser = async () => {
-    
-    if (userInfo && userInfo.id) {
-      addUserAttendee(eventId, userInfo.id);
-      
+      });
+    } catch (error) {
+      console.log("Error during fetchUserInfo:", error);
     }
   };
 
+  const handleRegisterUser = async () => {
+    if (userInfo && userInfo.id) {
+      addUserAttendee(eventId, userInfo.id);
+    }
+  };
 
-
-  const HandleRegisterAll = async () =>{
+  const HandleRegisterAll = async () => {
     Alert.alert(
-      'Success',
-      'Selected user successfully registered to this event',
+      "Success",
+      "Selected user successfully registered to this event",
       [
         {
-          text: 'OK',
+          text: "OK",
           onPress: () => {
             navigation.dispatch(
               CommonActions.reset({
@@ -117,25 +90,19 @@ const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
       ],
       { cancelable: false }
     );
-  }
-
-
+  };
 
   useEffect(() => {
-
     fetchUserInfo().then(() => {
       setIsLoading(false);
-              
-      });
-          
-    
+    });
   }, []);
 
-
-
   return (
-    <SafeAreaView >
-      <ScrollView style={{ height: "100%", backgroundColor: Colors.light.white }}>
+    <SafeAreaView>
+      <ScrollView
+        style={{ height: "100%", backgroundColor: Colors.light.white }}
+      >
         <View style={sharedStyles.mainContainer}>
           <EventHeader
             venueId={venueId}
@@ -157,21 +124,17 @@ const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
                 <Text style={SignUpForEventStyles.infoItem}>
                   {userInfo?.firstname} {userInfo?.lastname}
                 </Text>
-                
+
                 <CustomButton
-                name={"Register"}
-                action={() => HandleRegisterAll()}
-              />
-                
+                  name={"Register"}
+                  action={() => HandleRegisterAll()}
+                />
               </View>
-             
             </View>
-            
           ) : (
             <LoadingSpinner />
           )}
         </View>
-
       </ScrollView>
     </SafeAreaView>
   );

@@ -19,11 +19,9 @@ const DatePicker: React.FC<DatePickerProps> = ({
     const currentDate = selectedDate;
     setDate(currentDate);
     filterByDate(date);
-    console.log("Selected date (date picker): ", date);
   };
 
   useEffect(() => {
-    console.log("rerendering");
     setDate(new Date());
   }, [datePickerKey]);
 

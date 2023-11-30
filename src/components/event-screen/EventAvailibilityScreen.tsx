@@ -58,7 +58,6 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
   const navigation = useNavigation<navProp>();
 
   const handlePress = () => {
-    console.log("Event button pressed");
     navigation.navigate("EventSignUp", {
       eventName: eventName,
       eventLocation: eventLocation,
