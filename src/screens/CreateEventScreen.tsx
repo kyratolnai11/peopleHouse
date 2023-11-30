@@ -49,7 +49,6 @@ const CreateEventScreen: React.FC = () => {
     console.log(data);
     try {
       await addEvent(data);
-      reset();
       Alert.alert("Event added", "You have successfully added a new event!", [
         {
           text: "OK",
@@ -59,6 +58,7 @@ const CreateEventScreen: React.FC = () => {
           },
         },
       ]);
+      reset();
       console.log("Form submitted");
     } catch (error: any) {
       if (error.message.includes("toISOString")) {
