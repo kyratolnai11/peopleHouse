@@ -5,7 +5,6 @@ import Colors from "../../../utils/theme";
 import EventAvailibityScreen from "../event-screen/EventAvailibilityScreen";
 import CustomBackImage from "./CustomBackButton";
 import CreateEventScreen from "../../screens/CreateEventScreen";
-import MyBookingsScreen from "../../screens/MyBookingsScreen";
 import SignUpForEventScreen from "../event-screen/SignUpForEventScreen";
 
 const EventStack = createStackNavigator();
