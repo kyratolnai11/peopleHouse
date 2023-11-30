@@ -47,24 +47,30 @@ const CreateEventScreen: React.FC = () => {
 
   const onSubmit = async (data: CreateEventForm) => {
     console.log(data);
-
-    await addEvent(data);
-    reset();
-    Alert.alert("Event added", "You have successfully added a new event!", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      {
-        text: "OK",
-        onPress: () => {
-          navigation.goBack();
-          console.log("OK Pressed");
+    try {
+      await addEvent(data);
+      // reset();
+      Alert.alert("Event added", "You have successfully added a new event!", [
+        {
+          text: "OK",
+          onPress: () => {
+            // navigation.goBack();
+            console.log("OK Pressed");
+          },
         },
-      },
-    ]);
-    console.log("Form submitted");
+      ]);
+      console.log("Form submitted");
+    } catch (error: any) {
+      if (error.message.includes("toISOString")) {
+        Alert.alert(
+          "Error",
+          "Please remember to set the date and time! Press the Add date button",
+          [{ text: "OK" }]
+        );
+      } else {
+        Alert.alert("Error", "Some of the fields are empty!", [{ text: "OK" }]);
+      }
+    }
   };
 
   const submitDate = () => {
@@ -83,7 +89,7 @@ const CreateEventScreen: React.FC = () => {
   return (
     <SafeAreaView style={createEventStyles.whiteBackground}>
       <ScrollView>
-        <CreateEventHeader control={control} />
+        <CreateEventHeader control={control} setValue={setValue} />
         <PlannerSection
           setValue={setValue}
           setEndTime={setEndTime}
