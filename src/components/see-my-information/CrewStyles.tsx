@@ -9,7 +9,7 @@ export const crewStyles = StyleSheet.create({
     backgroundColor: Colors.light.primaryBackground,
   },
   card: {
-    borderColor: Colors.dark.primary,
+    borderColor: Colors.light.primary,
     borderRadius: 1,
     borderWidth: 3,
   },

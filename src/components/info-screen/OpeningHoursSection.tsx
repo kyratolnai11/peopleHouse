@@ -6,7 +6,7 @@ import Colors from "../../../utils/theme";
 const OpeningHoursSection: React.FC = () => {
   return (
     <View
-      style={[infoStyles.sectionOne, { backgroundColor: Colors.dark.primary }]}
+      style={[infoStyles.sectionOne, { backgroundColor: Colors.light.primary }]}
     >
       <Text style={infoStyles.sectionTitle}>Opening hours</Text>
       <View style={{ position: "relative", height: 470 }}>

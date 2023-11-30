@@ -49,7 +49,7 @@ export const addCrewStyles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   loginButton: {
-    backgroundColor: Colors.dark.primary,
+    backgroundColor: Colors.light.primary,
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
@@ -63,16 +63,10 @@ export const addCrewStyles = StyleSheet.create({
     fontSize: 16,
   },
   dateButton: {
-    backgroundColor: Colors.dark.secondary,
+    backgroundColor: Colors.light.secondary,
     padding: 10,
     borderRadius: 10,
     width: 120,
     marginBottom: 10,
-  },
-  dateButtonText: {
-    color: Colors.dark.textPrimary,
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 16,
   },
 });

@@ -6,7 +6,7 @@ export const venueDetailsStyles = StyleSheet.create({
     flex: 1,
   },
   purpleSection: {
-    backgroundColor: Colors.dark.secondary,
+    backgroundColor: Colors.light.secondary,
     padding: 20,
     marginHorizontal: -20,
   },

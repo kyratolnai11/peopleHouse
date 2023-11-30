@@ -12,7 +12,7 @@ export const specificCrewStyles = StyleSheet.create({
     marginLeft: 15,
   },
   addCrewButton: {
-    backgroundColor: Colors.dark.primary,
+    backgroundColor: Colors.light.primary,
     padding: 10,
     borderRadius: 10,
     marginTop: 30,

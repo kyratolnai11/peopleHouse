@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity, Appearance } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -17,7 +17,6 @@ const CustomDrawer: React.FC<{
   navigation: any;
   descriptors: any;
 }> = ({ state, descriptors, navigation }) => {
-  const colorScheme = Appearance.getColorScheme();
   const [userName, setUserName] = useState("");
 
   type navProp = StackNavigationProp<RootStackParamList, "SignIn">;
@@ -58,7 +57,7 @@ const CustomDrawer: React.FC<{
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
-        contentContainerStyle={{ backgroundColor: Colors.dark.secondary }}
+        contentContainerStyle={{ backgroundColor: Colors.light.secondary }}
       >
         <View style={{ padding: 20 }}>
           <TouchableOpacity onPress={handleUserNameClick}>
@@ -86,10 +85,7 @@ const CustomDrawer: React.FC<{
         <View
           style={{
             flex: 1,
-            backgroundColor:
-              colorScheme === "dark"
-                ? Colors.dark.primaryBackground
-                : Colors.light.primaryBackground,
+            backgroundColor: Colors.light.primaryBackground,
             paddingTop: 10,
           }}
         >

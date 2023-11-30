@@ -41,7 +41,7 @@ export const specificEventStyles = StyleSheet.create({
     resizeMode: "cover",
   },
   button: {
-    backgroundColor: Colors.dark.lightGrey,
+    backgroundColor: Colors.light.lightGrey,
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
@@ -49,7 +49,7 @@ export const specificEventStyles = StyleSheet.create({
     alignSelf: "center",
   },
   buttonText: {
-    color: Colors.dark.grey,
+    color: Colors.light.grey,
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 16,
@@ -61,7 +61,7 @@ export const specificEventStyles = StyleSheet.create({
   },
   communityText: { textAlign: "center", marginTop: -20, marginLeft: 20 },
   byText: {
-    color: Colors.dark.secondary,
+    color: Colors.light.secondary,
     fontWeight: "bold",
     fontSize: 18,
     paddingBottom: 10,
@@ -77,7 +77,7 @@ export const specificEventStyles = StyleSheet.create({
   },
 
   headerText: {
-    color: Colors.dark.secondary,
+    color: Colors.light.secondary,
     fontWeight: "bold",
     fontSize: 20,
     paddingBottom: 15,
@@ -93,7 +93,7 @@ export const specificEventStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
-    backgroundColor: Colors.dark.white,
+    backgroundColor: Colors.light.white,
   },
   image: {
     width: 500,

@@ -3,7 +3,7 @@ import Colors from "../../../utils/theme";
 
 const SignInStyles = StyleSheet.create({
   header: {
-    backgroundColor: Colors.dark.primary,
+    backgroundColor: Colors.light.primary,
     height: 120,
   },
   headerImage: {
@@ -49,12 +49,12 @@ const SignInStyles = StyleSheet.create({
   },
   footer: {
     height: 75,
-    backgroundColor: Colors.dark.secondary,
+    backgroundColor: Colors.light.secondary,
     justifyContent: "center",
     alignItems: "center",
   },
   loginButton: {
-    backgroundColor: Colors.dark.primary,
+    backgroundColor: Colors.light.primary,
     padding: 10,
     borderRadius: 10,
     marginTop: 10,

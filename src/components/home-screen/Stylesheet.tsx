@@ -23,7 +23,7 @@ export const homeStyles = StyleSheet.create({
   },
   divider: {
     borderBottomWidth: 2,
-    borderColor: Colors.dark.secondary,
+    borderColor: Colors.light.secondary,
     width: 400,
     marginVertical: 20,
   },
