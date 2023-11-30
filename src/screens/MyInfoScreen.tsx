@@ -50,15 +50,15 @@ const MyInfoScreen: React.FC = () => {
           ) as Crew[];
           setUserCrews(crewItems);
         } else {
-          console.log(
+          console.error(
             "Invalid data format for userCrewsData: Missing 'items' field"
           );
         }
       } else {
-        console.log("No crews data received or data format is invalid.");
+        console.error("No crews data received or data format is invalid.");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -69,7 +69,6 @@ const MyInfoScreen: React.FC = () => {
   }, [isFocused]);
 
   const handleAddCrew = async () => {
-    console.log("Add crew pressed");
     navigation.navigate("AddCrew");
   };
 
@@ -90,7 +89,6 @@ const MyInfoScreen: React.FC = () => {
                   {userInfo.firstname} {userInfo.lastname}
                 </Text>
               </View>
-
               <View style={myInfoStyles.emailContainer}>
                 <Text style={myInfoStyles.emailLabel}>Email address:</Text>
                 <TextInput
@@ -108,7 +106,6 @@ const MyInfoScreen: React.FC = () => {
                 ) : (
                   <View style={myInfoStyles.crewGrid}>
                     {userCrews.map((item) =>
-                      // Add a null/undefined check for 'item'
                       item ? (
                         <View style={myInfoStyles.crewCards} key={item.id}>
                           <CrewCard crew={item} />
@@ -120,7 +117,6 @@ const MyInfoScreen: React.FC = () => {
               ) : (
                 <LoadingSpinner />
               )}
-
               <TouchableOpacity
                 onPress={handleAddCrew}
                 style={myInfoStyles.addCrewButton}

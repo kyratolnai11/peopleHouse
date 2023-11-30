@@ -94,7 +94,7 @@ const LoginScreen = () => {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <View>
+        <View style={{ paddingHorizontal: 20 }}>
           <Text style={SignInStyles.headerText}>Who are you?</Text>
           <View style={SignInStyles.inputContainer}>
             <Text style={SignInStyles.inputTitle}>Email</Text>

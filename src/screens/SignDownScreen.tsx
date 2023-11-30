@@ -53,20 +53,15 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
 
   const fetchUserInfo = async () => {
     try {
-      console.log("Start fetching user info...");
-
       Auth.currentAuthenticatedUser({
         bypassCache: false,
       }).then((user) => {
-        console.log("User authenticated:", user);
-
         fetchUserById(user.attributes.sub).then((dataBaseUser) => {
-          console.log("Database user:", dataBaseUser);
           setUserInfo(dataBaseUser);
         });
       });
     } catch (error) {
-      console.log("Error during fetchUserInfo:", error);
+      console.error("Error during fetchUserInfo:", error);
     }
   };
 
@@ -82,7 +77,6 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
           {
             text: "OK",
             onPress: () => {
-              console.log("OK Pressed");
               navigation.navigate("MyBookings");
             },
           },
@@ -91,15 +85,13 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
     }
   };
 
-  const buttonClicked =async () => {
-
-    Alert.alert('Confirmation', 'Are you sure you want to unregister from this event?', [
-      { text: 'Yes', onPress: unregisterUser  },
-      { text: 'No', }
-    ]);
-
-    
-  }
+  const buttonClicked = async () => {
+    Alert.alert(
+      "Confirmation",
+      "Are you sure you want to unregister from this event?",
+      [{ text: "Yes", onPress: unregisterUser }, { text: "No" }]
+    );
+  };
 
   useEffect(() => {
     fetchUserInfo().then(() => {

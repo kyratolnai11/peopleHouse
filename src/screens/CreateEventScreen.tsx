@@ -46,7 +46,6 @@ const CreateEventScreen: React.FC = () => {
   const { handleSubmit, control, reset, setValue } = useForm<CreateEventForm>();
 
   const onSubmit = async (data: CreateEventForm) => {
-    console.log(data);
     try {
       await addEvent(data);
       Alert.alert("Event added", "You have successfully added a new event!", [
@@ -54,12 +53,10 @@ const CreateEventScreen: React.FC = () => {
           text: "OK",
           onPress: () => {
             navigation.goBack();
-            console.log("OK Pressed");
           },
         },
       ]);
       reset();
-      console.log("Form submitted");
     } catch (error: any) {
       if (error.message.includes("toISOString")) {
         Alert.alert(
@@ -80,9 +77,6 @@ const CreateEventScreen: React.FC = () => {
   const submitDate = () => {
     const formattedStartDate = formatDateForEvent(startDate, startTime);
     const formattedEndDate = formatDateForEvent(startDate, endTime);
-
-    console.log("Startime: ", formattedStartDate);
-    console.log("EndTime: ", formattedEndDate);
 
     //Setting the fields for dates and host
     setValue("startTime", formattedStartDate);
