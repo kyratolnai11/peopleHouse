@@ -59,6 +59,8 @@ const SignUpScreen = () => {
         }
   };
 
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Creat an account for People House</Text>

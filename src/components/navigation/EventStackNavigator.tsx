@@ -26,18 +26,6 @@ const EventStackNavigator: React.FC = () => {
         }}
       />
       <EventStack.Screen
-        name="MyBookings"
-        component={MyBookingsScreen as React.FC}
-        initialParams={{ eventId: "yourEventId", sourceScreen: "" }}
-        options={{
-          title: "",
-          headerBackTitleStyle: { color: Colors.light.textPrimary },
-          headerBackImage: () => <CustomBackImage />,
-          headerBackTitle: "Back",
-          headerBackTitleVisible: true,
-        }}
-      />
-      <EventStack.Screen
         name="EventScreen"
         component={EventsScreen}
         options={{ headerShown: false }}

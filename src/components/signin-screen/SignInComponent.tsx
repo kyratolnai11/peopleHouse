@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Text, TouchableOpacity } from "react-native";
+import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Auth } from "aws-amplify";
 import { useNavigation, CommonActions } from "@react-navigation/native";
@@ -52,18 +52,42 @@ const LoginScreen = () => {
       console.log("Login pressed:", { email, password });
       currentAuthenticatedUser();
 
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "HomeScreen" }],
-        })
-      );
-      clearFields();
+    
     } catch (error) {
-      console.error("Error signing in:", error);
+      isLoading(false);
+      //console.error("Error signing in:", error);
+      Alert.alert('Error', 'Email address or password is incorrect. Please try again', [{ text: 'OK', onPress: clearFields }]);
     }
+
+    
   };
 
+  const checkFields =async () => {
+    
+    if (email === null || email === '' || password === null || password === '') {
+      Alert.alert('Error', 'One or more fields are empty, please fill in all the information', [{ text: 'OK', onPress: clearFields }]);
+
+    }
+    else{
+      handleLogin().then(()=>{
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: "HomeScreen" }],
+          })
+        );
+    
+        clearFields();
+      });
+
+    }
+  }
+
+  const savingStuff =async () => {
+    
+    
+  }
+ 
   return (
     <View style={SignInStyles.container}>
       {loading ? (
@@ -102,7 +126,7 @@ const LoginScreen = () => {
             </View>
           </View>
           <TouchableOpacity
-            onPress={handleLogin}
+            onPress={checkFields}
             style={SignInStyles.loginButton}
           >
             <Text style={SignInStyles.loginButtonText}>Log in</Text>
