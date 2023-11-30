@@ -21,7 +21,7 @@ export async function fetchLoggedInUserID() {
 
     return user.attributes.sub;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 

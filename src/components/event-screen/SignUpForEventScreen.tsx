@@ -60,7 +60,7 @@ const SignUpForEventScreen: React.FC<EventScreenProps> = ({ route }) => {
         });
       });
     } catch (error) {
-      console.log("Error during fetchUserInfo:", error);
+      console.error("Error during fetchUserInfo:", error);
     }
   };
 

@@ -40,7 +40,6 @@ const CustomDrawer: React.FC<{
   const handleSignOut = async () => {
     try {
       await Auth.signOut();
-      console.log("Sign out successful.");
 
       // Navigate to SignInScreen using AuthStackNavigator
       stackNavigation.reset({
@@ -53,8 +52,6 @@ const CustomDrawer: React.FC<{
   };
 
   const handleUserNameClick = () => {
-    // Navigate to the desired page here
-    // Replace 'YourProfileScreen' with the actual screen you want to navigate to
     navigation.navigate("MyInfo");
   };
 
@@ -83,7 +80,7 @@ const CustomDrawer: React.FC<{
             }}
             onPress={handleUserNameClick}
           >
-            {userName} {/* Display the user's name */}
+            {userName}
           </Text>
         </View>
         <View

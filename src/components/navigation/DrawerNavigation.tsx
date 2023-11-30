@@ -58,9 +58,8 @@ const DrawerNavigation: React.FC = () => {
         name="AuthNav"
         component={AuthStackNavigator}
         options={{
-          // Hide the label for Settings screen
-          drawerLabel: () => null, // or drawerLabel: '',
-          drawerItemStyle: { display: "none" }, // or other styling as needed
+          drawerLabel: () => null,
+          drawerItemStyle: { display: "none" },
         }}
       />
 
@@ -68,8 +67,8 @@ const DrawerNavigation: React.FC = () => {
         name="MyInfo"
         component={MyInfoStackNavigation}
         options={{
-          drawerLabel: () => null, // or drawerLabel: '',
-          drawerItemStyle: { display: "none" }, // or other styling as needed
+          drawerLabel: () => null,
+          drawerItemStyle: { display: "none" },
           headerTitle: "",
         }}
       />

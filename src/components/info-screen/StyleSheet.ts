@@ -88,7 +88,6 @@ export const infoStyles = StyleSheet.create({
     width: 350,
     marginTop: -20,
   },
-
   openingHPictureTwo: {
     resizeMode: "contain",
     alignSelf: "center",
@@ -97,14 +96,12 @@ export const infoStyles = StyleSheet.create({
   hourPicOneCont: {
     transform: "rotate(-5deg)",
   },
-
   hourPicTwoCont: {
     transform: "rotate(7deg)",
     position: "absolute",
     top: 200,
     right: 50,
   },
-
   titleSection: {
     fontSize: 20,
     fontWeight: "bold",
