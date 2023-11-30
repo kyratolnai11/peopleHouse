@@ -83,12 +83,12 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
   }, [isFocused]);
 
   const ticketTextCalculator = () => {
-    if (ticketsLeft > 10) {
+    if (ticketsLeft >= 10) {
       return "Tickets avaliable";
-    } else if (ticketsLeft < 0) {
+    } else if (ticketsLeft < 1) {
       return "SOLD OUT";
-    } else {
-      ticketsLeft.toString() + " tickets left";
+    } else if (ticketsLeft < 10) {
+      return ticketsLeft.toString() + " tickets left";
     }
   };
 

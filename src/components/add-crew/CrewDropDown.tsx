@@ -23,6 +23,9 @@ const CrewDropDown: React.FC = () => {
   const [option, setOption] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [userId, setUserId] = useState("");
+  const today = new Date();
+
+
 
   const navigation = useNavigation<any>()
 
@@ -39,26 +42,79 @@ const CrewDropDown: React.FC = () => {
   }, []);
 
   const onSubmit = async (data: AddCrewForm) => {
-    await addCrew(userId, data);
-    reset();
-    Alert.alert(
-      "Crew member added",
-      "You have successfully added a new member to your Crew",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => {
-          console.log("OK Pressed");
-          navigation.goBack();
-        },
-      },
-      ]
-    );
-    console.log("Form submitted");
+    console.log(data.firstName, " ", data.lastName);
+    
+
+    if (option === "Child") {
+      if (data.firstName === undefined || data.firstName === '' || data.lastName === undefined || data.lastName === '' || data.dateOfBirth === undefined || data.dateOfBirth === today) {
+        Alert.alert('Error', 'One or more fields are empty, please fill in all the information', [{ text: 'OK',  }]);
+      }
+      else {
+        await addCrew(userId, data);
+        reset();
+        Alert.alert(
+          "Crew member added",
+          "You have successfully added a new member to your Crew",
+          [
+            {
+              text: "OK", onPress: () => {
+                console.log("OK Pressed");
+                navigation.goBack();
+              },
+            },
+          ]
+        );
+        console.log("Form submitted");
+      }
+    }
+    else if (option === "Child(16+)") {
+      if (data.firstName === undefined || data.firstName === '' || data.lastName === undefined || data.lastName === '') {
+        Alert.alert('Error', 'One or more fields are empty, please fill in all the information', [{ text: 'OK',  }]);
+      }
+      else {
+        await addCrew(userId, data);
+        reset();
+        Alert.alert(
+          "Crew member added",
+          "You have successfully added a new member to your Crew",
+          [
+            {
+              text: "OK", onPress: () => {
+                console.log("OK Pressed");
+                navigation.goBack();
+              },
+            },
+          ]
+        );
+        console.log("Form submitted");
+      }
+    }
+    else if (option === "+ONE"){
+      if (data.firstName === undefined || data.firstName === '' || data.lastName === undefined || data.lastName === '' || data.email === undefined || data.email === '') {
+        Alert.alert('Error', 'One or more fields are empty, please fill in all the information', [{ text: 'OK',}]);
+
+      }
+      else {
+        await addCrew(userId, data);
+        reset();
+        Alert.alert(
+          "Crew member added",
+          "You have successfully added a new member to your Crew",
+          [
+            {
+              text: "OK", onPress: () => {
+                console.log("OK Pressed");
+                navigation.goBack();
+              },
+            },
+          ]
+        );
+        console.log("Form submitted");
+      }
+    }
   };
+
+
 
   return (
     <View style={addCrewStyles.sectionContainer}>
@@ -139,10 +195,13 @@ const CrewDropDown: React.FC = () => {
               <TextInput
                 placeholder="Enter your first name"
                 value={field.value}
-                onChangeText={field.onChange}
+                onChangeText={(text) => {
+                  field.onChange(text); // Update the field value 
+                }}
                 style={sharedStyles.input}
               />
             )}
+
           />
 
           <Text style={sharedStyles.text}>Last Name:</Text>
@@ -153,7 +212,9 @@ const CrewDropDown: React.FC = () => {
               <TextInput
                 placeholder="Enter your last name"
                 value={field.value}
-                onChangeText={field.onChange}
+                onChangeText={(text) => {
+                  field.onChange(text); // Update the field value
+                }}
                 style={sharedStyles.input}
               />
             )}
@@ -169,7 +230,9 @@ const CrewDropDown: React.FC = () => {
                     placeholder="Enter your email"
                     value={field.value}
                     autoCapitalize="none"
-                    onChangeText={field.onChange}
+                    onChangeText={(text) => {
+                      field.onChange(text); // Update the field value
+                    }}
                     style={sharedStyles.input}
                   />
                 )}

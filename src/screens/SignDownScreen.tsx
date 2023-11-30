@@ -91,6 +91,16 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
     }
   };
 
+  const buttonClicked =async () => {
+
+    Alert.alert('Confirmation', 'Are you sure you want to unregister from this event?', [
+      { text: 'Yes', onPress: unregisterUser  },
+      { text: 'No', }
+    ]);
+
+    
+  }
+
   useEffect(() => {
     fetchUserInfo().then(() => {
       setIsLoading(false);
@@ -121,7 +131,7 @@ const SignDownFromEventScreen: React.FC<EventScreenProps> = ({ route }) => {
                     source={require("../../assets/my-infomration-sceen/lego-figure.png")}
                     style={signDownFromEventStyles.userImage}
                   />
-                  <CustomButton name={"Unregister"} action={unregisterUser} />
+                  <CustomButton name={"Unregister"} action={buttonClicked} />
                 </View>
               </View>
             </View>

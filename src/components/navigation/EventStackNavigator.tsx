@@ -5,7 +5,6 @@ import Colors from "../../../utils/theme";
 import EventAvailibityScreen from "../event-screen/EventAvailibilityScreen";
 import CustomBackImage from "./CustomBackButton";
 import CreateEventScreen from "../../screens/CreateEventScreen";
-import MyBookingsScreen from "../../screens/MyBookingsScreen";
 import SignUpForEventScreen from "../event-screen/SignUpForEventScreen";
 
 const EventStack = createStackNavigator();
@@ -16,18 +15,6 @@ const EventStackNavigator: React.FC = () => {
       <EventStack.Screen
         name="Event"
         component={EventScreen as React.FC}
-        initialParams={{ eventId: "yourEventId", sourceScreen: "" }}
-        options={{
-          title: "",
-          headerBackTitleStyle: { color: Colors.light.textPrimary },
-          headerBackImage: () => <CustomBackImage />,
-          headerBackTitle: "Back",
-          headerBackTitleVisible: true,
-        }}
-      />
-      <EventStack.Screen
-        name="MyBookings"
-        component={MyBookingsScreen as React.FC}
         initialParams={{ eventId: "yourEventId", sourceScreen: "" }}
         options={{
           title: "",

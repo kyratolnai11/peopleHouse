@@ -40,7 +40,7 @@ const DrawerNavigation: React.FC = () => {
       }}
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Info" component={InfoScreen} />
+      <Drawer.Screen name="Help" component={InfoScreen} />
       <Drawer.Screen name="Events" component={EventStackNavigator} />
       <Drawer.Screen name="My bookings" component={MyBookingsNavigation} />
       <Drawer.Screen name="Venues" component={VenueStackNavigation} />
