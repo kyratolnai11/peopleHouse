@@ -96,7 +96,7 @@ const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({ control }) => {
                 <TextInput
                   placeholder="10"
                   returnKeyType="done"
-                  value={field.value ? field.value.toString() : "10"}
+                  value={field.value ? field.value.toString() : ""}
                   keyboardType="numeric"
                   inputMode="numeric"
                   onChangeText={field.onChange}
