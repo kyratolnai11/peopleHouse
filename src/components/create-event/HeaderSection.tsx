@@ -12,11 +12,7 @@ type CreateEventHeaderProps = {
   setValue: UseFormSetValue<CreateEventForm>;
 };
 
-const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({
-  control,
-  setValue,
-}) => {
-  setValue("nuOfTickets", 10);
+const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({ control }) => {
   return (
     <View>
       <Text style={sharedStyles.screenTitle}>Create event</Text>
@@ -25,58 +21,65 @@ const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({
           width: "100%",
           padding: 20,
           backgroundColor: Colors.light.secondary,
+          alignItems: "center",
         }}
       >
-        <Text
-          style={[sharedStyles.text, { color: Colors.light.textSecondary }]}
+        <View
+          style={{
+            width: "100%",
+          }}
         >
-          Event title
-        </Text>
-        <Controller
-          name="eventTitle"
-          control={control}
-          rules={{ required: "The title is required!" }}
-          render={({ field, fieldState }) => (
-            <View>
-              <TextInput
-                value={field.value}
-                onChangeText={field.onChange}
-                style={createEventStyles.title}
-              />
-              {fieldState.error && (
-                <Text style={createEventStyles.errorText}>
-                  {fieldState.error.message}
-                </Text>
-              )}
-            </View>
-          )}
-        />
-        <Text
-          style={[sharedStyles.text, { color: Colors.light.textSecondary }]}
-        >
-          Brief
-        </Text>
-        <Controller
-          name="brief"
-          control={control}
-          rules={{ required: "The brief is required!" }}
-          render={({ field, fieldState }) => (
-            <View>
-              <TextInput
-                value={field.value}
-                onChangeText={field.onChange}
-                numberOfLines={4}
-                multiline={true}
-                style={createEventStyles.brief}
-              />
-              {fieldState.error && (
-                <Text style={createEventStyles.errorText}>
-                  {fieldState.error.message}
-                </Text>
-              )}
-            </View>
-          )}
-        />
+          <Text
+            style={[sharedStyles.text, { color: Colors.light.textSecondary }]}
+          >
+            Event title
+          </Text>
+          <Controller
+            name="eventTitle"
+            control={control}
+            rules={{ required: "The title is required!" }}
+            render={({ field, fieldState }) => (
+              <View>
+                <TextInput
+                  value={field.value}
+                  onChangeText={field.onChange}
+                  style={createEventStyles.title}
+                />
+                {fieldState.error && (
+                  <Text style={createEventStyles.errorText}>
+                    {fieldState.error.message}
+                  </Text>
+                )}
+              </View>
+            )}
+          />
+          <Text
+            style={[sharedStyles.text, { color: Colors.light.textSecondary }]}
+          >
+            Brief
+          </Text>
+          <Controller
+            name="brief"
+            control={control}
+            rules={{ required: "The brief is required!" }}
+            render={({ field, fieldState }) => (
+              <View>
+                <TextInput
+                  value={field.value}
+                  onChangeText={field.onChange}
+                  numberOfLines={4}
+                  multiline={true}
+                  style={createEventStyles.brief}
+                />
+                {fieldState.error && (
+                  <Text style={createEventStyles.errorText}>
+                    {fieldState.error.message}
+                  </Text>
+                )}
+              </View>
+            )}
+          />
+        </View>
         <View style={createEventStyles.ticketContainer}>
           <View style={createEventStyles.ticketsHeader}>
             <Text style={createEventStyles.ticketHeaderText}>Tickets</Text>
@@ -87,16 +90,24 @@ const CreateEventHeader: React.FC<CreateEventHeaderProps> = ({
           <Controller
             name="nuOfTickets"
             control={control}
-            render={({ field }) => (
-              <TextInput
-                placeholder="10"
-                returnKeyType="done"
-                value={field.value ? field.value.toString() : "10"}
-                keyboardType="numeric"
-                inputMode="numeric"
-                onChangeText={field.onChange}
-                style={[sharedStyles.input, { width: 150 }]}
-              />
+            rules={{ required: "The number of tickets is required!" }}
+            render={({ field, fieldState }) => (
+              <View style={{ alignItems: "center" }}>
+                <TextInput
+                  placeholder="10"
+                  returnKeyType="done"
+                  value={field.value ? field.value.toString() : "10"}
+                  keyboardType="numeric"
+                  inputMode="numeric"
+                  onChangeText={field.onChange}
+                  style={[sharedStyles.input, { width: 150 }]}
+                />
+                {fieldState.error && (
+                  <Text style={createEventStyles.errorText}>
+                    {fieldState.error.message}
+                  </Text>
+                )}
+              </View>
             )}
           />
           <Image
