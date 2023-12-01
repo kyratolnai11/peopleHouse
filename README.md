@@ -49,7 +49,7 @@ To run the app locally, you need to download an IOS and Android emulator of your
 1. To run the project on IOS, navigate the the project directory and run:
    npx expo start -i
 
-2. To run the project on IOS, navigate the the project directory and run:
+2. To run the project on Android, navigate the the project directory and run:
    npx expo start -a
 
 3. If you would like to make changes to the AWS resources run:
