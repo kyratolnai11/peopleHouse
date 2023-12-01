@@ -1,6 +1,5 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "./CustomDrawer";
-import { Appearance } from "react-native";
 import { ActionBarImage } from "./ActionBarImage";
 import HomeScreen from "../../screens/HomeScreen";
 import InfoScreen from "../../screens/InfoScreen";
@@ -14,7 +13,6 @@ import HomeStayNavigation from "./HomestayNavigation";
 import MyBookingsNavigation from "./MyBookingsNavigation";
 
 const DrawerNavigation: React.FC = () => {
-  const colorScheme = Appearance.getColorScheme();
   const Drawer = createDrawerNavigator();
 
   return (
@@ -22,16 +20,10 @@ const DrawerNavigation: React.FC = () => {
       initialRouteName="Home"
       drawerContent={CustomDrawer}
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.dark.primary, height: 120 },
-        headerTintColor: Colors.dark.primaryBackground,
-        drawerActiveBackgroundColor:
-          colorScheme === "dark"
-            ? Colors.dark.secondaryBackground
-            : Colors.light.secondaryBackground,
-        drawerActiveTintColor:
-          colorScheme === "dark"
-            ? Colors.dark.textPrimary
-            : Colors.light.textPrimary,
+        headerStyle: { backgroundColor: Colors.light.primary, height: 120 },
+        headerTintColor: Colors.light.black,
+        drawerActiveBackgroundColor: Colors.light.secondaryBackground,
+        drawerActiveTintColor: Colors.light.textPrimary,
         drawerInactiveTintColor: "#333",
         drawerLabelStyle: {
           fontSize: 15,
@@ -58,9 +50,8 @@ const DrawerNavigation: React.FC = () => {
         name="AuthNav"
         component={AuthStackNavigator}
         options={{
-          // Hide the label for Settings screen
-          drawerLabel: () => null, // or drawerLabel: '',
-          drawerItemStyle: { display: "none" }, // or other styling as needed
+          drawerLabel: () => null,
+          drawerItemStyle: { display: "none" },
         }}
       />
 
@@ -68,8 +59,8 @@ const DrawerNavigation: React.FC = () => {
         name="MyInfo"
         component={MyInfoStackNavigation}
         options={{
-          drawerLabel: () => null, // or drawerLabel: '',
-          drawerItemStyle: { display: "none" }, // or other styling as needed
+          drawerLabel: () => null,
+          drawerItemStyle: { display: "none" },
           headerTitle: "",
         }}
       />

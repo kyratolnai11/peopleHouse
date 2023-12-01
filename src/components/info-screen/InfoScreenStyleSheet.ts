@@ -31,14 +31,14 @@ export const infoStyles = StyleSheet.create({
     fontSize: 16,
   },
   questionText: {
-    color: Colors.dark.secondary,
+    color: Colors.light.secondary,
     fontWeight: "bold",
     fontSize: 20,
     paddingBottom: 10,
     paddingTop: 20,
   },
   sectionTwo: {
-    backgroundColor: Colors.dark.secondary,
+    backgroundColor: Colors.light.secondary,
     width: "100%",
     paddingHorizontal: 20,
     paddingVertical: 35,
@@ -46,7 +46,7 @@ export const infoStyles = StyleSheet.create({
   },
   descriptionSTwo: {
     fontSize: 16,
-    color: Colors.dark.textPrimary,
+    color: Colors.light.textSecondary,
     paddingBottom: 10,
     textAlign: "justify",
   },
@@ -58,7 +58,7 @@ export const infoStyles = StyleSheet.create({
   },
   sTwoTitle: {
     fontSize: 25,
-    color: Colors.dark.textPrimary,
+    color: Colors.light.textSecondary,
     paddingBottom: 20,
   },
   container: {
@@ -88,7 +88,6 @@ export const infoStyles = StyleSheet.create({
     width: 350,
     marginTop: -20,
   },
-
   openingHPictureTwo: {
     resizeMode: "contain",
     alignSelf: "center",
@@ -97,14 +96,12 @@ export const infoStyles = StyleSheet.create({
   hourPicOneCont: {
     transform: "rotate(-5deg)",
   },
-
   hourPicTwoCont: {
     transform: "rotate(7deg)",
     position: "absolute",
     top: 200,
     right: 50,
   },
-
   titleSection: {
     fontSize: 20,
     fontWeight: "bold",

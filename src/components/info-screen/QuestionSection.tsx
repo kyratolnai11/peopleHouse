@@ -1,11 +1,13 @@
 import React from "react";
-import { View, Text, Image, } from "react-native";
-import { infoStyles } from "./StyleSheet";
+import { View, Text, Image } from "react-native";
+import { infoStyles } from "./InfoScreenStyleSheet";
 
 const QuestionSection: React.FC = () => {
   return (
     <View style={infoStyles.sectionOne}>
-      <Text style={infoStyles.sectionTitle}>We have answered some questions</Text>
+      <Text style={infoStyles.sectionTitle}>
+        We have answered some questions
+      </Text>
       <View style={infoStyles.imagesectionOne}>
         <Image
           source={require("./../../../assets/info-screen/question_mark.png")}
@@ -37,7 +39,5 @@ const QuestionSection: React.FC = () => {
     </View>
   );
 };
-
-
 
 export default QuestionSection;

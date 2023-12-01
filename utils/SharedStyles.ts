@@ -49,7 +49,3 @@ export const sharedStyles = StyleSheet.create({
     height: "100%",
   },
 });
-
-//Practices:
-//Always use SafeAreaView and ScrollView for screens
-//

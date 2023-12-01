@@ -8,7 +8,7 @@ import { TextInput } from "react-native-gesture-handler";
 import DatePicker from "./DatePickerLocal";
 import { fetchLoggedInUserID } from "../cognito/UserCognito";
 import { addCrew } from "../../database/CrewDBConnection";
-import { addCrewStyles } from "./StyleSheet";
+import { addCrewStyles } from "./AddCrewStyleSheet";
 import { useNavigation } from "@react-navigation/native";
 
 export type AddCrewForm = {
@@ -25,9 +25,7 @@ const CrewDropDown: React.FC = () => {
   const [userId, setUserId] = useState("");
   const today = new Date();
 
-
-
-  const navigation = useNavigation<any>()
+  const navigation = useNavigation<any>();
 
   const data = [
     { label: "+ONE", value: "+ONE" },
@@ -42,14 +40,21 @@ const CrewDropDown: React.FC = () => {
   }, []);
 
   const onSubmit = async (data: AddCrewForm) => {
-    console.log(data.firstName, " ", data.lastName);
-    
-
     if (option === "Child") {
-      if (data.firstName === undefined || data.firstName === '' || data.lastName === undefined || data.lastName === '' || data.dateOfBirth === undefined || data.dateOfBirth === today) {
-        Alert.alert('Error', 'One or more fields are empty, please fill in all the information', [{ text: 'OK',  }]);
-      }
-      else {
+      if (
+        data.firstName === undefined ||
+        data.firstName === "" ||
+        data.lastName === undefined ||
+        data.lastName === "" ||
+        data.dateOfBirth === undefined ||
+        data.dateOfBirth === today
+      ) {
+        Alert.alert(
+          "Error",
+          "One or more fields are empty, please fill in all the information",
+          [{ text: "OK" }]
+        );
+      } else {
         await addCrew(userId, data);
         reset();
         Alert.alert(
@@ -57,21 +62,27 @@ const CrewDropDown: React.FC = () => {
           "You have successfully added a new member to your Crew",
           [
             {
-              text: "OK", onPress: () => {
-                console.log("OK Pressed");
+              text: "OK",
+              onPress: () => {
                 navigation.goBack();
               },
             },
           ]
         );
-        console.log("Form submitted");
       }
-    }
-    else if (option === "Child(16+)") {
-      if (data.firstName === undefined || data.firstName === '' || data.lastName === undefined || data.lastName === '') {
-        Alert.alert('Error', 'One or more fields are empty, please fill in all the information', [{ text: 'OK',  }]);
-      }
-      else {
+    } else if (option === "Child(16+)") {
+      if (
+        data.firstName === undefined ||
+        data.firstName === "" ||
+        data.lastName === undefined ||
+        data.lastName === ""
+      ) {
+        Alert.alert(
+          "Error",
+          "One or more fields are empty, please fill in all the information",
+          [{ text: "OK" }]
+        );
+      } else {
         await addCrew(userId, data);
         reset();
         Alert.alert(
@@ -79,22 +90,29 @@ const CrewDropDown: React.FC = () => {
           "You have successfully added a new member to your Crew",
           [
             {
-              text: "OK", onPress: () => {
-                console.log("OK Pressed");
+              text: "OK",
+              onPress: () => {
                 navigation.goBack();
               },
             },
           ]
         );
-        console.log("Form submitted");
       }
-    }
-    else if (option === "+ONE"){
-      if (data.firstName === undefined || data.firstName === '' || data.lastName === undefined || data.lastName === '' || data.email === undefined || data.email === '') {
-        Alert.alert('Error', 'One or more fields are empty, please fill in all the information', [{ text: 'OK',}]);
-
-      }
-      else {
+    } else if (option === "+ONE") {
+      if (
+        data.firstName === undefined ||
+        data.firstName === "" ||
+        data.lastName === undefined ||
+        data.lastName === "" ||
+        data.email === undefined ||
+        data.email === ""
+      ) {
+        Alert.alert(
+          "Error",
+          "One or more fields are empty, please fill in all the information",
+          [{ text: "OK" }]
+        );
+      } else {
         await addCrew(userId, data);
         reset();
         Alert.alert(
@@ -102,19 +120,16 @@ const CrewDropDown: React.FC = () => {
           "You have successfully added a new member to your Crew",
           [
             {
-              text: "OK", onPress: () => {
-                console.log("OK Pressed");
+              text: "OK",
+              onPress: () => {
                 navigation.goBack();
               },
             },
           ]
         );
-        console.log("Form submitted");
       }
     }
   };
-
-
 
   return (
     <View style={addCrewStyles.sectionContainer}>
@@ -137,7 +152,6 @@ const CrewDropDown: React.FC = () => {
           setOption(item.value);
           setValue("userType", item.value);
           setIsFocus(false);
-          console.log(item.value);
         }}
       />
       {(option === "Child" || option === "Child(16+)") && (
@@ -197,12 +211,11 @@ const CrewDropDown: React.FC = () => {
                 placeholder="Enter your first name"
                 value={field.value}
                 onChangeText={(text) => {
-                  field.onChange(text); // Update the field value 
+                  field.onChange(text); // Update the field value
                 }}
                 style={sharedStyles.input}
               />
             )}
-
           />
 
           <Text style={sharedStyles.text}>Last Name:</Text>

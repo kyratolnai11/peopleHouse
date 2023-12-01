@@ -48,11 +48,6 @@ type AttendeeUser @model {
   userId: String! @index(name: "byUserId")
 }
 
-type AttendeeCrew @model {
-  eventId: String! @index(name: "byEventId")
-  crewId: String!
-}
-
 enum UserType {
   NORMAL
   COMMUNITY_BUILDER

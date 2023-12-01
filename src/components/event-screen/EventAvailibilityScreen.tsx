@@ -11,7 +11,7 @@ import { sharedStyles } from "../../../utils/SharedStyles";
 import CustomButton from "./CustomButton";
 import { specificEventStyles } from "./SpecificEventStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { getAttendeeUserByEventID } from "../../database/EventDBConnection";
+import { getAttendeeUserByEventID } from "../../database/AttendeeUserDBConnection";
 
 type RootStackParamList = {
   Availibility: {
@@ -58,7 +58,6 @@ const EventAvailibityScreen: React.FC<EventScreenProps> = ({ route }) => {
   const navigation = useNavigation<navProp>();
 
   const handlePress = () => {
-    console.log("Event button pressed");
     navigation.navigate("EventSignUp", {
       eventName: eventName,
       eventLocation: eventLocation,

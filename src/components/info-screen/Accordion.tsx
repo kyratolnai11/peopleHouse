@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { infoStyles } from "./StyleSheet";
+import { infoStyles } from "./InfoScreenStyleSheet";
 
 interface AccordionProps {
   title: string;

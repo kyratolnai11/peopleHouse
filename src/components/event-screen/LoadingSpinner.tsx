@@ -6,7 +6,7 @@ import Colors from "../../../utils/theme";
 const LoadingSpinner: React.FC = () => {
   return (
     <View style={specificEventStyles.spinnerContainer}>
-      <ActivityIndicator size="large" color={Colors.dark.secondary} />
+      <ActivityIndicator size="large" color={Colors.light.secondary} />
     </View>
   );
 };

@@ -24,8 +24,6 @@ export const getVenueImages = (id: string) => {
       return require("../assets/venue-images/10.png");
     case "11":
       return require("../assets/venue-images/7.png");
-    //The image that I have for Makers space is not good, I will get a
-    //better one. until then we will use the image of Creative studio
     default:
       return null;
   }
@@ -84,8 +82,6 @@ export const getVenueLogos = (id: string) => {
       return require("../assets/venue-logos/10.png");
     case "11":
       return require("../assets/venue-logos/11.png");
-    //The image that I have for Makers space is not good, I will get a
-    //better one. until then we will use the image of Creative studio
     default:
       return null;
   }
@@ -153,8 +149,6 @@ export const getVenueName = (id: string) => {
       return "Health + Wellbeing Center";
     case "11":
       return "Maker Space";
-    //The image that I have for Makers space is not good, I will get a
-    //better one. until then we will use the image of Creative studio
     default:
       return "Maker Space";
   }

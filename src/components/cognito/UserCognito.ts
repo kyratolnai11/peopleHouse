@@ -19,11 +19,9 @@ export async function fetchLoggedInUserID() {
       bypassCache: false,
     });
 
-    console.log(user.attributes.sub);
-
     return user.attributes.sub;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 

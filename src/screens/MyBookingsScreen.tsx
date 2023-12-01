@@ -53,10 +53,6 @@ const MyBookingsScreen: React.FC = () => {
         } | null>
       >
     );
-    console.log(
-      "The resolved events are:" +
-        resolvedEvents[0]?.event?.getEvent?.description
-    );
 
     const filteredEvents: { event: Event; attendeeUserId: string }[] =
       resolvedEvents
@@ -87,7 +83,6 @@ const MyBookingsScreen: React.FC = () => {
       });
 
     setEvents(sortedEvents);
-    console.log("The events are: ", sortedEvents);
     setDataFetched(true);
   };
 

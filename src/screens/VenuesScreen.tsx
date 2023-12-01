@@ -13,7 +13,6 @@ const VenuesScreen = () => {
   useEffect(() => {
     fetchVenues()
       .then((venuesdata) => {
-        console.log("Venues are set");
         setVenues(venuesdata);
         setDataFetched(true);
       })

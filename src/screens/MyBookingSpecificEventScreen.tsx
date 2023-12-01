@@ -46,11 +46,8 @@ const MyBookingSpecificEvent: React.FC<EventScreenProps> = ({ route }) => {
   useEffect(() => {
     fetchEventById(eventId)
       .then((eventsdata) => {
-        console.log("EventsData: " + eventsdata);
         if (eventsdata && eventsdata.getEvent) {
-          console.log("Get event hahahaa: " + eventsdata.getEvent);
           setEventData(eventsdata.getEvent as Event);
-          console.log("The specific event is set");
         }
       })
       .catch((error) => {
@@ -74,7 +71,6 @@ const MyBookingSpecificEvent: React.FC<EventScreenProps> = ({ route }) => {
   const navigation = useNavigation<navProp>();
 
   const handlePress = () => {
-    console.log("Event button pressed");
     navigation.navigate("EventSignDown", {
       eventName: event.title,
       eventLocation: venueName,
@@ -109,12 +105,10 @@ const MyBookingSpecificEvent: React.FC<EventScreenProps> = ({ route }) => {
               </Text>
             </View>
           </View>
-
           <Text style={specificEventStyles.headerText}>Event details</Text>
           <ShowMore text={event.description} />
           <Text style={specificEventStyles.headerText}>Event agenda</Text>
           <ShowMore text={event.agenda} />
-
           <CustomButton name="Manage my booking" action={() => handlePress()} />
         </View>
       </ScrollView>

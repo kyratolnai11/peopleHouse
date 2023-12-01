@@ -21,7 +21,6 @@ const VenueDropDown: React.FC<VenueDropDownProps> = ({
   const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
-    console.log("rerendering");
     setValue("0");
   }, [venueKey]);
 
@@ -49,7 +48,6 @@ const VenueDropDown: React.FC<VenueDropDownProps> = ({
           onBlur={() => setIsFocus(false)}
           onChange={(item) => {
             setValue(item.value);
-            console.log("Venue selected: ", item.label, item.value);
             setIsFocus(false);
             filterByVenueId && filterByVenueId(item.value);
             setValueForCreateEvent &&

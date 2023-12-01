@@ -23,12 +23,12 @@ export const homeStyles = StyleSheet.create({
   },
   divider: {
     borderBottomWidth: 2,
-    borderColor: Colors.dark.secondary,
+    borderColor: Colors.light.secondary,
     width: 400,
     marginVertical: 20,
   },
   image: { resizeMode: "contain", width: 450, height: 300 },
   openingHours: {
     fontSize: 20,
-  }
+  },
 });

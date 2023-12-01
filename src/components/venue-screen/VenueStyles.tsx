@@ -6,7 +6,6 @@ export const venueStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 10,
-
     backgroundColor: Colors.light.primaryBackground,
   },
   image: {

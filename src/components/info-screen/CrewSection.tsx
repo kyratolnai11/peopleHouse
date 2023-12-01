@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import { infoStyles } from "./StyleSheet";
+import { infoStyles } from "./InfoScreenStyleSheet";
 
 const CrewSection: React.FC = () => {
   return (

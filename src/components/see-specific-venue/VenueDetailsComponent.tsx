@@ -49,10 +49,12 @@ const VenueDetailsScreen: React.FC<VenueDetailsRouteProps> = ({ route }) => {
           ) as Event[];
           setEvents(eventItems);
         } else {
-          console.log("Invalid data format for events: Missing 'items' field");
+          console.error(
+            "Invalid data format for events: Missing 'items' field"
+          );
         }
       } else {
-        console.log("No events data received or data format is invalid.");
+        console.error("No events data received or data format is invalid.");
       }
     };
 
@@ -65,7 +67,6 @@ const VenueDetailsScreen: React.FC<VenueDetailsRouteProps> = ({ route }) => {
       navigation.setOptions({ headerTitle: venue.name });
     }
   }, [venue]);
-
 
   if (venue === undefined) {
     return <LoadingSpinner />;

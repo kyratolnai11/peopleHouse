@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity, Appearance } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -9,22 +9,17 @@ import Colors from "../../../utils/theme";
 import { Auth } from "aws-amplify";
 import { fetchUserData } from "../cognito/UserCognito";
 import { StackNavigationProp } from "@react-navigation/stack";
-import {useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../signin-screen/SignInComponent";
-
-
 
 const CustomDrawer: React.FC<{
   state: any;
   navigation: any;
   descriptors: any;
 }> = ({ state, descriptors, navigation }) => {
-  const colorScheme = Appearance.getColorScheme();
   const [userName, setUserName] = useState("");
 
   type navProp = StackNavigationProp<RootStackParamList, "SignIn">;
-
-
 
   const stackNavigation = useNavigation<navProp>();
 
@@ -41,12 +36,9 @@ const CustomDrawer: React.FC<{
     fetchData();
   }, []);
 
-
-
   const handleSignOut = async () => {
     try {
       await Auth.signOut();
-      console.log("Sign out successful.");
 
       // Navigate to SignInScreen using AuthStackNavigator
       stackNavigation.reset({
@@ -59,15 +51,13 @@ const CustomDrawer: React.FC<{
   };
 
   const handleUserNameClick = () => {
-    // Navigate to the desired page here
-    // Replace 'YourProfileScreen' with the actual screen you want to navigate to
     navigation.navigate("MyInfo");
   };
 
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
-        contentContainerStyle={{ backgroundColor: Colors.dark.secondary }}
+        contentContainerStyle={{ backgroundColor: Colors.light.secondary }}
       >
         <View style={{ padding: 20 }}>
           <TouchableOpacity onPress={handleUserNameClick}>
@@ -89,16 +79,13 @@ const CustomDrawer: React.FC<{
             }}
             onPress={handleUserNameClick}
           >
-            {userName} {/* Display the user's name */}
+            {userName}
           </Text>
         </View>
         <View
           style={{
             flex: 1,
-            backgroundColor:
-              colorScheme === "dark"
-                ? Colors.dark.primaryBackground
-                : Colors.light.primaryBackground,
+            backgroundColor: Colors.light.primaryBackground,
             paddingTop: 10,
           }}
         >
@@ -123,7 +110,6 @@ const CustomDrawer: React.FC<{
             >
               Sign Out
             </Text>
-            
           </View>
         </TouchableOpacity>
       </View>

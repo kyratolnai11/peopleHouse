@@ -63,7 +63,7 @@ export const eventStyles = StyleSheet.create({
     alignSelf: "center",
   },
   dateTimeText: {
-    color: Colors.dark.secondary,
+    color: Colors.light.secondary,
     fontWeight: "bold",
     fontSize: 16,
     marginBottom: 20,

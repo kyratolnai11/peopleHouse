@@ -76,8 +76,6 @@ const EventsScreen = () => {
     if (filteredByVenueId !== true) {
       fetchAllEvents()
         .then((eventsdata) => {
-          console.log("Events are set");
-
           sortEvents(eventsdata).then((sortedEvents) => {
             if (filteredByDate) {
               sortByDateAndSetEvents(sortedEvents);
@@ -92,8 +90,6 @@ const EventsScreen = () => {
     } else {
       fetchEventsByVenueId(venueId)
         .then((eventsdata) => {
-          console.log("Events are set and filtered by venue: ", venueId);
-
           sortEvents(eventsdata).then((sortedEvents) => {
             if (filteredByDate) {
               sortByDateAndSetEvents(sortedEvents);
@@ -193,19 +189,14 @@ const EventsScreen = () => {
   }
 
   const handleButtonpress = () => {
-    console.log("Create event pressed");
     navigation.navigate("CreateEvent");
   };
 
   const clearFiltersButtonOnPress = () => {
-    console.log("Clear filters here");
     setFilteredByVenueID(false);
-
     setFilteredByDate(false);
     setDate(new Date());
-
     setVenueId("0");
-
     setVenueKey((prevKey) => prevKey + 1);
     setDatePickerKey((prevKey) => prevKey + 1);
   };
@@ -218,7 +209,6 @@ const EventsScreen = () => {
     ) {
       setDate(newDate);
       setFilteredByDate(true);
-      console.log("Selected date (events screen): ", newDate);
     }
   }
 

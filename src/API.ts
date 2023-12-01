@@ -294,39 +294,6 @@ export type DeleteAttendeeUserInput = {
   id: string,
 };
 
-export type CreateAttendeeCrewInput = {
-  eventId: string,
-  crewId: string,
-  id?: string | null,
-};
-
-export type ModelAttendeeCrewConditionInput = {
-  eventId?: ModelStringInput | null,
-  crewId?: ModelStringInput | null,
-  and?: Array< ModelAttendeeCrewConditionInput | null > | null,
-  or?: Array< ModelAttendeeCrewConditionInput | null > | null,
-  not?: ModelAttendeeCrewConditionInput | null,
-};
-
-export type AttendeeCrew = {
-  __typename: "AttendeeCrew",
-  eventId: string,
-  crewId: string,
-  id: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateAttendeeCrewInput = {
-  eventId?: string | null,
-  crewId?: string | null,
-  id: string,
-};
-
-export type DeleteAttendeeCrewInput = {
-  id: string,
-};
-
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   firstname?: ModelStringInput | null,
@@ -433,20 +400,6 @@ export type ModelAttendeeUserConnection = {
   nextToken?: string | null,
 };
 
-export type ModelAttendeeCrewFilterInput = {
-  eventId?: ModelStringInput | null,
-  crewId?: ModelStringInput | null,
-  and?: Array< ModelAttendeeCrewFilterInput | null > | null,
-  or?: Array< ModelAttendeeCrewFilterInput | null > | null,
-  not?: ModelAttendeeCrewFilterInput | null,
-};
-
-export type ModelAttendeeCrewConnection = {
-  __typename: "ModelAttendeeCrewConnection",
-  items:  Array<AttendeeCrew | null >,
-  nextToken?: string | null,
-};
-
 export enum ModelSortDirection {
   ASC = "ASC",
   DESC = "DESC",
@@ -548,13 +501,6 @@ export type ModelSubscriptionAttendeeUserFilterInput = {
   userId?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAttendeeUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionAttendeeUserFilterInput | null > | null,
-};
-
-export type ModelSubscriptionAttendeeCrewFilterInput = {
-  eventId?: ModelSubscriptionStringInput | null,
-  crewId?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionAttendeeCrewFilterInput | null > | null,
-  or?: Array< ModelSubscriptionAttendeeCrewFilterInput | null > | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -845,54 +791,6 @@ export type DeleteAttendeeUserMutation = {
   } | null,
 };
 
-export type CreateAttendeeCrewMutationVariables = {
-  input: CreateAttendeeCrewInput,
-  condition?: ModelAttendeeCrewConditionInput | null,
-};
-
-export type CreateAttendeeCrewMutation = {
-  createAttendeeCrew?:  {
-    __typename: "AttendeeCrew",
-    eventId: string,
-    crewId: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateAttendeeCrewMutationVariables = {
-  input: UpdateAttendeeCrewInput,
-  condition?: ModelAttendeeCrewConditionInput | null,
-};
-
-export type UpdateAttendeeCrewMutation = {
-  updateAttendeeCrew?:  {
-    __typename: "AttendeeCrew",
-    eventId: string,
-    crewId: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteAttendeeCrewMutationVariables = {
-  input: DeleteAttendeeCrewInput,
-  condition?: ModelAttendeeCrewConditionInput | null,
-};
-
-export type DeleteAttendeeCrewMutation = {
-  deleteAttendeeCrew?:  {
-    __typename: "AttendeeCrew",
-    eventId: string,
-    crewId: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
 export type GetUserQueryVariables = {
   id: string,
 };
@@ -1105,42 +1003,6 @@ export type ListAttendeeUsersQuery = {
   } | null,
 };
 
-export type GetAttendeeCrewQueryVariables = {
-  id: string,
-};
-
-export type GetAttendeeCrewQuery = {
-  getAttendeeCrew?:  {
-    __typename: "AttendeeCrew",
-    eventId: string,
-    crewId: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListAttendeeCrewsQueryVariables = {
-  filter?: ModelAttendeeCrewFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListAttendeeCrewsQuery = {
-  listAttendeeCrews?:  {
-    __typename: "ModelAttendeeCrewConnection",
-    items:  Array< {
-      __typename: "AttendeeCrew",
-      eventId: string,
-      crewId: string,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type CrewsByUserIdQueryVariables = {
   userId: string,
   sortDirection?: ModelSortDirection | null,
@@ -1236,29 +1098,6 @@ export type AttendeeUsersByUserIdQuery = {
       __typename: "AttendeeUser",
       eventId: string,
       userId: string,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type AttendeeCrewsByEventIdQueryVariables = {
-  eventId: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelAttendeeCrewFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type AttendeeCrewsByEventIdQuery = {
-  attendeeCrewsByEventId?:  {
-    __typename: "ModelAttendeeCrewConnection",
-    items:  Array< {
-      __typename: "AttendeeCrew",
-      eventId: string,
-      crewId: string,
       id: string,
       createdAt: string,
       updatedAt: string,
@@ -1534,51 +1373,6 @@ export type OnDeleteAttendeeUserSubscription = {
     __typename: "AttendeeUser",
     eventId: string,
     userId: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateAttendeeCrewSubscriptionVariables = {
-  filter?: ModelSubscriptionAttendeeCrewFilterInput | null,
-};
-
-export type OnCreateAttendeeCrewSubscription = {
-  onCreateAttendeeCrew?:  {
-    __typename: "AttendeeCrew",
-    eventId: string,
-    crewId: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateAttendeeCrewSubscriptionVariables = {
-  filter?: ModelSubscriptionAttendeeCrewFilterInput | null,
-};
-
-export type OnUpdateAttendeeCrewSubscription = {
-  onUpdateAttendeeCrew?:  {
-    __typename: "AttendeeCrew",
-    eventId: string,
-    crewId: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteAttendeeCrewSubscriptionVariables = {
-  filter?: ModelSubscriptionAttendeeCrewFilterInput | null,
-};
-
-export type OnDeleteAttendeeCrewSubscription = {
-  onDeleteAttendeeCrew?:  {
-    __typename: "AttendeeCrew",
-    eventId: string,
-    crewId: string,
     id: string,
     createdAt: string,
     updatedAt: string,
