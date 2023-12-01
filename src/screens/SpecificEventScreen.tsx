@@ -134,12 +134,10 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
               </Text>
             </View>
           </View>
-
           <Text style={specificEventStyles.headerText}>Event details</Text>
           <ShowMore text={event.description} />
           <Text style={specificEventStyles.headerText}>Event agenda</Text>
           <ShowMore text={event.agenda} />
-
           <CustomButton
             name="Check availability"
             action={() => handlePress()}
