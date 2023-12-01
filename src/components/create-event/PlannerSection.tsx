@@ -7,6 +7,7 @@ import { UseFormSetValue } from "react-hook-form";
 import { CreateEventForm } from "../../screens/CreateEventScreen";
 import { createEventStyles } from "./CreateEventStyles";
 
+
 type PlannerSectionProps = {
   setValue: UseFormSetValue<CreateEventForm>;
   setStartDate: React.Dispatch<React.SetStateAction<Date>>;
