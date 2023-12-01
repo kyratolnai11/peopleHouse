@@ -22,7 +22,8 @@ const CustomDrawer: React.FC<{
   const colorScheme = Appearance.getColorScheme();
   const [userName, setUserName] = useState("");
 
-  type navProp = StackNavigationProp<RootStackParamList, "HomeScreen">;
+  type navProp = StackNavigationProp<RootStackParamList, "SignIn">;
+
 
 
   const stackNavigation = useNavigation<navProp>();

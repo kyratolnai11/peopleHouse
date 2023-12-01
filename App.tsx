@@ -23,7 +23,7 @@ export default function App() {
   
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <NavigationContainer>
