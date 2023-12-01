@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import Accordion from "./Accordion";
-import { infoStyles } from "./StyleSheet";
+import { infoStyles } from "./InfoScreenStyleSheet";
 
 const AccordionWithInfoSection: React.FC = () => {
   return (

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CreateCrewInput,  Crew,  ModelCrewConnection} from "../API";
+import { CreateCrewInput, Crew, ModelCrewConnection } from "../API";
 import { AddCrewForm } from "../components/add-crew/CrewDropDown";
 import { createCrew, deleteCrew } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
@@ -16,10 +16,10 @@ export const addCrew = async (userId: string, crewData: AddCrewForm) => {
       dateOfBirth: crewData.dateOfBirth?.toISOString() ?? null,
       email: crewData.email ?? null,
     };
-    const ras = await API.graphql(
+    const response = await API.graphql(
       graphqlOperation(createCrew, { input: crewToAdd })
     );
-    console.log(ras);
+    console.log("Successfully added crew", response);
   } catch (err) {
     console.log("error creating venue:", err);
   }
@@ -44,15 +44,15 @@ export async function fetchCrewsByUser(
 
 export async function fetchCrewById(id: string): Promise<Crew | undefined> {
   try {
-    console.log("Getting crew for user id: " + id);
+    console.log("Getting crew by id: " + id);
     const crewData: any = await API.graphql(
       graphqlOperation(getCrew, { id: id })
     );
     const crew: Crew = crewData.data.getCrew;
-    console.log("Got crew for user id:", crew);
+    console.log("Got crew by id:", crew);
     return crew;
   } catch (error) {
-    console.error("Error fetching crew for user id: ", error);
+    console.error("Error fetching crew by id: ", error);
     throw error;
   }
 }
@@ -63,23 +63,21 @@ export async function fetchAllCrews(): Promise<Crew[] | undefined> {
     const crewData: any = await API.graphql(graphqlOperation(listCrews));
     const crews: ModelCrewConnection = crewData.data.listCrews;
     console.log("Got crews:", crews);
-
-    // Extract the 'items' array from the 'crews' object and return it
     return crews.items as Crew[];
   } catch (error) {
     console.log("Error fetching crews: ", error);
-    return undefined; // Handle the error and return undefined, or you can throw an exception here
+    return undefined;
   }
 }
 
 export const deleteCrewById = async (crewId: string) => {
   try {
-    console.log("Deleting user by id: " + crewId);
+    console.log("Deleting crew by id: " + crewId);
     const resp = await API.graphql(
       graphqlOperation(deleteCrew, { input: { id: crewId } })
     );
-    console.log("Successfully deleted user! ", resp);
+    console.log("Successfully deleted crew! ", resp);
   } catch (error) {
-    console.log("Error deleting user: ", error);
+    console.log("Error deleting crew: ", error);
   }
 };

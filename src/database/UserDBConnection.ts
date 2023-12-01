@@ -19,7 +19,7 @@ export const addUser = async (userToAdd: CreateUserInput) => {
 
 export async function fetchUsers(): Promise<ModelUserConnection | undefined> {
   try {
-    console.log("Getting users...");
+    console.log("Getting all users...");
     const userData: any = await API.graphql(graphqlOperation(listUsers));
     const users: ModelUserConnection = userData.data.listUsers;
     console.log("Got users");

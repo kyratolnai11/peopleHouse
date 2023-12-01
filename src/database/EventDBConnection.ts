@@ -19,7 +19,7 @@ export async function fetchAllEvents(): Promise<
   ModelEventConnection | undefined
 > {
   try {
-    console.log("Getting events...");
+    console.log("Getting all events...");
     const eventData: any = await API.graphql(graphqlOperation(listEvents));
     const events: ModelEventConnection = eventData.data.listEvents;
     console.log("Got events:", events);
@@ -68,7 +68,7 @@ export const addEvent = async (event: CreateEventForm) => {
     const response = await API.graphql(
       graphqlOperation(createEvent, { input: eventToAdd })
     );
-    console.log("Response:", response);
+    console.log("Successfully added the event:", response);
   } catch (error) {
     console.error("Error creating event:", error);
     throw error;

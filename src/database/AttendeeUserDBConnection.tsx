@@ -34,7 +34,7 @@ export async function getAttendeeUserByEventID(
   id: string
 ): Promise<AttendeeUsersByEventIdQuery | undefined> {
   try {
-    console.log("Getting attendee user " + id);
+    console.log("Getting attendee user by event id" + id);
     const attendeeData: any = await API.graphql(
       graphqlOperation(attendeeUsersByEventId, { eventId: id })
     );
@@ -68,7 +68,7 @@ export const addUserAttendee = async (eventId: string, userId: string) => {
 
 export const deleteUserAttendee = async (attendeeId: string) => {
   try {
-    console.log("Deleting user attendee");
+    console.log("Deleting user attendee by id");
     const resp = await API.graphql(
       graphqlOperation(deleteAttendeeUser, { input: { id: attendeeId } })
     );

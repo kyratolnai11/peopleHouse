@@ -8,7 +8,7 @@ import { TextInput } from "react-native-gesture-handler";
 import DatePicker from "./DatePickerLocal";
 import { fetchLoggedInUserID } from "../cognito/UserCognito";
 import { addCrew } from "../../database/CrewDBConnection";
-import { addCrewStyles } from "./StyleSheet";
+import { addCrewStyles } from "./AddCrewStyleSheet";
 import { useNavigation } from "@react-navigation/native";
 
 export type AddCrewForm = {
@@ -152,7 +152,6 @@ const CrewDropDown: React.FC = () => {
           setOption(item.value);
           setValue("userType", item.value);
           setIsFocus(false);
-          console.log(item.value);
         }}
       />
       {(option === "Child" || option === "Child(16+)") && (

@@ -9,10 +9,8 @@ import Colors from "../../../utils/theme";
 import { Auth } from "aws-amplify";
 import { fetchUserData } from "../cognito/UserCognito";
 import { StackNavigationProp } from "@react-navigation/stack";
-import {useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../signin-screen/SignInComponent";
-
-
 
 const CustomDrawer: React.FC<{
   state: any;
@@ -22,8 +20,6 @@ const CustomDrawer: React.FC<{
   const [userName, setUserName] = useState("");
 
   type navProp = StackNavigationProp<RootStackParamList, "SignIn">;
-
-
 
   const stackNavigation = useNavigation<navProp>();
 
@@ -39,8 +35,6 @@ const CustomDrawer: React.FC<{
 
     fetchData();
   }, []);
-
-
 
   const handleSignOut = async () => {
     try {
@@ -116,7 +110,6 @@ const CustomDrawer: React.FC<{
             >
               Sign Out
             </Text>
-            
           </View>
         </TouchableOpacity>
       </View>

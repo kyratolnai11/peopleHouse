@@ -2,19 +2,19 @@ import Colors from "../../../utils/theme";
 import { StyleSheet } from "react-native";
 
 const SignUpForEventStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Colors.light.primaryBackground,
-        height: '100%',
-      },
-crewsection: {
+  container: {
+    flex: 1,
+    backgroundColor: Colors.light.primaryBackground,
+    height: "100%",
+  },
+  crewsection: {
     marginTop: 25,
-    fontSize:17,
+    fontSize: 17,
     marginLeft: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
-  noCrewText:{
+  noCrewText: {
     marginTop: 10,
     fontSize: 17,
     marginLeft: 15,
@@ -22,18 +22,18 @@ crewsection: {
   },
   crewGrid: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     margin: -2,
   },
   crewCards: {
-    width: '45%', 
-    margin: '1%',
+    width: "45%",
+    margin: "1%",
   },
-  textTEST:{
+  textTEST: {
     marginTop: -10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   button_select: {
     backgroundColor: Colors.light.buttonBackground,
@@ -43,7 +43,6 @@ crewsection: {
     width: 120,
     alignSelf: "center",
   },
-
   button_selected: {
     backgroundColor: "grey",
     padding: 10,
@@ -52,7 +51,6 @@ crewsection: {
     width: 120,
     alignSelf: "center",
   },
-
   button2: {
     backgroundColor: "grey",
     padding: 10,
@@ -61,7 +59,6 @@ crewsection: {
     width: 200,
     alignSelf: "center",
   },
-
   button3: {
     backgroundColor: Colors.light.buttonBackground,
     padding: 10,
@@ -70,33 +67,30 @@ crewsection: {
     width: 200,
     alignSelf: "center",
   },
-  buttonText:{
+  buttonText: {
     color: "black",
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 16,
   },
-  userInfoContainer: {
-
-  },
+  userInfoContainer: {},
   userImageContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
   },
   userImage: {
     width: 100,
     height: 100,
-    resizeMode: 'contain',
-  
+    resizeMode: "contain",
   },
   userNameContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
     justifyContent: "flex-start",
   },
   infoItem: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   emailContainer: {
     marginTop: 30,
@@ -104,16 +98,16 @@ crewsection: {
   },
   emailLabel: {
     fontSize: 13,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   emailInput: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     padding: 10,
     fontSize: 13,
     width: 250,
     marginTop: 5,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: "#f9f9f9",
     borderRadius: 9,
   },
 });

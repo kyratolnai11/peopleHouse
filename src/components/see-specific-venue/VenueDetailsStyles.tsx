@@ -51,7 +51,6 @@ export const venueDetailsStyles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
   },
-
   firstSection: {
     padding: 16,
   },

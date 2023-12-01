@@ -30,5 +30,5 @@ export const homeStyles = StyleSheet.create({
   image: { resizeMode: "contain", width: 450, height: 300 },
   openingHours: {
     fontSize: 20,
-  }
+  },
 });

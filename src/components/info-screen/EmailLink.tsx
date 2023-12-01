@@ -1,6 +1,6 @@
 import React from "react";
 import { Linking, Text } from "react-native";
-import { infoStyles } from "./StyleSheet";
+import { infoStyles } from "./InfoScreenStyleSheet";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 type EmailLinkProp = {
