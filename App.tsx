@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Auth } from 'aws-amplify';
 import { NavigationContainer } from "@react-navigation/native";
 import DrawerNavigation from "./src/components/navigation/DrawerNavigation";
-import AuthNavigator from './src/components/navigation/AuthNavigator'; // Import AuthStackNavigator
+import AuthNavigator from './src/components/navigation/AuthNavigator';
 
 Amplify.configure(awsconfig);
 
@@ -27,7 +27,13 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {isAuthenticated ? <DrawerNavigation /> : <AuthNavigator />}
+      {isAuthenticated === true ?(
+        <DrawerNavigation />
+
+      ) : (
+        <AuthNavigator/>
+
+      )}
     </NavigationContainer>
   );
 }

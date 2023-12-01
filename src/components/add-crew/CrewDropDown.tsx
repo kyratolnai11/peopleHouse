@@ -150,8 +150,9 @@ const CrewDropDown: React.FC = () => {
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
           setOption(item.value);
-          setValue("userType", option);
+          setValue("userType", item.value);
           setIsFocus(false);
+          console.log(item.value);
         }}
       />
       {(option === "Child" || option === "Child(16+)") && (
