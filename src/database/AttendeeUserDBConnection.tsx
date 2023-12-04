@@ -25,10 +25,9 @@ export async function getAttendeeUsersByUserID(
     console.log("Got attendee users:", users);
     return users;
   } catch (error) {
-    console.error("Error fetching attendee users:", error);
+    console.log("Error fetching attendee users:", error);
   }
 }
-
 
 export async function getAttendeeUserByEventID(
   id: string
@@ -42,7 +41,7 @@ export async function getAttendeeUserByEventID(
     console.log("Got user attendee:", user);
     return user;
   } catch (error) {
-    console.error("Error fetching attendee user:", error);
+    console.log("Error fetching attendee user:", error);
   }
 }
 
@@ -61,7 +60,7 @@ export const addUserAttendee = async (eventId: string, userId: string) => {
     console.log("Successfully added user attendee");
     return response;
   } catch (error) {
-    console.error("Error registering user to event: ", error);
+    console.log("Error registering user to event: ", error);
     throw error;
   }
 };
@@ -75,6 +74,6 @@ export const deleteUserAttendee = async (attendeeId: string) => {
 
     console.log("Successfully deleted user attendee. ", resp);
   } catch (error) {
-    console.error("Error deleting attendee: ", error);
+    console.log("Error deleting attendee: ", error);
   }
 };

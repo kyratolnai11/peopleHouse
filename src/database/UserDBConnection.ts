@@ -12,7 +12,7 @@ export const addUser = async (userToAdd: CreateUserInput) => {
     );
     console.log("User added to db: ", ras);
   } catch (err) {
-    console.error("Error creating user: ", err);
+    console.log("Error creating user: ", err);
     throw err;
   }
 };
@@ -25,7 +25,7 @@ export async function fetchUsers(): Promise<ModelUserConnection | undefined> {
     console.log("Got users");
     return users;
   } catch (error) {
-    console.error("Error fetching users: ", error);
+    console.log("Error fetching users: ", error);
   }
 }
 
@@ -39,6 +39,6 @@ export async function fetchUserById(userId: string): Promise<User | undefined> {
     console.log("Got user", user);
     return user;
   } catch (error) {
-    console.error("Error fetching user: ", error);
+    console.log("Error fetching user: ", error);
   }
 }

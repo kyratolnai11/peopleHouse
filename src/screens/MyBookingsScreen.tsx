@@ -105,7 +105,7 @@ const MyBookingsScreen: React.FC = () => {
             events.length === 0 ? (
               <Text style={sharedStyles.centeredText}>
                 {" "}
-                No events for this venue.{" "}
+                No events to show.{" "}
               </Text>
             ) : (
               dataFetched &&

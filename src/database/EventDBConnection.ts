@@ -25,7 +25,7 @@ export async function fetchAllEvents(): Promise<
     console.log("Got events:", events);
     return events;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    console.log("Error fetching events:", error);
   }
 }
 
@@ -41,7 +41,7 @@ export async function fetchEventsByVenueId(
     console.log("Got events:", events);
     return events;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    console.log("Error fetching events:", error);
   }
 }
 
@@ -70,7 +70,7 @@ export const addEvent = async (event: CreateEventForm) => {
     );
     console.log("Successfully added the event:", response);
   } catch (error) {
-    console.error("Error creating event:", error);
+    console.log("Error creating event:", error);
     throw error;
   }
 };
@@ -87,7 +87,7 @@ export async function fetchEventById(
     console.log("Got events by id:", events);
     return events;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    console.log("Error fetching events:", error);
   }
 }
 
@@ -99,7 +99,7 @@ export const deleteEventById = async (eventId: string) => {
     );
     console.log("Successfully deleted event! ", response);
   } catch (error) {
-    console.error("Error deleting event: ", error);
+    console.log("Error deleting event: ", error);
   }
 };
 
@@ -115,6 +115,6 @@ export const getEventFromAttendeeUser = async (
     console.log("Got events for attendee user id:", events);
     return events;
   } catch (error) {
-    console.error("Error getting event: ", error);
+    console.log("Error getting event: ", error);
   }
 };

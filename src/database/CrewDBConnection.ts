@@ -52,7 +52,7 @@ export async function fetchCrewById(id: string): Promise<Crew | undefined> {
     console.log("Got crew by id:", crew);
     return crew;
   } catch (error) {
-    console.error("Error fetching crew by id: ", error);
+    console.log("Error fetching crew by id: ", error);
     throw error;
   }
 }
