@@ -28,7 +28,7 @@ const ShowMore: React.FC<ShowMoreProp> = ({ text }) => {
   return (
     <View>
       <Text style={[sharedStyles.text, { marginBottom: 30 }]}>
-        {textToShow}
+        {textToShow.length ? (textToShow) : (<Text>No agenda</Text>)}
         {!isExpanded && text.length > 250 && (
           <TouchableOpacity onPress={handleExpandText}>
             <Text style={specificEventStyles.showMoreText}>Show more</Text>

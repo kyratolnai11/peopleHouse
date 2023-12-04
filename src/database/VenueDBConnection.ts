@@ -11,7 +11,7 @@ export async function fetchVenues(): Promise<ModelVenueConnection | undefined> {
     console.log("Got venues:", venues);
     return venues;
   } catch (err) {
-    console.error("Error fetching venues:", err);
+    console.log("Error fetching venues:", err);
   }
 }
 
@@ -27,6 +27,6 @@ export async function fetchVenueById(
     console.log("Got venue", venue);
     return venue;
   } catch (error) {
-    console.error("Error fetching venue: ", error);
+    console.log("Error fetching venue: ", error);
   }
 }
