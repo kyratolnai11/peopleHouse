@@ -59,7 +59,7 @@ const ForMeetingsSection: React.FC = () => {
         subTitle="1995DKK per person:"
       />
       <CustomButton
-        name={"Reqest booking"}
+        name={"Request booking"}
         action={() => Linking.openURL("mailto:homestaybooking@lego.com")}
       />
     </View>
