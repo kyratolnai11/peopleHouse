@@ -44,6 +44,7 @@ const DrawerNavigation: React.FC = () => {
         options={{
           headerTitle: "Sign up",
           drawerLabel: "Sign up",
+          drawerItemStyle: { display: "none" },
         }}
       />
       <Drawer.Screen
